@@ -1,0 +1,2 @@
+- [project-md-log](project-md-log.md) — always append completed tasks to project.md without being asked
+- [Replit preview HMR websocket](replit-preview-hmr.md) — disable Vite HMR when the proxied preview causes false websocket console errors

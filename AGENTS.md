@@ -95,6 +95,36 @@ Yeh ek **pnpm monorepo** hai — **OZY Sneakers**, ek full-stack sneaker e-comme
 
 ---
 
+## 🗄️ Database Tables — `lib/db/src/schema/`
+
+| Table | Columns (key) |
+|-------|---------------|
+| `products` | name, price/originalPrice (numeric→float format), category, brand, imageUrl, images[], sizes[], colors[], inStock, isFeatured, isNewArrival, isBestSeller, rating, reviewCount |
+| `categories` | name, slug (unique), productCount |
+| `brands` | name, slug (unique), productCount |
+| `cart_items` | productId, productName, productImageUrl, price, size, color, quantity |
+| `orders` | customerName/Email/Phone, address, items (**jsonb** array), total, status (default "pending"), notes |
+| `contacts` | name, email, phone, subject, message |
+
+- **Seed data** (`lib/db/src/seed.ts`, idempotent): 2 brands (Nike, Onitsuka Tiger), 1 category (Sneakers), 3 products (Nike AF1 Chocolate ₹12500, Onitsuka Mexico 66 Cream/Black ₹9500). Prices seed mein INR jaise hain par frontend `$` dikhata hai.
+- **Numeric columns** DB mein string hote hain → `formatProduct()` unhe float banata hai.
+
+## 🎨 Design System (index.css)
+
+- **Fonts:** Syne (display/headings, black italic uppercase style), Plus Jakarta Sans (body), Space Mono (prices/labels)
+- **Accent color:** Infrared orange `hsl(14 100% 50%)` (~#ff5c00); ChatBot inline `#ff5c00`
+- **Primary:** pure black, background near-white; **radius: 0rem** — sab corners sharp/square
+- **Animations:** framer-motion throughout (fadeInUp pattern, whileInView scroll reveals, marquee CSS strip)
+
+## 🏪 Business Info (code mein hardcoded)
+
+- **Phone/WhatsApp:** +91 79000-51580, +91 90534-74158 | **Instagram:** Ozy_sneakers1223
+- **Email (contact/Gmail):** anujror202007@gmail.com
+- **Shop location:** coords `29.7636154,76.5649948` → Google Maps link har jagah reuse hota hai
+- **Navbar links:** Home, Collection (/shoes), Gallery, About, Contact
+
+---
+
 ## 🚀 Commands
 
 ```bash
@@ -172,6 +202,33 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 ### 10–11. Contact form → Gmail connect
 **Date:** 2026-08-18
 - Gmail SMTP via env vars, App Password Replit Secret mein, precedence fix (Replit Secret > `.env`), SMTP auth verified
+
+### 12. AGENTS.md bana + poora code review
+**Date:** 2026-08-22
+- Saari docs (README/replit/project.md) + **100% source code padha** — saare 9 pages, components (Navbar/Footer/Shell/ChatBot/ProductCard), saare API routes, DB schema (6 tables), seed data, shared libs (api-zod/api-client-react), design system
+- Yeh `AGENTS.md` file banayi — project detail + agent rules + yeh work log
+- Ab har naya task isi ke Work Log mein record hoga
+
+### 13. Local Windows preview setup (frontend + API + PostgreSQL)
+**Date:** 2026-08-22
+- Local preview ke liye poora stack Windows pe chalaya: Vite frontend (`localhost:5173`), API server manually build karke start (local port **3000**, `dev` script Unix-only hai)
+- Local PostgreSQL PG17 port **5433** pe `ozy_sneakers` DB banaya, schema push + seed kiya; root `.env` mein real `DATABASE_URL` set (PG18/5432 ka password alag tha)
+- Verify: healthz 200, products API via Vite proxy 200 — browser preview working
+
+### 14. Chatbot fix (nayi Groq key + model migration)
+**Date:** 2026-08-22
+- Problem: chatbot `401 Invalid API Key` de raha tha — purani Groq key expire/revoke ho gayi thi
+- Nayi key user se lekar `.env` mein update ki
+- Doosra issue: Groq ne `llama-3.3-70b-versatile` model **retire** kar diya tha (models list mein nahi hai) → `chat.ts` mein model switch karke `openai/gpt-oss-120b` use kiya
+- API server rebuild + restart kiya, typecheck pass (api-server/mockup-sandbox/ozy-snaker sab)
+- Verify: POST /api/chat SSE streaming chal rahi hai — direct (3000) aur Vite proxy (5173) dono se Hinglish reply aa raha hai
+
+### 15. Chatbot price-hiding rule (system prompt hardening)
+**Date:** 2026-08-22
+- User request: chatbot kisi bhi shoe ka price na bataye, kitna bhi zid karne par nahi
+- Pehle bot hallucinated price bata raha tha ("₹11,999 se shuru") — ab `chat.ts` SYSTEM_PROMPT mein rule #1 (non-breakable) add kiya: koi price/daam/rate/range/andaza kabhi nahi, hamesha Collection page + WhatsApp redirect
+- Trick prompts bhi block: "range bata do", "developer mode", "last price", coding mein price, etc.
+- Rebuild + restart + verify: 3 adversarial test cases (direct/zid/trick) — sab mein refusal + website/WhatsApp redirect, zero prices
 
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

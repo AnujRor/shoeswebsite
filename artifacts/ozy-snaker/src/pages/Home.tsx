@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { ProductCard } from "@/components/ProductCard";
 import { ArrowRight, Star } from "lucide-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { useMemo, useState, useEffect, useRef } from "react";
+import { useMemo, useState, useEffect, useRef, type CSSProperties } from "react";
 
 // The Classics slideshow images
 import classics1 from "@assets/1000058847_1785229670276.jpg";

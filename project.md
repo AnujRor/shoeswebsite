@@ -97,8 +97,54 @@ Har completed task yahan record hota hai — date, kya kiya, aur kya result mila
 ---
 
 ### 11. Gmail App Password ko `.env` se load karna set kiya
-**Date:** 2026-08-18
+**Date:** 2026-08-18  
 **Kya kiya:**
 - Gmail ke `GMAIL_USER` aur `GMAIL_APP_PASSWORD` ke liye `.env` values ko Replit Secret par priority di
 - Baaki environment variables ki existing precedence ko unchanged rakha
 - `.env`-loaded Gmail credentials se SMTP authentication successfully verify ki
+
+---
+
+### 12. AGENTS.md banayi + poora code review
+**Date:** 2026-08-22  
+**Kya kiya:**
+- Poori documentation (README/replit/project.md) aur 100% source code padha — saare frontend pages, components, API routes, DB schema, seed data aur shared libraries
+- Root mein `AGENTS.md` file banayi — project detail, agent rules, commands, env vars aur work log ke saath
+- Ab har naya task `AGENTS.md` ke Work Log + is `project.md` dono mein record hoga
+
+---
+
+### 13. Local Windows preview setup (frontend + API + PostgreSQL)
+**Date:** 2026-08-22  
+**Kya kiya:**
+- Frontend Vite dev server start kiya (`localhost:5173`) — local pe Replit wala 25480 nahi chalta
+- API server ka `dev` script Unix-only tha (`test`/`export`), isliye manually `node ./build.mjs` se build karke `dist/index.mjs` start kiya — local pe port **3000**
+- Local PostgreSQL detect kiya: PG17 **port 5433** pe chal raha tha (PG18 5432 pe, password match nahi)
+- `ozy_sneakers` database banaya, Drizzle schema push + seed (2 brands, 1 category, 3 products)
+- Root `.env` mein real `DATABASE_URL=postgresql://postgres:...@localhost:5433/ozy_sneakers` set kiya (placeholder hataya)
+- Vite ka `/api` proxy → localhost:3000 verify kiya; products API 200 OK
+  
+**Result:** Poora stack local Windows pe chal raha hai — browser preview `http://localhost:5173`
+
+---
+
+### 14. Chatbot fix (nayi Groq key + model migration)
+**Date:** 2026-08-22  
+**Kya kiya:**
+- Debug kiya: chatbot fail hone ka reason `AuthenticationError: 401 Invalid API Key` nikla — purani Groq key dead thi
+- User se nayi Groq API key banwakar root `.env` mein update ki
+- Groq ne `llama-3.3-70b-versatile` model retire kar diya tha, isliye `artifacts/api-server/src/routes/chat.ts` mein model ko `openai/gpt-oss-120b` pe migrate kiya
+- Typecheck pass, API server rebuild + restart, `/api/chat` SSE streaming verify ki (direct + Vite proxy dono)
+
+**Result:** Chatbot ab website par kaam kar raha hai — Hinglish streaming replies aa rahe hain
+
+---
+
+### 15. Chatbot price-hiding rule
+**Date:** 2026-08-22  
+**Kya kiya:**
+- Chatbot pehle khud se banavati price bata raha tha; user ne rule banwaya ki kisi bhi shoe ka daam kabhi na bataye
+- `chat.ts` ke SYSTEM_PROMPT mein sabse strict non-breakable rule #1 add kiya — exact/approximate/range/estimate/discount sab banned, har zid ya trick par politely refuse + Collection page/WhatsApp par redirect
+- API rebuild + restart karke 3 adversarial prompts se test kiya (seedha poochna, baar-baar zid, developer-mode trick) — teeno mein price nahi diya
+
+**Result:** Chatbot ab kisi bhi haal mein price nahi batata, sirf website/WhatsApp par bhejta hai

@@ -294,6 +294,36 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+/* Reviews section marquee */
+.reviews-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 45s) linear infinite;
+}
+
+.reviews-track-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse var(--marquee-duration, 55s) linear infinite;
+}
+
+.reviews-marquee:hover .reviews-track,
+.reviews-marquee:hover .reviews-track-reverse {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-track,
+  .reviews-track-reverse {
+    animation-play-state: paused;
+  }
+}
+
 .skew-text {
   transform: skewX(-10deg);
 }

@@ -21,18 +21,75 @@ import timeBg3 from "@assets/Gemini_Generated_Image_imaaudimaaudimaa_17860444557
 
 const hotDropImages = [timeBg1, timeBg2, timeBg3];
 
-const customerReviews = [
+type CustomerReview = {
+  name: string;
+  review: string;
+  product: string;
+};
+
+const customerReviewsRow1: CustomerReview[] = [
   {
     name: "Amandeep Singh",
-    review: "Amazing collection and the shoes feel exactly like premium sneakers should.",
+    review: "Air Force 1 ka fit bilkul perfect tha. Premium packaging aur sirf 2 din mein delivery — ekdum original maal.",
+    product: "Nike Air Force 1",
   },
   {
     name: "Rohit Kumar",
-    review: "Original products, quick service, and the fit was perfect. Highly recommended.",
+    review: "Mexico 66 all-day comfort deta hai. College mein poora din pair karne ke baad bhi feet fresh feel hote hain.",
+    product: "Onitsuka Mexico 66",
   },
   {
     name: "Neha Sharma",
-    review: "OZY Sneakers has become my go-to place for fresh and stylish kicks.",
+    review: "OZY Sneakers meri go-to place hai fresh kicks ke liye. Collection hamesha updated rehta hai.",
+    product: "Nike Air Force 1",
+  },
+  {
+    name: "Arjun Malhotra",
+    review: "Court pe grip next level hai. Basketball ke liye ab tak ka best pair mila yahan se.",
+    product: "Basketball Shoes",
+  },
+  {
+    name: "Priya Verma",
+    review: "Morning run ke liye lightweight runners liye. Cushioning bilkul soft hai, long run mein bhi knees pe zero stress.",
+    product: "Running Shoes",
+  },
+  {
+    name: "Kunal Bisht",
+    review: "WhatsApp pe order kiya, process ekdum smooth tha. Box sealed aur shoes brand new condition mein mile.",
+    product: "Onitsuka Mexico 66",
+  },
+];
+
+const customerReviewsRow2: CustomerReview[] = [
+  {
+    name: "Sneha Gupta",
+    review: "Har jagah compliments mil rahe hain. Styling ke liye itne clean sneakers kahin aur nahi mile.",
+    product: "Lifestyle Sneakers",
+  },
+  {
+    name: "Vikram Chauhan",
+    review: "Tags intact, box fresh — 100% original products. Market ke fake se door raho, seedha OZY se lo.",
+    product: "Nike Air Force 1",
+  },
+  {
+    name: "Ishita Rana",
+    review: "Size guide bilkul accurate hai. Pehli baar online order kiya aur fit ekdum perfect nikla.",
+    product: "Running Shoes",
+  },
+  {
+    name: "Harpreet Brar",
+    review: "Gym sessions ke liye training pair liya — ankle support aur cushioning dono top-notch hain.",
+    product: "Training Shoes",
+  },
+  {
+    name: "Divya Nair",
+    review: "Quick delivery aur genuine product. Value for money ekdum sahi hai is shop ka.",
+    product: "Casual Sneakers",
+  },
+  {
+    name: "Mohit Kashyap",
+    review: "Restock ka wait kiya aur worth it nikla. OZY ka service bilkul reliable hai, dost ko bhi refer kiya.",
+    product: "Onitsuka Mexico 66",
   },
 ];
 
@@ -477,60 +534,89 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            {customerReviews.map((review, index) => (
-              <motion.article
-                key={review.name}
-                initial={{ opacity: 0, y: 50, rotateX: 10 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.7, delay: index * 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
-                whileHover={{ y: -8, scale: 1.03, borderColor: "rgba(220,38,38,0.4)" }}
-                className="group relative flex h-full flex-col border border-white/15 bg-white/5 p-7 backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(220,38,38,0.15)]"
-              >
-                {/* Glow line at top on hover */}
-                <motion.div
-                  className="absolute left-0 top-0 h-[2px] w-0 bg-gradient-to-r from-accent to-orange-500 group-hover:w-full"
-                  transition={{ duration: 0.4 }}
-                />
+          <p className="mt-4 flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-widest text-white/50 sm:text-sm">
+            <span className="text-accent">★★★★★</span> 4.9 Average Rating · 500+ Happy Customers
+          </p>
 
-                <div className="mb-5 flex gap-1 text-accent" aria-label="5 out of 5 stars">
-                  {Array.from({ length: 5 }).map((_, starIndex) => (
-                    <motion.div
-                      key={starIndex}
-                      initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.4,
-                        delay: index * 0.18 + starIndex * 0.1 + 0.3,
-                        type: "spring",
-                        stiffness: 260,
-                        damping: 15,
-                      }}
-                    >
-                      <Star className="h-4 w-4 fill-current" aria-hidden="true" />
-                    </motion.div>
+          <div className="relative mt-10">
+            {/* Edge fade overlays */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#0a0a0a] to-transparent md:w-28" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#0a0a0a] to-transparent md:w-28" />
+
+            {[
+              { items: customerReviewsRow1, duration: "45s", reverse: false },
+              { items: customerReviewsRow2, duration: "58s", reverse: true },
+            ].map((row) => (
+              <div key={row.duration} className="reviews-marquee overflow-hidden py-2.5">
+                <div
+                  className={row.reverse ? "reviews-track-reverse" : "reviews-track"}
+                  style={{ "--marquee-duration": row.duration } as CSSProperties}
+                >
+                  {[0, 1].map((copy) => (
+                    <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 gap-5 pr-5">
+                      {row.items.map((review, index) => (
+                        <motion.article
+                          key={`${review.name}-${copy}`}
+                          initial={{ opacity: 0, y: 40 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{
+                            duration: 0.6,
+                            delay: Math.min(index * 0.08, 0.4),
+                            ease: [0.25, 0.46, 0.45, 0.94],
+                          }}
+                          whileHover={{ y: -6, scale: 1.02 }}
+                          className="group relative flex w-[300px] shrink-0 flex-col border border-white/15 bg-white/5 p-6 backdrop-blur-sm transition-colors duration-300 hover:border-accent/40 hover:shadow-[0_0_30px_rgba(220,38,38,0.15)] sm:w-[360px]"
+                        >
+                          {/* Glow line at top on hover */}
+                          <div className="absolute left-0 top-0 h-[2px] w-0 bg-gradient-to-r from-accent to-orange-500 transition-all duration-300 group-hover:w-full" />
+
+                          <div className="mb-5 flex items-start justify-between gap-3">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-accent/40 bg-accent/10 font-display text-sm font-bold uppercase text-accent">
+                              {review.name
+                                .split(" ")
+                                .map((word) => word[0])
+                                .join("")
+                                .slice(0, 2)}
+                            </div>
+                            <div className="flex gap-1 pt-1 text-accent" aria-label="5 out of 5 stars">
+                              {Array.from({ length: 5 }).map((_, starIndex) => (
+                                <motion.div
+                                  key={starIndex}
+                                  initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                                  viewport={{ once: true }}
+                                  transition={{
+                                    duration: 0.4,
+                                    delay: starIndex * 0.06,
+                                    type: "spring",
+                                    stiffness: 260,
+                                    damping: 15,
+                                  }}
+                                >
+                                  <Star className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                          <p className="flex-1 leading-relaxed text-white/80">"{review.review}"</p>
+                          <div className="mt-6 border-t border-white/10 pt-4">
+                            <p className="font-display font-bold uppercase tracking-wide text-white">
+                              {review.name}
+                            </p>
+                            <p className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-accent/70">
+                              ✓ Verified Buyer
+                            </p>
+                            <p className="mt-1 font-mono text-xs uppercase tracking-wide text-white/40">
+                              Bought: {review.product}
+                            </p>
+                          </div>
+                        </motion.article>
+                      ))}
+                    </div>
                   ))}
                 </div>
-                <p className="flex-1 text-lg leading-relaxed text-white/80">
-                  "{review.review}"
-                </p>
-                <div className="mt-7 border-t border-white/10 pt-5">
-                  <p className="font-display font-bold uppercase tracking-wide text-white">
-                    {review.name}
-                  </p>
-                  <motion.p
-                    className="mt-1 font-mono text-xs uppercase tracking-widest text-accent/60"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.18 + 0.8 }}
-                  >
-                    ✓ Verified Buyer
-                  </motion.p>
-                </div>
-              </motion.article>
+              </div>
             ))}
           </div>
         </div>

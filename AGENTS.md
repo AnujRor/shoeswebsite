@@ -308,5 +308,12 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - `googleReviewUrl` constant Home.tsx top pe — abhi shop ka existing maps short link (`https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99`) use ho raha hai; asli direct review link (`https://g.page/r/<ID>/review`) Google Business Profile se lena hai jab user de
 - Card scroll pe fade-in hota hai (whileInView); typecheck pass; HMR se live
 
+### 27. Footer background image
+**Date:** 2026-08-24
+- User request: footer ka plain black background boring hai — website ke hisab se acha background chahiye
+- Website ka established pattern follow kiya: `heroBg` image (hero wali hi) cover bg layer + heavy dark gradient overlay (94%→85%→96% black) — hero aur footer same image se open/close hote hain (bookend effect), text readable rehta hai
+- Footer `relative overflow-hidden` banaya, content container pe `relative z-10`; har page pe dikhega (Shell sab pages pe footer render karta hai)
+- Typecheck pass; HMR se live
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

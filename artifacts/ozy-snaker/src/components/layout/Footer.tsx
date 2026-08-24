@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -20,8 +21,24 @@ const connectLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground pt-14 md:pt-24 pb-10 md:pb-12">
-      <div className="container mx-auto px-4 md:px-6">
+    <footer className="relative overflow-hidden bg-primary text-primary-foreground pt-14 md:pt-24 pb-10 md:pb-12">
+      {/* Background image with dark overlay */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.96) 100%)",
+        }}
+      />
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
           {/* Brand */}
           <div className="max-w-sm">

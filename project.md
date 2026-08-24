@@ -271,3 +271,14 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 - Button abhi shop ke Google Maps link pe jaata hai; direct review link baad mein Google Business Profile se replace hoga
 
 **Result:** Customers ab website se seedha Google review likh sakte hain; typecheck pass, live verified
+
+---
+
+### 27. Footer background image
+**Date:** 2026-08-24  
+**Kya kiya:**
+- Footer ka plain black background boring lagta tha — website ke established pattern se fix kiya
+- Hero ki image hi footer background pe lagayi + heavy dark overlay — ab site hero image se khulti hai aur same image pe band hoti hai (bookend effect)
+- Text readability ke liye strong gradient rakha; har page pe footer mein dikhega
+
+**Result:** Footer ab subtle sneaker texture ke saath premium lagta hai; typecheck pass, live verified

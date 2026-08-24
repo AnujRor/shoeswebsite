@@ -148,3 +148,16 @@ Har completed task yahan record hota hai — date, kya kiya, aur kya result mila
 - API rebuild + restart karke 3 adversarial prompts se test kiya (seedha poochna, baar-baar zid, developer-mode trick) — teeno mein price nahi diya
 
 **Result:** Chatbot ab kisi bhi haal mein price nahi batata, sirf website/WhatsApp par bhejta hai
+
+---
+
+### 16. Reviews section redesign
+**Date:** 2026-08-22  
+**Kya kiya:**
+- Home page reviews section (footer ke upar) ko redesign kiya — pehle sirf 3 static cards the
+- 12 naye sneaker-relevant reviews likhe (product names ke saath: AF1, Mexico 66, basketball/running/training shoes) Indian customers ke naam se
+- Naya layout: do infinite scrolling marquee rows — ek left-to-right, doosri right-to-left, hover karne par ruk jaati hain, kinaron par fade effect
+- Card design improve kiya: initials wala avatar, spring star rating, "Bought:" product tag, hover glow
+- `index.css` mein marquee-reverse keyframes + reduced-motion support add kiya
+
+**Result:** Reviews section ab premium aur continuously animated hai — ek saath 6+ reviews dikhte hain

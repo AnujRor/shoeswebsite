@@ -230,5 +230,11 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Trick prompts bhi block: "range bata do", "developer mode", "last price", coding mein price, etc.
 - Rebuild + restart + verify: 3 adversarial test cases (direct/zid/trick) — sab mein refusal + website/WhatsApp redirect, zero prices
 
+### 16. Reviews section redesign
+**Date:** 2026-08-22
+- Home page reviews section (footer ke upar) redesign: 3 static cards → **12 sneaker-relevant reviews** (product tags ke saath) dual infinite marquee mein — row 1 left scroll, row 2 right scroll, hover pe pause, edge fades, initials avatar + spring stars + "Bought:" product tag per card
+- `index.css` mein `marquee-reverse` keyframes + `.reviews-track/.reviews-track-reverse/.reviews-marquee` classes + prefers-reduced-motion support add kiya
+- Heading ke neeche "4.9 Average Rating · 500+ Happy Customers" mono line add kiya; typecheck pass, Vite HMR se live update verified
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

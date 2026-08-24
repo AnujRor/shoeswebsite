@@ -161,3 +161,91 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 - `index.css` mein marquee-reverse keyframes + reduced-motion support add kiya
 
 **Result:** Reviews section ab premium aur continuously animated hai â€” ek saath 6+ reviews dikhte hain
+
+---
+
+### 17. Local website preview start
+**Date:** 2026-08-24  
+**Kya kiya:**
+- User ko website ka local preview dikhaya — PostgreSQL (5433) pehle se chal raha tha
+- API server (port 3000) aur Vite frontend (port 5173) separate cmd windows mein start kiye (start-all.bat wale commands se)
+- Verify kiya: healthz 200, products API via Vite proxy 200 (3 items)
+
+**Result:** Browser mein http://localhost:5173 khul gaya — preview live hai
+
+---
+
+### 18. Reviews section color rebalance (website theme match)
+**Date:** 2026-08-24  
+**Kya kiya:**
+- Reviews section mein orange/red har jagah tha (bg glow, particles, avatar, stars, Verified Buyer tag, hover glow) — aur red gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
+- Kuch add kiye bina sirf recolor kiya: red animated gradient ? subtle neutral white glow; particles ? white/20; label ka red glow hataya; card hover + avatar + Verified Buyer tag monochrome white kiye; top hover line solid accent
+- Ab orange sirf intentional jagah hai: section label, heading ka "Sneakerheads" word, stars, hover line — website ke black/white + sparing accent design jaisa
+
+**Result:** Reviews section ab website ke theme ke hisab se monochrome + restrained accent hai; typecheck pass, live preview verified
+
+---
+
+### 19. Reviews content rewrite (offline shop + real feel)
+**Date:** 2026-08-24  
+**Kya kiya:**
+- Reviews online shop jaise lag rahe the ("delivery", "WhatsApp order", "online order") jabki OZY offline shop hai — upar se AI-written generic tone thi
+- Saare 12 reviews in-store experience par rewrite kiye: pairs try karna, staff ka behaviour, original vs first copy bharosa, try karke perfect fit, family shopping, Ratia local reference, loyal customer, dost refer
+- Natural Hinglish tone (imperfect grammar + specific details) taaki real Google-review jaisa lage
+- Card label "Bought:" ? "Picked up:"; layout untouched
+
+**Result:** Reviews ab offline shop ke real customers jaise feel dete hain; typecheck pass, live verified
+
+---
+
+### 20. Console 503 error fix (servers down tha)
+**Date:** 2026-08-24  
+**Kya kiya:**
+- Browser console mein 503 Service Unavailable aa raha tha
+- Diagnosis: Google Fonts/Maps sab 200 the — asli wajah: API server (3000) + frontend (5173) dono band the, isliye /api/* proxy requests fail ho rahi thi
+- Dono servers restart kiye; poora endpoint sweep kiya — statics + saare API routes ab 200
+
+**Result:** Console clean — page refresh karne par koi error nahi
+
+---
+
+### 21. Contact form 503 fix (GMAIL_USER missing)
+**Date:** 2026-08-24  
+**Kya kiya:**
+- POST /api/contact pe 503 aa raha tha — wajah: local .env mein GMAIL_USER missing tha (GMAIL_APP_PASSWORD tha hi), isliye createTransporter() null return kar raha tha aur route 503 "Email service not configured" bhej raha tha
+- .env mein GMAIL_USER=anujror202007@gmail.com add kiya + backend restart
+- Real POST test kiya — 200 success, DB save + Gmail email send ho gaya
+
+**Result:** Contact form end-to-end working (save + email dono); owner inbox mein ek test email aaya hai
+
+---
+
+### 22. Reviews section background image
+**Date:** 2026-08-24  
+**Kya kiya:**
+- Reviews section ke plain dark background mein image/theme add ki — website ke existing pattern jaisa (hero/slideshow style)
+- statsBg image (pehle se imported par unused tha) ko cover background layer banaya + heavy dark gradient overlay taaki cards readable rahen aur sirf subtle texture dikhe
+- Baaki design untouched (white glow, particles, monochrome + accent)
+
+**Result:** Reviews section mein ab subtle sneaker-themed texture hai jo website ke dark sections se match karta hai; typecheck pass, live verified
+
+---
+
+### 23. Review cards size chhota kiya
+**Date:** 2026-08-24  
+**Kya kiya:**
+- Cards bade lag rahe the — width 300/360px se ghata kar 250/290px kiya
+- Padding, avatar, text sizes, spacing sab compact kiye taaki ek saath zyada cards dikhen
+
+**Result:** Review cards ab chhote aur compact hain; typecheck pass, live verified
+
+---
+
+### 24. Review cards mein product image backgrounds
+**Date:** 2026-08-24  
+**Kya kiya:**
+- Har review card ke andar uski shoe ki image background layer banayi (AF1/Mexico 66 product images, baaki category images) — sab project ke existing assets
+- Dark gradient overlay ke saath taaki text readable rahe; card pe overflow-hidden
+- Section ka background/glow/particles untouched
+
+**Result:** Review cards ab premium lagte hain — har card mein subtle sneaker photo texture; typecheck pass, live verified

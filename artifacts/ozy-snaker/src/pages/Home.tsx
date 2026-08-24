@@ -25,71 +25,84 @@ type CustomerReview = {
   name: string;
   review: string;
   product: string;
+  image: string;
 };
 
 const customerReviewsRow1: CustomerReview[] = [
   {
     name: "Amandeep Singh",
-    review: "Air Force 1 ka fit bilkul perfect tha. Premium packaging aur sirf 2 din mein delivery — ekdum original maal.",
+    review: "Shop mein aake teen pairs try kiye, bhaiya ne bina jaldi sab dikhaya. AF1 final kiya — fit ekdum sahi aur original bill ke saath mila.",
     product: "Nike Air Force 1",
+    image: product1,
   },
   {
     name: "Rohit Kumar",
-    review: "Mexico 66 all-day comfort deta hai. College mein poora din pair karne ke baad bhi feet fresh feel hote hain.",
+    review: "Mexico 66 pehan ke ghar tak aaya, pair mein hi comfort samajh aa gaya. Itni variety Ratia mein kahin aur nahi milti.",
     product: "Onitsuka Mexico 66",
+    image: product2,
   },
   {
     name: "Neha Sharma",
-    review: "OZY Sneakers meri go-to place hai fresh kicks ke liye. Collection hamesha updated rehta hai.",
+    review: "Bhai ke sneakers lene gayi thi, apne liye bhi white pair le aayi. Kitna bhi try kar lo, koi bura nahi maanta wahan.",
     product: "Nike Air Force 1",
+    image: product1,
   },
   {
     name: "Arjun Malhotra",
-    review: "Court pe grip next level hai. Basketball ke liye ab tak ka best pair mila yahan se.",
+    review: "Court wale grippy shoes sirf yahan mile. Pair foot mein try karke lena hi alag maza deta hai, online pe yeh kahan hota.",
     product: "Basketball Shoes",
+    image: catBasketball,
   },
   {
     name: "Priya Verma",
-    review: "Morning run ke liye lightweight runners liye. Cushioning bilkul soft hai, long run mein bhi knees pe zero stress.",
+    review: "Do runners compare karke liya — cushioning ka farak try karne par hi pata chalta hai. Morning runs ab maza dete hain.",
     product: "Running Shoes",
+    image: catRunning,
   },
   {
     name: "Kunal Bisht",
-    review: "WhatsApp pe order kiya, process ekdum smooth tha. Box sealed aur shoes brand new condition mein mile.",
+    review: "Dost ne bataya tha is shop ke baare mein. Box kholte hi fresh original maal ka pata chal gaya — first copy ki tension khatam.",
     product: "Onitsuka Mexico 66",
+    image: product3,
   },
 ];
 
 const customerReviewsRow2: CustomerReview[] = [
   {
     name: "Sneha Gupta",
-    review: "Har jagah compliments mil rahe hain. Styling ke liye itne clean sneakers kahin aur nahi mile.",
+    review: "Har visit pe naye designs milte hain. Dost poochtin hain kahan se liya — seedha OZY ka naam bata deti hoon.",
     product: "Lifestyle Sneakers",
+    image: catLifestyle,
   },
   {
     name: "Vikram Chauhan",
-    review: "Tags intact, box fresh — 100% original products. Market ke fake se door raho, seedha OZY se lo.",
+    review: "Market mein first copy bhara pada hai. Yahan teen baar liya, har baar original nikla. Ab poora bharosa hai.",
     product: "Nike Air Force 1",
+    image: product1,
   },
   {
     name: "Ishita Rana",
-    review: "Size guide bilkul accurate hai. Pehli baar online order kiya aur fit ekdum perfect nikla.",
+    review: "Size ka doubt tha, par try karke lene se pehli baar mein perfect fit mil gaya. Online shopping mein yeh luck kabhi nahi lagta.",
     product: "Running Shoes",
+    image: catRunning,
   },
   {
     name: "Harpreet Brar",
-    review: "Gym sessions ke liye training pair liya — ankle support aur cushioning dono top-notch hain.",
+    review: "Gym ke liye training pair liya. Ankle support pehan ke hi farak samajh aata hai — sahi decision thi.",
     product: "Training Shoes",
+    image: catTraining,
   },
   {
     name: "Divya Nair",
-    review: "Quick delivery aur genuine product. Value for money ekdum sahi hai is shop ka.",
+    review: "Rates decent hain aur collection badiya. Apne liye ek pair, ghar walon ke liye do jodiyan utha layi.",
     product: "Casual Sneakers",
+    image: catLifestyle,
   },
   {
     name: "Mohit Kashyap",
-    review: "Restock ka wait kiya aur worth it nikla. OZY ka service bilkul reliable hai, dost ko bhi refer kiya.",
+    review: "Do saal se yahin se leta hoon, kabhi nirash nahi hua. Ab toh mere dost-log shop ka address pooch rahe hain.",
     product: "Onitsuka Mexico 66",
+    image: product2,
   },
 ];
 
@@ -483,18 +496,27 @@ export default function Home() {
 
       {/* Customer Reviews */}
       <section id="reviews" className="relative overflow-hidden border-t border-border bg-[#0a0a0a] py-20 md:py-28">
-        {/* Animated gradient background */}
-        <motion.div
+        {/* Background image with heavy dark overlay */}
+        <div
           className="pointer-events-none absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(ellipse 70% 90% at 50% 0%, rgba(220,38,38,0.15), transparent 70%)",
-              "radial-gradient(ellipse 70% 90% at 30% 20%, rgba(220,38,38,0.2), transparent 70%)",
-              "radial-gradient(ellipse 70% 90% at 70% 10%, rgba(220,38,38,0.15), transparent 70%)",
-              "radial-gradient(ellipse 70% 90% at 50% 0%, rgba(220,38,38,0.15), transparent 70%)",
-            ],
+          style={{
+            backgroundImage: `url(${statsBg})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
           }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'linear-gradient(180deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.84) 45%, rgba(10,10,10,0.96) 100%)',
+          }}
+        />
+        {/* Subtle ambient glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,255,255,0.05), transparent 70%)',
+          }}
         />
 
         {/* Floating particles */}
@@ -502,7 +524,7 @@ export default function Home() {
           {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute h-1 w-1 rounded-full bg-accent/30"
+              className="absolute h-1 w-1 rounded-full bg-white/20"
               style={{ left: `${15 + i * 15}%`, top: `${20 + (i % 3) * 25}%` }}
               animate={{
                 y: [-20, 20, -20],
@@ -522,13 +544,9 @@ export default function Home() {
             variants={fadeInUp}
             className="mb-12 text-center"
           >
-            <motion.span
-              className="mb-4 block font-mono font-bold uppercase tracking-widest text-accent"
-              animate={{ textShadow: ["0 0 0px rgba(220,38,38,0)", "0 0 20px rgba(220,38,38,0.5)", "0 0 0px rgba(220,38,38,0)"] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
+            <span className="mb-4 block font-mono font-bold uppercase tracking-widest text-accent">
               Customer Reviews
-            </motion.span>
+            </span>
             <h2 className="font-display text-3xl font-black uppercase italic tracking-tight text-white sm:text-5xl">
               Loved By <span className="text-accent">Sneakerheads</span>
             </h2>
@@ -553,7 +571,7 @@ export default function Home() {
                   style={{ "--marquee-duration": row.duration } as CSSProperties}
                 >
                   {[0, 1].map((copy) => (
-                    <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 gap-5 pr-5">
+                    <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 gap-4 pr-4">
                       {row.items.map((review, index) => (
                         <motion.article
                           key={`${review.name}-${copy}`}
@@ -566,13 +584,29 @@ export default function Home() {
                             ease: [0.25, 0.46, 0.45, 0.94],
                           }}
                           whileHover={{ y: -6, scale: 1.02 }}
-                          className="group relative flex w-[300px] shrink-0 flex-col border border-white/15 bg-white/5 p-6 backdrop-blur-sm transition-colors duration-300 hover:border-accent/40 hover:shadow-[0_0_30px_rgba(220,38,38,0.15)] sm:w-[360px]"
+                          className="group relative flex w-[250px] shrink-0 flex-col overflow-hidden border border-white/15 bg-white/5 p-4 backdrop-blur-sm transition-colors duration-300 hover:border-white/40 hover:bg-white/[0.07] sm:w-[290px]"
                         >
-                          {/* Glow line at top on hover */}
-                          <div className="absolute left-0 top-0 h-[2px] w-0 bg-gradient-to-r from-accent to-orange-500 transition-all duration-300 group-hover:w-full" />
+                          {/* Product image background */}
+                          <div
+                            className="pointer-events-none absolute inset-0"
+                            style={{
+                              backgroundImage: `url(${review.image})`,
+                              backgroundSize: "cover",
+                              backgroundPosition: "center",
+                            }}
+                          />
+                          <div
+                            className="pointer-events-none absolute inset-0"
+                            style={{
+                              background: "linear-gradient(180deg, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.9) 100%)",
+                            }}
+                          />
 
-                          <div className="mb-5 flex items-start justify-between gap-3">
-                            <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-accent/40 bg-accent/10 font-display text-sm font-bold uppercase text-accent">
+                          {/* Accent line at top on hover */}
+                          <div className="absolute left-0 top-0 z-10 h-[2px] w-0 bg-accent transition-all duration-300 group-hover:w-full" />
+
+                          <div className="relative z-10 mb-3 flex items-start justify-between gap-2">
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/25 bg-white/5 font-display text-xs font-bold uppercase text-white">
                               {review.name
                                 .split(" ")
                                 .map((word) => word[0])
@@ -599,16 +633,16 @@ export default function Home() {
                               ))}
                             </div>
                           </div>
-                          <p className="flex-1 leading-relaxed text-white/80">"{review.review}"</p>
-                          <div className="mt-6 border-t border-white/10 pt-4">
-                            <p className="font-display font-bold uppercase tracking-wide text-white">
+                          <p className="relative z-10 flex-1 text-sm leading-relaxed text-white/85">"{review.review}"</p>
+                          <div className="relative z-10 mt-3 border-t border-white/10 pt-3">
+                            <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
                               {review.name}
                             </p>
-                            <p className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-accent/70">
+                            <p className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-white/45">
                               ✓ Verified Buyer
                             </p>
                             <p className="mt-1 font-mono text-xs uppercase tracking-wide text-white/40">
-                              Bought: {review.product}
+                              Picked up: {review.product}
                             </p>
                           </div>
                         </motion.article>

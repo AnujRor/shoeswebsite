@@ -236,5 +236,62 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - `index.css` mein `marquee-reverse` keyframes + `.reviews-track/.reviews-track-reverse/.reviews-marquee` classes + prefers-reduced-motion support add kiya
 - Heading ke neeche "4.9 Average Rating · 500+ Happy Customers" mono line add kiya; typecheck pass, Vite HMR se live update verified
 
+### 17. Local website preview start
+**Date:** 2026-08-24
+- User ko website ka local preview dikhaya — PostgreSQL (5433) pehle se chal raha tha, API server (port 3000) + Vite frontend (port 5173) separate cmd windows mein start kiye (`start-all.bat` wale commands se)
+- Verify: healthz 200, products API via Vite proxy 200 (3 items), browser mein `http://localhost:5173` khola
+
+### 18. Reviews section color rebalance (website theme match)
+**Date:** 2026-08-24
+- Problem: reviews section mein har jagah orange/red tha (bg glow, particles, avatar, stars, Verified Buyer tag, hover glow) — upar se `rgba(220,38,38)` red use hua jo site ke infrared orange `#ff5c00` se bhi match nahi karta
+- Fix (kuch add kiye bina, sirf recolor): red animated gradient → subtle neutral white glow; particles accent → white/20; label ka red textShadow glow hata diya; card hover orange border + red shadow → white border/bg; avatar orange → monochrome white; "Verified Buyer" accent → white/45; top hover line ab solid accent (orange-500 gradient mix hataya)
+- Orange ab sirf intentional jagah bacha: section label, heading word "Sneakerheads", rating-line + card stars, hover line — website ke black/white + sparing accent pattern jaisa
+- Typecheck pass; frontend restart karke verify kiya (API proxy OK), browser `#reviews` pe khola
+
+### 19. Reviews content rewrite (offline shop + real feel)
+**Date:** 2026-08-24
+- Problem: reviews online shop jaise the — "2 din delivery", "WhatsApp pe order", "online order", "quick delivery" — jabki OZY offline shop hai; upar se AI-written generic praise lag raha tha
+- Saare 12 reviews rewrite kiye in-store experience par: shop aake pairs try karna, staff/bhaiya ka behaviour, first copy vs original ka bharosa, size try karke perfect fit, family ke liye shopping, Ratia local reference, 2-saal purana loyal customer, dost refer
+- Natural Hinglish tone rakhi (imperfect grammar + specific details) taaki real Google-review jaisa lage, AI nahi
+- Card label "Bought:" → "Picked up:" (in-store vibe); layout/design untouched
+- Typecheck pass; HMR se live verify
+
+### 20. Console 503 error fix (servers down tha)
+**Date:** 2026-08-24
+- User ko browser console mein `503 Service Unavailable` error mil raha tha
+- Diagnosis: external resources (Google Fonts ×2, Maps embed) sab 200 OK the; asli problem yeh thi ki **API server (3000) + frontend (5173) dono band ho gaye the** (cmd windows close) — khula browser page /api/* requests pe Vite proxy se 503/502-style errors dikhata raha
+- Fix: dono servers restart kiye (`start-all.bat` commands), phir poora endpoint sweep verify — favicon/og-image statics + saare API routes (products/categories/brands/cart/orders/store stats/healthz) **sab 200**
+- Note: agar user cmd windows band kare toh yehi error wapas aayega — servers chalu rakho ya refresh karo jab servers up hon
+
+### 21. Contact form 503 fix (GMAIL_USER missing)
+**Date:** 2026-08-24
+- User ko `POST /api/contact 503` error mil raha tha (custom-fetch.ts:363 se fetch)
+- Diagnosis: `contact.ts` line 39 mein `createTransporter()` tab null return karta hai jab `GMAIL_USER`/`GMAIL_APP_PASSWORD` env missing ho → server khud 503 "Email service is not configured" deta hai; local `.env` check kiya (values print kiye bina) — `GMAIL_APP_PASSWORD` present tha par **`GMAIL_USER` missing** tha (Replit pe tha, local Windows `.env` mein kabhi add nahi hua)
+- Fix: `.env` mein `GMAIL_USER=anujror202007@gmail.com` (business email, code mein already public) add kiya + backend restart (port 3000 kill karke same command se start)
+- Verify: real POST `/api/contact` via Vite proxy → **200 success**, contact DB mein save + Gmail SMTP email bhi send ho gaya
+- Note: contact form test se owner inbox mein ek test email aata hai
+
+### 22. Reviews section background image
+**Date:** 2026-08-24
+- User request: reviews section ke plain dark background mein achi si image/theme ho website ke hisab se
+- Website ka existing pattern follow kiya (jaise hero/slideshow): `statsBg` image (`image_1784883327092.png` — pehle se imported tha par unused) ko cover bg layer banaya + heavy dark gradient overlay (94%→84%→96% black) taaki cards readable rahen aur sirf subtle texture dikhe
+- Baaki sab untouched: white ambient glow, particles, monochrome + accent color scheme (task #18 wala)
+- Typecheck pass; HMR se live
+
+### 23. Review cards size chhota kiya
+**Date:** 2026-08-24
+- User request: review cards bade lag rahe the, chhote karne the
+- Card width `w-[300px] sm:w-[360px]` → `w-[250px] sm:[290px]`; padding `p-6` → `p-4`; avatar `h-11 w-11 text-sm` → `h-9 w-9 text-xs`
+- Review text ab `text-sm`, name `text-sm`, footer spacing `mt-6 pt-4` → `mt-3 pt-3`, cards ke beech gap `gap-5` → `gap-4`
+- Typecheck pass; HMR se live
+
+### 24. Review cards mein product image backgrounds
+**Date:** 2026-08-24
+- User ko section abhi bhi plain lag raha tha — har review card ke **andar** uski shoe ki image background chahiye thi
+- `CustomerReview` type mein `image` field add kiya; har review ko relevant image di: AF1 → `product1`, Mexico 66 → `product2/product3`, Basketball/Running/Lifestyle/Training/Casual → category images (`catBasketball/catRunning/catLifestyle/catTraining`) — sab pehle se imported assets
+- Card JSX mein cover image layer + dark gradient overlay (72%→90% black) taaki text readable rahe; card pe `overflow-hidden`, content pe `relative z-10`
+- Section ka statsBg background + glow/particles waise hi rakhe
+- Typecheck pass; HMR se live
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

@@ -293,5 +293,13 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Section ka statsBg background + glow/particles waise hi rakhe
 - Typecheck pass; HMR se live
 
+### 25. Review cards minimal (sirf review + naam)
+**Date:** 2026-08-24
+- User request: card mein text zyada hai — sirf naam aur review hona chahiye, aur kuch nahi
+- Card se hataya: initials avatar, 5 stars, "✓ Verified Buyer", "Picked up: product" tag; unused `Star` import bhi nikala (kahin aur use nahi hota tha)
+- Card ab = review quote + neeche "— Name" (hairline divider ke saath); image bg + overlay + hover accent line same rakhe
+- Data arrays mein `product` field ab bhi hai par render nahi hota (agar future mein tags wapas chahiye ho)
+- Typecheck pass; HMR se live
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

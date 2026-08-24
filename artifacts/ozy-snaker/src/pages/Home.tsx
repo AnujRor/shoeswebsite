@@ -1,7 +1,7 @@
 import { useListProducts, useListFeaturedProducts, useListNewArrivals, useListBestSellers, useGetStoreStats } from "@workspace/api-client-react";
 import { Link } from "wouter";
 import { ProductCard } from "@/components/ProductCard";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useMemo, useState, useEffect, useRef, type CSSProperties } from "react";
 
@@ -605,46 +605,10 @@ export default function Home() {
                           {/* Accent line at top on hover */}
                           <div className="absolute left-0 top-0 z-10 h-[2px] w-0 bg-accent transition-all duration-300 group-hover:w-full" />
 
-                          <div className="relative z-10 mb-3 flex items-start justify-between gap-2">
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/25 bg-white/5 font-display text-xs font-bold uppercase text-white">
-                              {review.name
-                                .split(" ")
-                                .map((word) => word[0])
-                                .join("")
-                                .slice(0, 2)}
-                            </div>
-                            <div className="flex gap-1 pt-1 text-accent" aria-label="5 out of 5 stars">
-                              {Array.from({ length: 5 }).map((_, starIndex) => (
-                                <motion.div
-                                  key={starIndex}
-                                  initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                                  viewport={{ once: true }}
-                                  transition={{
-                                    duration: 0.4,
-                                    delay: starIndex * 0.06,
-                                    type: "spring",
-                                    stiffness: 260,
-                                    damping: 15,
-                                  }}
-                                >
-                                  <Star className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-                                </motion.div>
-                              ))}
-                            </div>
-                          </div>
                           <p className="relative z-10 flex-1 text-sm leading-relaxed text-white/85">"{review.review}"</p>
-                          <div className="relative z-10 mt-3 border-t border-white/10 pt-3">
-                            <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
-                              {review.name}
-                            </p>
-                            <p className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-white/45">
-                              ✓ Verified Buyer
-                            </p>
-                            <p className="mt-1 font-mono text-xs uppercase tracking-wide text-white/40">
-                              Picked up: {review.product}
-                            </p>
-                          </div>
+                          <p className="relative z-10 mt-3 border-t border-white/10 pt-3 font-display text-sm font-bold uppercase tracking-wide text-white">
+                            — {review.name}
+                          </p>
                         </motion.article>
                       ))}
                     </div>

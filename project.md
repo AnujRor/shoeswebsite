@@ -249,3 +249,14 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 - Section ka background/glow/particles untouched
 
 **Result:** Review cards ab premium lagte hain — har card mein subtle sneaker photo texture; typecheck pass, live verified
+
+---
+
+### 25. Review cards minimal (sirf review + naam)
+**Date:** 2026-08-24  
+**Kya kiya:**
+- User ko cards mein text zyada lag raha tha — sirf naam aur review rakhna tha
+- Avatar, stars, "Verified Buyer", "Picked up" tag sab hataye; card ab sirf review + "— Naam" hai
+- Image background + overlay + hover line same rakhe
+
+**Result:** Cards ab clean aur minimal hain; typecheck pass, live verified

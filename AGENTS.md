@@ -301,5 +301,12 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Data arrays mein `product` field ab bhi hai par render nahi hota (agar future mein tags wapas chahiye ho)
 - Typecheck pass; HMR se live
 
+### 26. Google review invite card (reviews section mein)
+**Date:** 2026-08-24
+- User ne offline shop ke liye customer reviews lene ka option manga; 4 preview mockups (11 variants) dikhane ke baad **Option B — Invite Card** select hua
+- Reviews section mein marquee rows ke baad card add kiya: white square mein multicolor Google G logo + framer-motion ripple rings, "Visit Pasand Aayi? 👟" heading (Aayi accent orange), mono subtext ("Bas 2 minute do..."), white "Write a Google Review →" button (hover: orange bg + lift + arrow slide)
+- `googleReviewUrl` constant Home.tsx top pe — abhi shop ka existing maps short link (`https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99`) use ho raha hai; asli direct review link (`https://g.page/r/<ID>/review`) Google Business Profile se lena hai jab user de
+- Card scroll pe fade-in hota hai (whileInView); typecheck pass; HMR se live
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

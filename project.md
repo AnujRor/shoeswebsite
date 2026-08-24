@@ -260,3 +260,14 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 - Image background + overlay + hover line same rakhe
 
 **Result:** Cards ab clean aur minimal hain; typecheck pass, live verified
+
+---
+
+### 26. Google review invite card (reviews section mein)
+**Date:** 2026-08-24  
+**Kya kiya:**
+- Offline shop ke liye reviews lene ka option — previews dikha kar user ne Invite Card choose kiya
+- Reviews section ke end mein card: Google G logo + ripple rings, "Visit Pasand Aayi? ??", "Write a Google Review" button
+- Button abhi shop ke Google Maps link pe jaata hai; direct review link baad mein Google Business Profile se replace hoga
+
+**Result:** Customers ab website se seedha Google review likh sakte hain; typecheck pass, live verified

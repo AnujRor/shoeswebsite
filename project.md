@@ -282,3 +282,24 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 - Text readability ke liye strong gradient rakha; har page pe footer mein dikhega
 
 **Result:** Footer ab subtle sneaker texture ke saath premium lagta hai; typecheck pass, live verified
+
+### 28. Website preview start (servers down the)
+**Date:** 2026-08-25  
+**Kya kiya:**
+- User ko website preview chahiya tha; PostgreSQL (5433) pehle se chal raha tha par API server (3000) + frontend (5173) dono band the
+- Dono servers start-all.bat wale commands se separate cmd windows mein start kiye
+- Verify: healthz 200, products API direct + Vite proxy dono se 200
+
+**Result:** Browser mein http://localhost:5173 preview khul gaya
+
+### 29. Chatbot voice replies (Cartesia TTS integration)
+**Date:** 2026-08-25  
+**Kya kiya:**
+- User request: chatbot jawab text ke saath-saath bolke bhi sunaye
+- CARTESIA_API_KEY root .env mein add ki; .env.example mein template update ki
+- Backend mein POST /api/tts route banaya — text ? Cartesia sonic-3 (Daniel voice, Hindi) ? MP3 bytes proxy
+- Retry logic: max 2 retries, 1.5s backoff, 15s timeout
+- ChatBot.tsx mein voice playback: sentence-level streaming, audio queue, ??/?? toggle, localStorage persist
+- Cartesia rate limiting observed — handle kiya via cooldown gaps (natural audio playback timing)
+
+**Result:** Chatbot ab bol ke jawab deta hai; typecheck pass, direct + proxy dono se verified

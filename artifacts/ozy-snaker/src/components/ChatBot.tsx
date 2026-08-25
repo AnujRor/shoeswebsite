@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 interface Message {
   role: "user" | "assistant";
@@ -7,14 +7,165 @@ interface Message {
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 
+const VOICE_KEY = "ozy-voice-on";
+
+function cleanForTTS(text: string): string {
+  return text
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}\u{1F900}-\u{1F9FF}]/gu, "")
+    .replace(/https?:\/\/\S+/g, "website")
+    .replace(/[*#`_~>|]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractFirstSentence(buffer: string): { sentence: string; rest: string } | null {
+  const idx = buffer.search(/[.!?\n]\s/);
+  if (idx === -1) return null;
+  const end = idx + 1;
+  const sentence = buffer.slice(0, end).trim();
+  const rest = buffer.slice(end);
+  return { sentence, rest };
+}
+
 export function ChatBot() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Jai Shree Ram! 👟 OZY Sneakers mein aapka swagat hai. Main aapki kaise madad kar sakta hoon?" },
+    { role: "assistant", content: "Jai Shree Ram! \u{1F45F} OZY Sneakers mein aapka swagat hai. Main aapki kaise madad kar sakta hoon?" },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [voiceOn, setVoiceOn] = useState(() => {
+    try { return localStorage.getItem(VOICE_KEY) !== "off"; } catch { return true; }
+  });
   const bottomRef = useRef<HTMLDivElement>(null);
+  const voiceBufferRef = useRef("");
+  const voiceQueueRef = useRef<string[]>([]);
+  const generationRef = useRef(0);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  const pumpRunningRef = useRef(false);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
+
+  const getAudioCtx = useCallback(() => {
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new AudioContext();
+    }
+    if (audioCtxRef.current.state === "suspended") {
+      audioCtxRef.current.resume();
+    }
+    return audioCtxRef.current;
+  }, []);
+
+  const stopVoice = useCallback(() => {
+    generationRef.current++;
+    voiceQueueRef.current = [];
+    voiceBufferRef.current = "";
+    if (audioSourceRef.current) {
+      try { audioSourceRef.current.stop(); } catch { /* */ }
+      audioSourceRef.current = null;
+    }
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current = null;
+    }
+    pumpRunningRef.current = false;
+  }, []);
+
+  const pumpVoice = useCallback(async (gen: number) => {
+    if (pumpRunningRef.current) return;
+    pumpRunningRef.current = true;
+
+    while (gen === generationRef.current && voiceQueueRef.current.length > 0) {
+      const text = voiceQueueRef.current.shift()!;
+      const cleaned = cleanForTTS(text);
+      if (!cleaned || cleaned.length < 4) continue;
+
+      let retries = 0;
+      const maxRetries = 2;
+      while (retries <= maxRetries) {
+        if (gen !== generationRef.current) break;
+        try {
+          const res = await fetch(`${BASE}/api/tts`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: cleaned }),
+          });
+          if (!res.ok) {
+            retries++;
+            if (retries <= maxRetries) {
+              await new Promise((r) => setTimeout(r, 1000 * retries));
+              continue;
+            }
+            break;
+          }
+          const arrayBuffer = await res.arrayBuffer();
+          if (gen !== generationRef.current) break;
+
+          const ctx = audioCtxRef.current;
+          if (!ctx) break;
+
+          const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+          if (gen !== generationRef.current) break;
+
+          const source = ctx.createBufferSource();
+          source.buffer = audioBuffer;
+          source.connect(ctx.destination);
+          audioSourceRef.current = source;
+
+          await new Promise<void>((resolve) => {
+            source.onended = () => {
+              audioSourceRef.current = null;
+              resolve();
+            };
+            source.start();
+          });
+          break;
+        } catch (err) {
+          retries++;
+          if (retries <= maxRetries) {
+            await new Promise((r) => setTimeout(r, 1000 * retries));
+          }
+        }
+      }
+      if (gen !== generationRef.current) break;
+      await new Promise((r) => setTimeout(r, 500));
+    }
+    pumpRunningRef.current = false;
+  }, []);
+
+  const enqueueVoice = useCallback((text: string, gen: number) => {
+    if (gen !== generationRef.current) return;
+    voiceBufferRef.current += text;
+    while (true) {
+      const result = extractFirstSentence(voiceBufferRef.current);
+      if (!result) break;
+      if (result.sentence.length >= 5) {
+        voiceQueueRef.current.push(result.sentence);
+      }
+      voiceBufferRef.current = result.rest;
+    }
+    if (voiceQueueRef.current.length > 0 && !pumpRunningRef.current) {
+      void pumpVoice(gen);
+    }
+  }, [pumpVoice]);
+
+  const flushVoice = useCallback((gen: number) => {
+    const leftover = voiceBufferRef.current.trim();
+    voiceBufferRef.current = "";
+    if (leftover && leftover.length >= 4 && gen === generationRef.current) {
+      voiceQueueRef.current.push(leftover);
+    }
+    if (voiceQueueRef.current.length > 0 && !pumpRunningRef.current) {
+      void pumpVoice(gen);
+    }
+  }, [pumpVoice]);
+
+  useEffect(() => {
+    try { localStorage.setItem(VOICE_KEY, voiceOn ? "on" : "off"); } catch { /* */ }
+    if (!voiceOn) stopVoice();
+  }, [voiceOn, stopVoice]);
+
+  useEffect(() => () => stopVoice(), [stopVoice]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -23,6 +174,13 @@ export function ChatBot() {
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
+
+    stopVoice();
+    const gen = ++generationRef.current;
+
+    if (voiceOn) {
+      getAudioCtx();
+    }
 
     const userMsg: Message = { role: "user", content: text };
     const newMessages = [...messages, userMsg];
@@ -68,8 +226,14 @@ export function ChatBot() {
               };
               return updated;
             });
+            if (voiceOn && gen === generationRef.current) {
+              enqueueVoice(json.content, gen);
+            }
           }
         }
+      }
+      if (voiceOn && gen === generationRef.current) {
+        flushVoice(gen);
       }
     } catch {
       setMessages((prev) => {
@@ -98,9 +262,25 @@ export function ChatBot() {
             </div>
             <div className="flex-1">
               <p className="text-white text-sm font-semibold leading-none">OZY Assistant</p>
-              <p className="text-xs mt-0.5" style={{ color: "#22c55e" }}>● Online</p>
+              <p className="text-xs mt-0.5" style={{ color: "#22c55e" }}>&#x25CF; Online</p>
             </div>
-            <button onClick={() => setOpen(false)} className="text-gray-400 hover:text-white text-lg leading-none">✕</button>
+            <button
+              onClick={() => setVoiceOn((v) => !v)}
+              className="w-7 h-7 flex items-center justify-center rounded-full transition-colors cursor-pointer"
+              style={{ background: voiceOn ? "rgba(255,92,0,0.15)" : "#2a2a2a" }}
+              title={voiceOn ? "Voice ON — click to mute" : "Voice OFF — click to unmute"}
+            >
+              {voiceOn ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ff5c00">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0012 7.97v8.05A4.49 4.49 0 0016.5 12zM12 1v2a9 9 0 010 18v2a11 11 0 000-22z" />
+                </svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#666">
+                  <path d="M16.5 12A4.5 4.5 0 0012 7.97v2.12l2.95 2.95c.05-.31.05-.63.05-.97zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0021 12a11 11 0 00-8.36-10.64l1.51 1.51A8.9 8.9 0 0119 12zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                </svg>
+              )}
+            </button>
+            <button onClick={() => setOpen(false)} className="text-gray-400 hover:text-white text-lg leading-none cursor-pointer">&#x2715;</button>
           </div>
 
           {/* Messages */}
@@ -143,7 +323,7 @@ export function ChatBot() {
             <button
               onClick={sendMessage}
               disabled={loading || !input.trim()}
-              className="w-9 h-9 rounded-xl flex items-center justify-center transition-opacity disabled:opacity-40"
+              className="w-9 h-9 rounded-xl flex items-center justify-center transition-opacity disabled:opacity-40 cursor-pointer"
               style={{ background: "#ff5c00" }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="white">

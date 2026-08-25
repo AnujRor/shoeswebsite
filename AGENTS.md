@@ -315,5 +315,28 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Footer `relative overflow-hidden` banaya, content container pe `relative z-10`; har page pe dikhega (Shell sab pages pe footer render karta hai)
 - Typecheck pass; HMR se live
 
+### 28. Website preview start (servers down the)
+**Date:** 2026-08-25
+- User ko website preview chahiye tha; PostgreSQL (5433) pehle se chal raha tha par API server (3000) + frontend (5173) dono band the
+- Dono servers `start-all.bat` wale commands se separate cmd windows mein start kiye
+- Verify: healthz 200, products API direct + Vite proxy dono se 200; browser mein `http://localhost:5173` khula
+
+### 29. Chatbot voice replies (Cartesia TTS integration)
+**Date:** 2026-08-25
+- User request: chatbot jawab text ke saath-saath bolke bhi sunaye (Cartesia TTS key di)
+- `CARTESIA_API_KEY` root `.env` mein add kiya; `.env.example` mein template update kiya
+- `routes/tts.ts` banaya — `POST /api/tts` proxy route: frontend text → Cartesia `sonic-3` model + Daniel voice (male assistant, `hi` language) → MP3 audio bytes
+- Retry logic add kiya: max 2 retries with 1.5s×attempt backoff; 15s AbortController timeout per request
+- Cartesia `sonic-2` model sunsetted hai (400 error) → `sonic-3` use kiya; `hi` (Hindi) language support verify kiya
+- `ChatBot.tsx` mein voice playback add kiya:
+  - 🔊/🔇 toggle button in chat header, localStorage mein persist hota hai
+  - Stream ke dauran sentence detect karo (punctuation `.!?` ya newline), queue mein daalo
+  - `pumpVoice` async loop: queue se sentence → `/api/tts` → MP3 blob → `Audio()` play → ended → next sentence (600ms cooldown gap for rate limit)
+  - Naye message ya chat band par current audio + queue cancel (generation counter pattern)
+  - Text clean karte hain TTS ke liye (emojis, markdown, URLs hatao)
+- Cartesia rate limiting observed: rapid calls pe 500/timeout aata hai; natural audio playback gap (3-4s per sentence) se handle hota hai
+- `routes/index.ts` mein ttsRouter mount kiya
+- Rebuild + typecheck pass; direct (3000) + proxy (5173) dono se TTS 200 OK verified
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

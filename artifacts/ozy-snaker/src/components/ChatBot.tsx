@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 interface Message {
   role: "user" | "assistant";
@@ -7,18 +7,157 @@ interface Message {
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 
+/* ── TTS helpers ─────────────────────────────────── */
+
+const VOICE_KEY = "ozy_voice_on";
+
+function cleanForTTS(raw: string): string {
+  let t = raw;
+  t = t.replace(/https?:\/\/\S+/g, "");
+  t = t.replace(/[*_`~>#\-]+/g, "");
+  t = t.replace(
+    /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2702}-\u{27B0}]+/gu,
+    ""
+  );
+  t = t.replace(/\s+/g, " ").trim();
+  return t;
+}
+
+function splitSentences(text: string): string[] {
+  const parts = text.split(/(?<=[.!?])\s+|\n+/);
+  return parts.map((s) => s.trim()).filter(Boolean);
+}
+
+/* ── Component ───────────────────────────────────── */
+
 export function ChatBot() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Jai Shree Ram! 👟 OZY Sneakers mein aapka swagat hai. Main aapki kaise madad kar sakta hoon?" },
+    {
+      role: "assistant",
+      content:
+        "Jai Shree Ram! \u{1F45F} OZY Sneakers mein aapka swagat hai. Main aapki kaise madad kar sakta hoon?",
+    },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  /* ── voice state ─────────────────────────────── */
+  const [voiceOn, setVoiceOn] = useState(() => {
+    try {
+      return localStorage.getItem(VOICE_KEY) === "true";
+    } catch {
+      return false;
+    }
+  });
+
+  const voiceQueueRef = useRef<string[]>([]);
+  const voiceBusyRef = useRef(false);
+  const generationRef = useRef(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const streamBufferRef = useRef("");
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(VOICE_KEY, String(voiceOn));
+    } catch {
+      /* ignore */
+    }
+  }, [voiceOn]);
+
+  /* stop all voice on chat close or new message */
+  const stopVoice = useCallback(() => {
+    generationRef.current++;
+    voiceQueueRef.current = [];
+    voiceBusyRef.current = false;
+    streamBufferRef.current = "";
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = "";
+      audioRef.current = null;
+    }
+  }, []);
+
+  /* pump one sentence at a time from queue */
+  const pumpVoice = useCallback(
+    async (gen: number) => {
+      if (voiceBusyRef.current) return;
+      while (voiceQueueRef.current.length > 0 && gen === generationRef.current) {
+        voiceBusyRef.current = true;
+        const sentence = voiceQueueRef.current.shift()!;
+        const cleaned = cleanForTTS(sentence);
+        if (cleaned.length < 3) {
+          voiceBusyRef.current = false;
+          continue;
+        }
+        try {
+          const resp = await fetch(`${BASE}/api/tts`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: cleaned }),
+          });
+          if (!resp.ok) break;
+          const blob = await resp.blob();
+          if (gen !== generationRef.current) break;
+          const url = URL.createObjectURL(blob);
+          const audio = new Audio(url);
+          audioRef.current = audio;
+          await new Promise<void>((resolve) => {
+            audio.onended = () => {
+              URL.revokeObjectURL(url);
+              resolve();
+            };
+            audio.onerror = () => {
+              URL.revokeObjectURL(url);
+              resolve();
+            };
+            audio.play().catch(() => {
+              URL.revokeObjectURL(url);
+              resolve();
+            });
+          });
+        } catch {
+          /* network error — skip */
+        }
+        /* small cooldown to avoid rate-limit */
+        if (gen === generationRef.current) {
+          await new Promise((r) => setTimeout(r, 600));
+        }
+      }
+      voiceBusyRef.current = false;
+    },
+    []
+  );
+
+  /* push accumulated text into voice queue */
+  const flushToVoice = useCallback(
+    (gen: number) => {
+      if (gen !== generationRef.current) return;
+      const buf = streamBufferRef.current;
+      if (!buf) return;
+      const sentences = splitSentences(buf);
+      if (sentences.length < 1) return;
+      /* keep last incomplete sentence in buffer */
+      const lastChar = buf.trimEnd().slice(-1);
+      const endsCleanly = /[.!?]/.test(lastChar);
+      const complete = endsCleanly ? sentences : sentences.slice(0, -1);
+      const leftover = endsCleanly ? "" : sentences[sentences.length - 1] ?? "";
+      streamBufferRef.current = leftover;
+      for (const s of complete) {
+        voiceQueueRef.current.push(s);
+      }
+      pumpVoice(gen);
+    },
+    [pumpVoice]
+  );
+
+  /* scroll */
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  /* ── send message ─────────────────────────────── */
 
   async function sendMessage() {
     const text = input.trim();
@@ -29,6 +168,10 @@ export function ChatBot() {
     setMessages(newMessages);
     setInput("");
     setLoading(true);
+
+    /* stop previous voice, start fresh generation */
+    stopVoice();
+    const gen = ++generationRef.current;
 
     const assistantMsg: Message = { role: "assistant", content: "" };
     setMessages((prev) => [...prev, assistantMsg]);
@@ -46,15 +189,28 @@ export function ChatBot() {
       while (reader) {
         const { done, value } = await reader.read();
         if (done) break;
-        const lines = decoder.decode(value).split("\n");
+        const chunk = decoder.decode(value);
+        const lines = chunk.split("\n");
         for (const line of lines) {
           if (!line.startsWith("data: ")) continue;
           const json = JSON.parse(line.slice(6));
-          if (json.done) break;
+          if (json.done) {
+            /* flush remaining buffer as final sentence */
+            if (voiceOn && gen === generationRef.current) {
+              const remaining = streamBufferRef.current.trim();
+              if (remaining) voiceQueueRef.current.push(remaining);
+              streamBufferRef.current = "";
+              pumpVoice(gen);
+            }
+            break;
+          }
           if (json.error) {
             setMessages((prev) => {
               const updated = [...prev];
-              updated[updated.length - 1] = { role: "assistant", content: json.error };
+              updated[updated.length - 1] = {
+                role: "assistant",
+                content: json.error,
+              };
               return updated;
             });
             break;
@@ -68,6 +224,11 @@ export function ChatBot() {
               };
               return updated;
             });
+            /* accumulate for voice */
+            if (voiceOn && gen === generationRef.current) {
+              streamBufferRef.current += json.content;
+              flushToVoice(gen);
+            }
           }
         }
       }
@@ -85,44 +246,106 @@ export function ChatBot() {
     }
   }
 
+  /* stop voice when chat closes */
+  useEffect(() => {
+    if (!open) stopVoice();
+  }, [open, stopVoice]);
+
   return (
     <>
       {/* Chat Window */}
       {open && (
-        <div className="fixed bottom-20 left-4 z-50 w-[calc(100vw-2rem)] max-w-sm flex flex-col rounded-2xl shadow-2xl overflow-hidden border border-white/10"
-          style={{ background: "#0f0f0f" }}>
+        <div
+          className="fixed bottom-20 left-4 z-50 w-[calc(100vw-2rem)] max-w-sm flex flex-col rounded-2xl shadow-2xl overflow-hidden border border-white/10"
+          style={{ background: "#0f0f0f" }}
+        >
           {/* Header */}
-          <div className="flex items-center gap-3 px-4 py-3" style={{ background: "#1a1a1a", borderBottom: "1px solid #2a2a2a" }}>
-            <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#ff5c00" }}>
+          <div
+            className="flex items-center gap-3 px-4 py-3"
+            style={{ background: "#1a1a1a", borderBottom: "1px solid #2a2a2a" }}
+          >
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+              style={{ background: "#ff5c00" }}
+            >
               O
             </div>
             <div className="flex-1">
-              <p className="text-white text-sm font-semibold leading-none">OZY Assistant</p>
-              <p className="text-xs mt-0.5" style={{ color: "#22c55e" }}>● Online</p>
+              <p className="text-white text-sm font-semibold leading-none">
+                OZY Assistant
+              </p>
+              <p className="text-xs mt-0.5" style={{ color: "#22c55e" }}>
+                ● Online
+              </p>
             </div>
-            <button onClick={() => setOpen(false)} className="text-gray-400 hover:text-white text-lg leading-none">✕</button>
+
+            {/* Voice toggle */}
+            <button
+              onClick={() => {
+                if (voiceOn) stopVoice();
+                setVoiceOn((v) => !v);
+              }}
+              className="text-lg leading-none transition-colors"
+              style={{ color: voiceOn ? "#ff5c00" : "#6b7280" }}
+              title={voiceOn ? "Voice ON — click to disable" : "Voice OFF — click to enable"}
+            >
+              {voiceOn ? "🔊" : "🔇"}
+            </button>
+
+            <button
+              onClick={() => setOpen(false)}
+              className="text-gray-400 hover:text-white text-lg leading-none"
+            >
+              ✕
+            </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-3" style={{ maxHeight: "320px", minHeight: "200px" }}>
+          <div
+            className="flex-1 overflow-y-auto p-3 space-y-3"
+            style={{ maxHeight: "320px", minHeight: "200px" }}
+          >
             {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div
+                key={i}
+                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+              >
                 <div
                   className="px-3 py-2 rounded-2xl text-sm max-w-[85%] leading-relaxed whitespace-pre-wrap"
                   style={
                     msg.role === "user"
-                      ? { background: "#ff5c00", color: "#fff", borderBottomRightRadius: 4 }
-                      : { background: "#2a2a2a", color: "#e5e5e5", borderBottomLeftRadius: 4 }
+                      ? {
+                          background: "#ff5c00",
+                          color: "#fff",
+                          borderBottomRightRadius: 4,
+                        }
+                      : {
+                          background: "#2a2a2a",
+                          color: "#e5e5e5",
+                          borderBottomLeftRadius: 4,
+                        }
                   }
                 >
                   {msg.content}
-                  {loading && i === messages.length - 1 && msg.role === "assistant" && msg.content === "" && (
-                    <span className="inline-flex gap-1 ml-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "300ms" }} />
-                    </span>
-                  )}
+                  {loading &&
+                    i === messages.length - 1 &&
+                    msg.role === "assistant" &&
+                    msg.content === "" && (
+                      <span className="inline-flex gap-1 ml-1">
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce"
+                          style={{ animationDelay: "0ms" }}
+                        />
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce"
+                          style={{ animationDelay: "150ms" }}
+                        />
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce"
+                          style={{ animationDelay: "300ms" }}
+                        />
+                      </span>
+                    )}
                 </div>
               </div>
             ))}
@@ -130,7 +353,10 @@ export function ChatBot() {
           </div>
 
           {/* Input */}
-          <div className="flex gap-2 p-3" style={{ borderTop: "1px solid #2a2a2a" }}>
+          <div
+            className="flex gap-2 p-3"
+            style={{ borderTop: "1px solid #2a2a2a" }}
+          >
             <input
               className="flex-1 rounded-xl px-3 py-2 text-sm text-white outline-none placeholder-gray-500"
               style={{ background: "#2a2a2a", border: "1px solid #3a3a3a" }}
@@ -183,7 +409,12 @@ export function ChatBot() {
         {open ? (
           <div
             className="flex items-center justify-center rounded-full"
-            style={{ width: 58, height: 58, background: "linear-gradient(135deg,#ff5c00,#ff8c00)", boxShadow: "0 4px 14px rgba(255,92,0,0.5)" }}
+            style={{
+              width: 58,
+              height: 58,
+              background: "linear-gradient(135deg,#ff5c00,#ff8c00)",
+              boxShadow: "0 4px 14px rgba(255,92,0,0.5)",
+            }}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />

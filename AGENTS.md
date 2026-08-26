@@ -328,15 +328,25 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - `routes/tts.ts` banaya — `POST /api/tts` proxy route: frontend text → Cartesia `sonic-3` model + Daniel voice (male assistant, `hi` language) → MP3 audio bytes
 - Retry logic add kiya: max 2 retries with 1.5s×attempt backoff; 15s AbortController timeout per request
 - Cartesia `sonic-2` model sunsetted hai (400 error) → `sonic-3` use kiya; `hi` (Hindi) language support verify kiya
-- `ChatBot.tsx` mein voice playback add kiya:
-  - 🔊/🔇 toggle button in chat header, localStorage mein persist hota hai
-  - Stream ke dauran sentence detect karo (punctuation `.!?` ya newline), queue mein daalo
-  - `pumpVoice` async loop: queue se sentence → `/api/tts` → MP3 blob → `Audio()` play → ended → next sentence (600ms cooldown gap for rate limit)
-  - Naye message ya chat band par current audio + queue cancel (generation counter pattern)
-  - Text clean karte hain TTS ke liye (emojis, markdown, URLs hatao)
-- Cartesia rate limiting observed: rapid calls pe 500/timeout aata hai; natural audio playback gap (3-4s per sentence) se handle hota hai
-- `routes/index.ts` mein ttsRouter mount kiya
-- Rebuild + typecheck pass; direct (3000) + proxy (5173) dono se TTS 200 OK verified
+
+### 30. Chatbot voice playback fix (frontend rebuild + route mount)
+**Date:** 2026-08-26
+- Problem: Task #29 ka backend `tts.ts` ban gaya tha par frontend ChatBot.tsx mein voice code missing tha (revert/lost), aur `routes/index.ts` mein ttsRouter mount nahi hua tha
+- `routes/index.ts` mein `ttsRouter` import + `router.use(ttsRouter)` add kiya — ab `POST /api/tts` live hai
+- `ChatBot.tsx` mein complete voice playback rebuild kiya:
+  - 🔊/🔇 toggle button in chat header — localStorage (`ozy_voice_on`) se persist hota hai
+  - Stream ke dauran `streamBufferRef` accumulate karta hai, punctuation (`.!?`) ya newline pe sentence split hota hai
+  - `flushToVoice`: complete sentences queue mein push, incomplete last sentence buffer mein rehta hai; stream done pe remaining sab flush
+  - `pumpVoice` async loop: queue se sentence → `cleanForTTS` (emojis/markdown/URLs hatao) → `POST /api/tts` → MP3 blob → `Audio()` play → ended → 600ms cooldown → next
+  - `generationRef` pattern: naye message ya chat band par generation++ → purana audio + queue cancel
+  - Voice toggle off ya chat close pe `stopVoice` call — audio + queue sab clean
+- Typecheck pass (api-server, ozy-snaker, mockup-sandbox, scripts — sab green)
+
+### 31. Chatbot voice change (Daniel → custom voice)
+**Date:** 2026-08-26
+- User ne apni pasand ki Cartesia voice ID di: `4877b818-c7fe-4c89-b1cf-eadf8e23da72`
+- `tts.ts` mein default voice ID `47c38ca4...` (Daniel) → `4877b818...` (user's choice) change ki
+- API server rebuild + restart kiya; TTS test OK — nayi voice se audio aa raha hai (43KB mp3)
 
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

@@ -8,6 +8,7 @@ import ordersRouter from "./orders";
 import contactRouter from "./contact";
 import storeRouter from "./store";
 import chatRouter from "./chat";
+import ttsRouter from "./tts";
 
 const router: IRouter = Router();
 
@@ -20,5 +21,6 @@ router.use(ordersRouter);
 router.use(contactRouter);
 router.use(storeRouter);
 router.use(chatRouter);
+router.use(ttsRouter);
 
 export default router;

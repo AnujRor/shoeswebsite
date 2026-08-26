@@ -43,7 +43,7 @@ router.post("/tts", async (req, res) => {
           transcript,
           voice: {
             mode: "id",
-            id: process.env.CARTESIA_VOICE_ID ?? "47c38ca4-5f35-497b-b1a3-415245fb35e1",
+            id: process.env.CARTESIA_VOICE_ID ?? "4877b818-c7fe-4c89-b1cf-eadf8e23da72",
           },
           language: process.env.CARTESIA_LANGUAGE ?? "hi",
           output_format: { container: "mp3", bit_rate: 128000, sample_rate: 44100 },

@@ -291,7 +291,7 @@ export function ChatBot() {
       {/* Chat Window */}
       {open && (
         <div
-          className="fixed bottom-20 left-4 z-50 w-[calc(100vw-2rem)] max-w-sm flex flex-col rounded-2xl shadow-2xl overflow-hidden border border-white/10"
+          className="fixed bottom-20 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm flex flex-col rounded-2xl shadow-2xl overflow-hidden border border-white/10"
           style={{ background: "#0f0f0f" }}
         >
           {/* Header */}
@@ -418,12 +418,12 @@ export function ChatBot() {
       {/* Toggle Button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-4 left-4 z-50 shadow-lg flex items-center justify-center transition-transform hover:scale-110"
+        className="fixed bottom-4 right-4 z-50 shadow-lg flex items-center justify-center transition-transform hover:scale-110"
         style={{
           background: "transparent",
           border: "none",
-          width: 72,
-          height: 72,
+          width: 90,
+          height: 90,
           animation: open ? "none" : "robotFloat 2.5s ease-in-out infinite",
         }}
         aria-label="Chat with OZY Assistant"
@@ -456,17 +456,128 @@ export function ChatBot() {
             </svg>
           </div>
         ) : (
-          <img
-            src={`${BASE}/bot-avatar.jpg`}
-            alt="OZY Assistant"
+          <div
             style={{
-              width: 76,
-              height: 76,
-              objectFit: "contain",
-              borderRadius: "50%",
-              animation: "botFloat 3s ease-in-out infinite, botGlow 3s ease-in-out infinite",
+              width: 86,
+              height: 86,
+              perspective: "400px",
+              animation: "botFloat 3s ease-in-out infinite",
             }}
-          />
+          >
+            <svg
+              viewBox="0 0 100 100"
+              width="86"
+              height="86"
+              style={{
+                filter: "drop-shadow(0 6px 18px rgba(255,255,255,0.55))",
+                transition: "transform 0.4s cubic-bezier(.25,.8,.25,1)",
+                transformStyle: "preserve-3d",
+                cursor: "pointer",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as SVGSVGElement).style.transform =
+                  "rotateY(25deg) rotateX(-10deg) scale(1.1)";
+                (e.currentTarget as SVGSVGElement).style.filter =
+                  "drop-shadow(0 10px 28px rgba(255,255,255,0.9))";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as SVGSVGElement).style.transform =
+                  "rotateY(0deg) rotateX(0deg) scale(1)";
+                (e.currentTarget as SVGSVGElement).style.filter =
+                  "drop-shadow(0 6px 18px rgba(255,255,255,0.55))";
+              }}
+            >
+              <defs>
+                <linearGradient id="headGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#3a3a3a" />
+                  <stop offset="100%" stopColor="#1a1a1a" />
+                </linearGradient>
+                <linearGradient id="faceGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2a2a2a" />
+                  <stop offset="100%" stopColor="#111" />
+                </linearGradient>
+                <linearGradient id="antennaGrad" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stopColor="#555" />
+                  <stop offset="100%" stopColor="#888" />
+                </linearGradient>
+                <linearGradient id="glowGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#ff5c00" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#ff5c00" stopOpacity="0" />
+                </linearGradient>
+                <radialGradient id="eyeGlow" cx="0.5" cy="0.4" r="0.5">
+                  <stop offset="0%" stopColor="#4df0ff" />
+                  <stop offset="100%" stopColor="#00bcd4" />
+                </radialGradient>
+                <filter id="innerShadow">
+                  <feDropShadow dx="0" dy="1" stdDeviation="1.5" floodColor="#000" floodOpacity="0.5" />
+                </filter>
+              </defs>
+
+              {/* Shadow on ground */}
+              <ellipse cx="50" cy="92" rx="22" ry="4" fill="rgba(0,0,0,0.35)" />
+
+              {/* Antenna */}
+              <line x1="50" y1="18" x2="50" y2="8" stroke="url(#antennaGrad)" strokeWidth="3" strokeLinecap="round" />
+              <circle cx="50" cy="6" r="4" fill="#ff5c00" filter="url(#innerShadow)">
+                <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+              </circle>
+
+              {/* Head - 3D effect with shadow side */}
+              <rect x="22" y="18" width="56" height="40" rx="14" fill="url(#headGrad)" stroke="#444" strokeWidth="1.5" />
+              <rect x="25" y="20" width="50" height="36" rx="12" fill="url(#faceGrad)" opacity="0.8" />
+
+              {/* Eyes */}
+              <g>
+                {/* Left eye socket */}
+                <ellipse cx="37" cy="36" rx="9" ry="10" fill="#0a0a0a" stroke="#333" strokeWidth="1" />
+                {/* Left eye */}
+                <circle cx="37" cy="36" r="6" fill="url(#eyeGlow)" />
+                <circle cx="35" cy="34" r="2" fill="#fff" opacity="0.9" />
+                <circle cx="39" cy="37" r="1" fill="#fff" opacity="0.4" />
+
+                {/* Right eye socket */}
+                <ellipse cx="63" cy="36" rx="9" ry="10" fill="#0a0a0a" stroke="#333" strokeWidth="1" />
+                {/* Right eye */}
+                <circle cx="63" cy="36" r="6" fill="url(#eyeGlow)" />
+                <circle cx="61" cy="34" r="2" fill="#fff" opacity="0.9" />
+                <circle cx="65" cy="37" r="1" fill="#fff" opacity="0.4" />
+              </g>
+
+              {/* Mouth - LED strip */}
+              <rect x="34" y="50" width="32" height="4" rx="2" fill="#0a0a0a" stroke="#333" strokeWidth="0.8" />
+              <rect x="36" y="51" width="5" height="2" rx="1" fill="#ff5c00">
+                <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite" />
+              </rect>
+              <rect x="43" y="51" width="5" height="2" rx="1" fill="#ff5c00">
+                <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite" />
+              </rect>
+              <rect x="50" y="51" width="5" height="2" rx="1" fill="#ff5c00">
+                <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite" begin="0.2s" />
+              </rect>
+              <rect x="57" y="51" width="5" height="2" rx="1" fill="#ff5c00">
+                <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite" begin="0.2s" />
+              </rect>
+
+              {/* Ears / side bolts */}
+              <rect x="16" y="30" width="6" height="14" rx="3" fill="#444" stroke="#555" strokeWidth="0.8" />
+              <rect x="78" y="30" width="6" height="14" rx="3" fill="#444" stroke="#555" strokeWidth="0.8" />
+
+              {/* Body hint */}
+              <rect x="30" y="60" width="40" height="24" rx="8" fill="url(#headGrad)" stroke="#444" strokeWidth="1.2" />
+              <rect x="33" y="62" width="34" height="20" rx="6" fill="url(#faceGrad)" opacity="0.7" />
+
+              {/* Chest light */}
+              <circle cx="50" cy="72" r="5" fill="#ff5c00" opacity="0.8">
+                <animate attributeName="r" values="4;5.5;4" dur="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="50" cy="72" r="3" fill="#fff" opacity="0.4" />
+
+              {/* Arms */}
+              <rect x="20" y="64" width="8" height="16" rx="4" fill="#3a3a3a" stroke="#555" strokeWidth="0.8" />
+              <rect x="72" y="64" width="8" height="16" rx="4" fill="#3a3a3a" stroke="#555" strokeWidth="0.8" />
+            </svg>
+          </div>
         )}
       </button>
     </>

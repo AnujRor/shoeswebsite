@@ -355,5 +355,24 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Fix: `splitSentences` mein comma bhi split point — sentence jaldi ready hota hai; cooldown 600ms → 150ms; `prefetchedRef` pattern — next sentence ka TTS current play hone ke saath hi fetch hota hai → gap sirf network latency
 - Typecheck pass
 
+### 33. Chatbot 3D robot SVG icon (bot-avatar.jpg replace)
+**Date:** 2026-08-26
+- User request: existing `bot-avatar.jpg` image hatao, pure SVG se 3D robot icon banao — lightweight, sharp, kisi external image ki zaroorat nahi
+- ChatBot.tsx toggle button mein `<img>` tag hatake inline SVG robot design kiya:
+  - Robot head with antenna (pulsing orange glow), two cyan LED eyes with specular highlights, LED strip mouth (animated breathe), side bolts, body with pulsing chest light, arms
+  - 3D depth: dual-tone gradients (headGrad/faceGrad), inner shadows, ground shadow ellipse
+  - Hover 3D effect: `perspective(400px)` container + `rotateY(25deg) rotateX(-10deg) scale(1.1)` on mouseenter, smooth transition back
+  - Float animation same rakha (`botFloat`), glow effect updated for SVG (`drop-shadow`)
+- Close/X button unchanged, sab kuch kaam karta hai: TTS, text chat, open/close, voice toggle
+- Typecheck pass
+
+### 34. Chatbot size bada + white glow
+**Date:** 2026-08-26
+- Chat window: `max-w-sm` → `max-w-md` → `max-w-lg` (aur bada); message area `maxHeight: 420px→500px`, `minHeight: 280px→340px`
+- Robot icon glow: orange `rgba(255,92,0)` → white `rgba(255,255,255)` — default + hover states dono
+- Position: `left-4` → `right-4` — chat window + toggle button dono ab right side
+- Close button orange glow same rakha
+- Typecheck pass
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

@@ -348,5 +348,12 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - `tts.ts` mein default voice ID `47c38ca4...` (Daniel) → `4877b818...` (user's choice) change ki
 - API server rebuild + restart kiya; TTS test OK — nayi voice se audio aa raha hai (43KB mp3)
 
+### 32. Chatbot voice speed fix (pre-fetch + faster splitting)
+**Date:** 2026-08-26
+- Problem: chatbot bahut slow bol raha tha — pehla word bolne mein bhi deri, sentences ke beech 600ms gap + TTS call latency
+- Root causes: (a) sirf `.!?` pe hi sentence split hota tha (b) 600ms fixed cooldown (c) next sentence pre-fetch nahi hota tha
+- Fix: `splitSentences` mein comma bhi split point — sentence jaldi ready hota hai; cooldown 600ms → 150ms; `prefetchedRef` pattern — next sentence ka TTS current play hone ke saath hi fetch hota hai → gap sirf network latency
+- Typecheck pass
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

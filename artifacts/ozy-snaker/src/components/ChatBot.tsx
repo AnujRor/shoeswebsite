@@ -23,8 +23,9 @@ function cleanForTTS(raw: string): string {
   return t;
 }
 
+/** Split on sentence-end punctuation, commas, or newlines — so voice starts fast */
 function splitSentences(text: string): string[] {
-  const parts = text.split(/(?<=[.!?])\s+|\n+/);
+  const parts = text.split(/(?<=[.!?])\s+|(?<=,)\s+|\n+/);
   return parts.map((s) => s.trim()).filter(Boolean);
 }
 
@@ -57,6 +58,7 @@ export function ChatBot() {
   const generationRef = useRef(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const streamBufferRef = useRef("");
+  const prefetchedRef = useRef<{ audio: HTMLAudioElement; url: string } | null>(null);
 
   useEffect(() => {
     try {
@@ -77,57 +79,90 @@ export function ChatBot() {
       audioRef.current.src = "";
       audioRef.current = null;
     }
+    if (prefetchedRef.current) {
+      prefetchedRef.current.audio.pause();
+      URL.revokeObjectURL(prefetchedRef.current.url);
+      prefetchedRef.current = null;
+    }
   }, []);
 
-  /* pump one sentence at a time from queue */
+  /* fetch TTS audio → pre-loaded Audio element */
+  const fetchTTS = useCallback(
+    async (text: string, gen: number): Promise<{ audio: HTMLAudioElement; url: string } | null> => {
+      const cleaned = cleanForTTS(text);
+      if (cleaned.length < 3) return null;
+      try {
+        const resp = await fetch(`${BASE}/api/tts`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: cleaned }),
+        });
+        if (!resp.ok || gen !== generationRef.current) return null;
+        const blob = await resp.blob();
+        if (gen !== generationRef.current) return null;
+        const url = URL.createObjectURL(blob);
+        const audio = new Audio(url);
+        return { audio, url };
+      } catch {
+        return null;
+      }
+    },
+    []
+  );
+
+  /* pump one sentence at a time — with pre-fetch */
   const pumpVoice = useCallback(
     async (gen: number) => {
       if (voiceBusyRef.current) return;
       while (voiceQueueRef.current.length > 0 && gen === generationRef.current) {
         voiceBusyRef.current = true;
         const sentence = voiceQueueRef.current.shift()!;
-        const cleaned = cleanForTTS(sentence);
-        if (cleaned.length < 3) {
+
+        /* use pre-fetched if available, else fetch now */
+        let asset = prefetchedRef.current;
+        prefetchedRef.current = null;
+
+        if (!asset || gen !== generationRef.current) {
+          asset = await fetchTTS(sentence, gen);
+        }
+        if (!asset || gen !== generationRef.current) {
           voiceBusyRef.current = false;
           continue;
         }
-        try {
-          const resp = await fetch(`${BASE}/api/tts`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: cleaned }),
+
+        /* pre-fetch next sentence while this one plays */
+        if (voiceQueueRef.current.length > 0 && gen === generationRef.current) {
+          const nextSentence = voiceQueueRef.current[0];
+          fetchTTS(nextSentence, gen).then((next) => {
+            if (gen === generationRef.current) prefetchedRef.current = next;
           });
-          if (!resp.ok) break;
-          const blob = await resp.blob();
-          if (gen !== generationRef.current) break;
-          const url = URL.createObjectURL(blob);
-          const audio = new Audio(url);
-          audioRef.current = audio;
-          await new Promise<void>((resolve) => {
-            audio.onended = () => {
-              URL.revokeObjectURL(url);
-              resolve();
-            };
-            audio.onerror = () => {
-              URL.revokeObjectURL(url);
-              resolve();
-            };
-            audio.play().catch(() => {
-              URL.revokeObjectURL(url);
-              resolve();
-            });
-          });
-        } catch {
-          /* network error — skip */
         }
-        /* small cooldown to avoid rate-limit */
+
+        const { audio, url } = asset;
+        audioRef.current = audio;
+        await new Promise<void>((resolve) => {
+          audio.onended = () => {
+            URL.revokeObjectURL(url);
+            resolve();
+          };
+          audio.onerror = () => {
+            URL.revokeObjectURL(url);
+            resolve();
+          };
+          audio.play().catch(() => {
+            URL.revokeObjectURL(url);
+            resolve();
+          });
+        });
+        voiceBusyRef.current = false;
+        /* tiny gap only — enough to not hit rate limit */
         if (gen === generationRef.current) {
-          await new Promise((r) => setTimeout(r, 600));
+          await new Promise((r) => setTimeout(r, 150));
         }
       }
       voiceBusyRef.current = false;
     },
-    []
+    [fetchTTS]
   );
 
   /* push accumulated text into voice queue */

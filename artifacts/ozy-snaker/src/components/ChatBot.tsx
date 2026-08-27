@@ -416,15 +416,37 @@ export function ChatBot() {
       )}
 
       {/* Toggle Button */}
+      <div
+        className="fixed bottom-4 right-4 z-50 flex flex-col items-center gap-1"
+        style={{
+          animation: open ? "none" : "robotFloat 2.5s ease-in-out infinite",
+        }}
+      >
+      {!open && (
+        <span
+          style={{
+            fontFamily: "'Space Mono', monospace",
+            fontSize: "11px",
+            fontWeight: 700,
+            color: "#fff",
+            letterSpacing: "1px",
+            textShadow: "0 2px 10px rgba(255,255,255,0.6), 0 0 20px rgba(255,255,255,0.3)",
+            userSelect: "none",
+            textTransform: "uppercase",
+            animation: "chatbotPulse 2s ease-in-out infinite",
+          }}
+        >
+          Chatbot
+        </span>
+      )}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-4 right-4 z-50 shadow-lg flex items-center justify-center transition-transform hover:scale-110"
+        className="shadow-lg flex items-center justify-center transition-transform hover:scale-110"
         style={{
           background: "transparent",
           border: "none",
           width: 90,
           height: 90,
-          animation: open ? "none" : "robotFloat 2.5s ease-in-out infinite",
         }}
         aria-label="Chat with OZY Assistant"
       >
@@ -439,6 +461,10 @@ export function ChatBot() {
           @keyframes botGlow {
             0%,100% { filter: drop-shadow(0 6px 16px rgba(100,180,255,0.55)); }
             50%      { filter: drop-shadow(0 10px 28px rgba(100,180,255,0.9)); }
+          }
+          @keyframes chatbotPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.08); }
           }
         `}</style>
         {open ? (
@@ -580,6 +606,7 @@ export function ChatBot() {
           </div>
         )}
       </button>
+      </div>
     </>
   );
 }

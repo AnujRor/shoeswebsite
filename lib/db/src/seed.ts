@@ -52,6 +52,7 @@ async function seed() {
   console.log("Seeding brands...");
   await upsertBrand("Nike", "nike");
   await upsertBrand("Onitsuka Tiger", "onitsuka-tiger");
+  await upsertBrand("Jordan", "jordan");
 
   console.log("Seeding categories...");
   await upsertCategory("Sneakers", "sneakers");
@@ -113,6 +114,25 @@ async function seed() {
     isBestSeller: true,
     rating: "4.9",
     reviewCount: 31,
+  });
+
+  await insertProductIfMissing({
+    name: "Jordan",
+    description:
+      "Jordan sneakers — premium quality, iconic style.",
+    price: "0.00",
+    category: "Sneakers",
+    brand: "Jordan",
+    imageUrl: "/api/assets/jordan_1.jpg",
+    images: ["/api/assets/jordan_1.jpg"],
+    sizes: [],
+    colors: [],
+    inStock: true,
+    isFeatured: false,
+    isNewArrival: true,
+    isBestSeller: false,
+    rating: "0.0",
+    reviewCount: 0,
   });
 
   console.log("Syncing brand and category product counts...");

@@ -11,6 +11,7 @@ import jordan5 from "@assets/1000058802_1785227387171.jpg";
 import jordan6 from "@assets/1000058808_1785227387177.jpg";
 import jordan7 from "@assets/1000058838_1785228477266.jpg";
 import jordan8 from "@assets/1000058859_1785228477275.jpg";
+import jordanNew from "@assets/jordan_1.jpg";
 import lv1 from "@assets/1000058820_1785227387165.jpg";
 import lv2 from "@assets/1000058817_1785227387167.jpg";
 import lv3 from "@assets/1000058796_1785227387175.jpg";
@@ -20,6 +21,7 @@ import nikeImg from "@assets/1000058811_1785227387173.jpg";
 import nike2 from "@assets/1000058862_1785228477274.jpg";
 import nike3 from "@assets/1000058853_1785228477277.jpg";
 import nike4 from "@assets/1000058856_1785228477279.jpg";
+import nikeNew from "@assets/nike_new.jpg";
 import nbImg from "@assets/1000058814_1785227387174.jpg";
 import nb2 from "@assets/1000058847_1785228477272.jpg";
 import oniImg from "@assets/1000058832_1785227387164.jpg";
@@ -28,7 +30,7 @@ import oni2 from "@assets/1000058841_1785228477270.jpg";
 const brandSections = [
   {
     brand: "Jordan",
-    images: [jordan2, jordan3, jordan4, jordan5, jordan6, jordan7, jordan8],
+    images: [jordanNew, jordan2, jordan3, jordan4, jordan5, jordan6, jordan7, jordan8],
   },
   {
     brand: "Louis Vuitton",

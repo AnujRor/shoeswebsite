@@ -38,7 +38,7 @@ const brandSections = [
   },
   {
     brand: "Nike",
-    images: [nikeImg, nike2, nike3, nike4],
+    images: [nikeImg, nike2, nike3, nike4, nikeNew],
   },
   {
     brand: "New Balance",

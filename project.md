@@ -167,20 +167,20 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 ### 17. Local website preview start
 **Date:** 2026-08-24  
 **Kya kiya:**
-- User ko website ka local preview dikhaya — PostgreSQL (5433) pehle se chal raha tha
+- User ko website ka local preview dikhaya ï¿½ PostgreSQL (5433) pehle se chal raha tha
 - API server (port 3000) aur Vite frontend (port 5173) separate cmd windows mein start kiye (start-all.bat wale commands se)
 - Verify kiya: healthz 200, products API via Vite proxy 200 (3 items)
 
-**Result:** Browser mein http://localhost:5173 khul gaya — preview live hai
+**Result:** Browser mein http://localhost:5173 khul gaya ï¿½ preview live hai
 
 ---
 
 ### 18. Reviews section color rebalance (website theme match)
 **Date:** 2026-08-24  
 **Kya kiya:**
-- Reviews section mein orange/red har jagah tha (bg glow, particles, avatar, stars, Verified Buyer tag, hover glow) — aur red gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
+- Reviews section mein orange/red har jagah tha (bg glow, particles, avatar, stars, Verified Buyer tag, hover glow) ï¿½ aur red gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - Kuch add kiye bina sirf recolor kiya: red animated gradient ? subtle neutral white glow; particles ? white/20; label ka red glow hataya; card hover + avatar + Verified Buyer tag monochrome white kiye; top hover line solid accent
-- Ab orange sirf intentional jagah hai: section label, heading ka "Sneakerheads" word, stars, hover line — website ke black/white + sparing accent design jaisa
+- Ab orange sirf intentional jagah hai: section label, heading ka "Sneakerheads" word, stars, hover line ï¿½ website ke black/white + sparing accent design jaisa
 
 **Result:** Reviews section ab website ke theme ke hisab se monochrome + restrained accent hai; typecheck pass, live preview verified
 
@@ -189,7 +189,7 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 ### 19. Reviews content rewrite (offline shop + real feel)
 **Date:** 2026-08-24  
 **Kya kiya:**
-- Reviews online shop jaise lag rahe the ("delivery", "WhatsApp order", "online order") jabki OZY offline shop hai — upar se AI-written generic tone thi
+- Reviews online shop jaise lag rahe the ("delivery", "WhatsApp order", "online order") jabki OZY offline shop hai ï¿½ upar se AI-written generic tone thi
 - Saare 12 reviews in-store experience par rewrite kiye: pairs try karna, staff ka behaviour, original vs first copy bharosa, try karke perfect fit, family shopping, Ratia local reference, loyal customer, dost refer
 - Natural Hinglish tone (imperfect grammar + specific details) taaki real Google-review jaisa lage
 - Card label "Bought:" ? "Picked up:"; layout untouched
@@ -202,19 +202,19 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 **Date:** 2026-08-24  
 **Kya kiya:**
 - Browser console mein 503 Service Unavailable aa raha tha
-- Diagnosis: Google Fonts/Maps sab 200 the — asli wajah: API server (3000) + frontend (5173) dono band the, isliye /api/* proxy requests fail ho rahi thi
-- Dono servers restart kiye; poora endpoint sweep kiya — statics + saare API routes ab 200
+- Diagnosis: Google Fonts/Maps sab 200 the ï¿½ asli wajah: API server (3000) + frontend (5173) dono band the, isliye /api/* proxy requests fail ho rahi thi
+- Dono servers restart kiye; poora endpoint sweep kiya ï¿½ statics + saare API routes ab 200
 
-**Result:** Console clean — page refresh karne par koi error nahi
+**Result:** Console clean ï¿½ page refresh karne par koi error nahi
 
 ---
 
 ### 21. Contact form 503 fix (GMAIL_USER missing)
 **Date:** 2026-08-24  
 **Kya kiya:**
-- POST /api/contact pe 503 aa raha tha — wajah: local .env mein GMAIL_USER missing tha (GMAIL_APP_PASSWORD tha hi), isliye createTransporter() null return kar raha tha aur route 503 "Email service not configured" bhej raha tha
+- POST /api/contact pe 503 aa raha tha ï¿½ wajah: local .env mein GMAIL_USER missing tha (GMAIL_APP_PASSWORD tha hi), isliye createTransporter() null return kar raha tha aur route 503 "Email service not configured" bhej raha tha
 - .env mein GMAIL_USER=anujror202007@gmail.com add kiya + backend restart
-- Real POST test kiya — 200 success, DB save + Gmail email send ho gaya
+- Real POST test kiya ï¿½ 200 success, DB save + Gmail email send ho gaya
 
 **Result:** Contact form end-to-end working (save + email dono); owner inbox mein ek test email aaya hai
 
@@ -223,7 +223,7 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 ### 22. Reviews section background image
 **Date:** 2026-08-24  
 **Kya kiya:**
-- Reviews section ke plain dark background mein image/theme add ki — website ke existing pattern jaisa (hero/slideshow style)
+- Reviews section ke plain dark background mein image/theme add ki ï¿½ website ke existing pattern jaisa (hero/slideshow style)
 - statsBg image (pehle se imported par unused tha) ko cover background layer banaya + heavy dark gradient overlay taaki cards readable rahen aur sirf subtle texture dikhe
 - Baaki design untouched (white glow, particles, monochrome + accent)
 
@@ -234,7 +234,7 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 ### 23. Review cards size chhota kiya
 **Date:** 2026-08-24  
 **Kya kiya:**
-- Cards bade lag rahe the — width 300/360px se ghata kar 250/290px kiya
+- Cards bade lag rahe the ï¿½ width 300/360px se ghata kar 250/290px kiya
 - Padding, avatar, text sizes, spacing sab compact kiye taaki ek saath zyada cards dikhen
 
 **Result:** Review cards ab chhote aur compact hain; typecheck pass, live verified
@@ -244,19 +244,19 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 ### 24. Review cards mein product image backgrounds
 **Date:** 2026-08-24  
 **Kya kiya:**
-- Har review card ke andar uski shoe ki image background layer banayi (AF1/Mexico 66 product images, baaki category images) — sab project ke existing assets
+- Har review card ke andar uski shoe ki image background layer banayi (AF1/Mexico 66 product images, baaki category images) ï¿½ sab project ke existing assets
 - Dark gradient overlay ke saath taaki text readable rahe; card pe overflow-hidden
 - Section ka background/glow/particles untouched
 
-**Result:** Review cards ab premium lagte hain — har card mein subtle sneaker photo texture; typecheck pass, live verified
+**Result:** Review cards ab premium lagte hain ï¿½ har card mein subtle sneaker photo texture; typecheck pass, live verified
 
 ---
 
 ### 25. Review cards minimal (sirf review + naam)
 **Date:** 2026-08-24  
 **Kya kiya:**
-- User ko cards mein text zyada lag raha tha — sirf naam aur review rakhna tha
-- Avatar, stars, "Verified Buyer", "Picked up" tag sab hataye; card ab sirf review + "— Naam" hai
+- User ko cards mein text zyada lag raha tha ï¿½ sirf naam aur review rakhna tha
+- Avatar, stars, "Verified Buyer", "Picked up" tag sab hataye; card ab sirf review + "ï¿½ Naam" hai
 - Image background + overlay + hover line same rakhe
 
 **Result:** Cards ab clean aur minimal hain; typecheck pass, live verified
@@ -266,7 +266,7 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 ### 26. Google review invite card (reviews section mein)
 **Date:** 2026-08-24  
 **Kya kiya:**
-- Offline shop ke liye reviews lene ka option — previews dikha kar user ne Invite Card choose kiya
+- Offline shop ke liye reviews lene ka option ï¿½ previews dikha kar user ne Invite Card choose kiya
 - Reviews section ke end mein card: Google G logo + ripple rings, "Visit Pasand Aayi? ??", "Write a Google Review" button
 - Button abhi shop ke Google Maps link pe jaata hai; direct review link baad mein Google Business Profile se replace hoga
 
@@ -277,8 +277,8 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 ### 27. Footer background image
 **Date:** 2026-08-24  
 **Kya kiya:**
-- Footer ka plain black background boring lagta tha — website ke established pattern se fix kiya
-- Hero ki image hi footer background pe lagayi + heavy dark overlay — ab site hero image se khulti hai aur same image pe band hoti hai (bookend effect)
+- Footer ka plain black background boring lagta tha ï¿½ website ke established pattern se fix kiya
+- Hero ki image hi footer background pe lagayi + heavy dark overlay ï¿½ ab site hero image se khulti hai aur same image pe band hoti hai (bookend effect)
 - Text readability ke liye strong gradient rakha; har page pe footer mein dikhega
 
 **Result:** Footer ab subtle sneaker texture ke saath premium lagta hai; typecheck pass, live verified
@@ -297,9 +297,20 @@ Har completed task yahan record hota hai â€” date, kya kiya, aur kya result mila
 **Kya kiya:**
 - User request: chatbot jawab text ke saath-saath bolke bhi sunaye
 - CARTESIA_API_KEY root .env mein add ki; .env.example mein template update ki
-- Backend mein POST /api/tts route banaya — text ? Cartesia sonic-3 (Daniel voice, Hindi) ? MP3 bytes proxy
+- Backend mein POST /api/tts route banaya ï¿½ text ? Cartesia sonic-3 (Daniel voice, Hindi) ? MP3 bytes proxy
 - Retry logic: max 2 retries, 1.5s backoff, 15s timeout
 - ChatBot.tsx mein voice playback: sentence-level streaming, audio queue, ??/?? toggle, localStorage persist
-- Cartesia rate limiting observed — handle kiya via cooldown gaps (natural audio playback timing)
+- Cartesia rate limiting observed ï¿½ handle kiya via cooldown gaps (natural audio playback timing)
 
 **Result:** Chatbot ab bol ke jawab deta hai; typecheck pass, direct + proxy dono se verified
+
+### 35. Single-command dev setup (backend + frontend ek saath)
+**Date:** 2026-08-29  
+**Kya kiya:**
+- User request: backend (3000) + frontend (5173) ek hi command se chalu ho, alag-alag cmd windows nahi
+- Root `dev.mjs` banaya â€” `pnpm dev` ek window se dono spawn:
+  - API server sirf tab build hota hai jab dist missing ho ya source newer ho; backend `node --enable-source-maps --env-file=<root>\.env dist/index.mjs` se chalta hai
+  - Frontend `node node_modules/vite/bin/vite.js --config vite.config.ts --host 0.0.0.0` se; ek Ctrl+C dono band
+- Root `package.json` mein `"dev": "node dev.mjs"` script; `start-all.bat` single-command bana diya
+
+**Result:** `pnpm dev` se healthz 200 + products via Vite proxy 200, dono ports LISTENING verified

@@ -374,5 +374,17 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Close button orange glow same rakha
 - Typecheck pass
 
+### 35. Single-command dev setup (backend + frontend ek saath)
+**Date:** 2026-08-29
+- User request: backend (3000) + frontend (5173) ek hi command se chalu ho, alag-alag cmd windows nahi
+- **Root `dev.mjs`** banaya — `pnpm dev` (or `pnpm run dev`) se dono ek saath start hote hain:
+  - API server sirf tab build hota hai jab `dist/index.mjs` missing ho ya source newer ho (mtime check — `artifacts/api-server/src`, `lib/api-zod`, `lib/db` watch); pehli baar 86s, uske baad instant
+  - Backend: `node --enable-source-maps --env-file=<root>\.env dist/index.mjs` (root .env ko Node `--env-file` se load — `configDotenv` override:false ke saath DATABASE_URL set nahi karta, isliye flag zaroori)
+  - Frontend: root se `node artifacts/ozy-snaker/node_modules/vite/bin/vite.js --config vite.config.ts --host 0.0.0.0` (pnpm dev script Unix-only hai, isliye Vite bin direct spawn hota hai)
+  - Dono same console mein spawn — ek Ctrl+C dono band, ek child exit ho toh doosra bhi kill
+- Root `package.json` mein `"dev": "node dev.mjs"` script add kiya; `start-all.bat` ko bhi single-command (`call pnpm run dev`) bana diya
+- Koi naya dependency nahi add ki (preinstall Unix-only hai isliye pnpm install na karwana pada)
+- Verify: `pnpm dev` ek window se — healthz 200, products via Vite proxy 200, dono ports LISTENING
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

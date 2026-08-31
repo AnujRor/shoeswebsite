@@ -1,3 +1,5 @@
+import { setDefaultResultOrder } from "dns";
+setDefaultResultOrder("ipv4first");
 import { configDotenv } from "dotenv";
 import path from "path";
 

@@ -11,10 +11,12 @@ function createTransporter() {
   const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, "");
   if (!user || !pass) return null;
   return nodemailer.createTransport({
-    service: "gmail",
-   family: 4,
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+    family: 4,
     auth: { user, pass },
-  });
+  } as nodemailer.TransportOptions);
 }
 
 router.post("/contact", async (req, res): Promise<void> => {

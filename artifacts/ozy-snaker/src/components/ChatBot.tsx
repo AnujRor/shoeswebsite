@@ -23,9 +23,9 @@ function cleanForTTS(raw: string): string {
   return t;
 }
 
-/** Split on sentence-end punctuation, commas, or newlines — so voice starts fast */
+/** Split on sentence-end punctuation or newlines — commas kept inside sentences */
 function splitSentences(text: string): string[] {
-  const parts = text.split(/(?<=[.!?])\s+|(?<=,)\s+|\n+/);
+  const parts = text.split(/(?<=[.!?])\s+|\n+/);
   return parts.map((s) => s.trim()).filter(Boolean);
 }
 
@@ -157,7 +157,7 @@ export function ChatBot() {
         voiceBusyRef.current = false;
         /* tiny gap only — enough to not hit rate limit */
         if (gen === generationRef.current) {
-          await new Promise((r) => setTimeout(r, 150));
+          await new Promise((r) => setTimeout(r, 50));
         }
       }
       voiceBusyRef.current = false;

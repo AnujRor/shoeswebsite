@@ -12,6 +12,7 @@ function createTransporter() {
   if (!user || !pass) return null;
   return nodemailer.createTransport({
     service: "gmail",
+   family: 4,
     auth: { user, pass },
   });
 }

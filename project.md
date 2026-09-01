@@ -178,7 +178,8 @@ Har completed task yahan record hota hai — date, kya kiya, aur kya result mila
 ### 18. Reviews section color rebalance (website theme match)
 **Date:** 2026-08-24  
 **Kya kiya:**
-- Reviews section mein orange/red har jagah tha (bg glow, particles, avatar, stars, Verified Buyer tag, hover glow) � aur red gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
+- Reviews section mein orange/red har jagah tha (bg glow, particles, avatar, stars, Verified Buyer tag, hover glow) � aur red 
+gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - Kuch add kiye bina sirf recolor kiya: red animated gradient ? subtle neutral white glow; particles ? white/20; label ka red glow hataya; card hover + avatar + Verified Buyer tag monochrome white kiye; top hover line solid accent
 - Ab orange sirf intentional jagah hai: section label, heading ka "Sneakerheads" word, stars, hover line � website ke black/white + sparing accent design jaisa
 
@@ -314,3 +315,13 @@ Har completed task yahan record hota hai — date, kya kiya, aur kya result mila
 - Root `package.json` mein `"dev": "node dev.mjs"` script; `start-all.bat` single-command bana diya
 
 **Result:** `pnpm dev` se healthz 200 + products via Vite proxy 200, dono ports LISTENING verified
+
+### 36. Vercel white screen fix (ERR_CONTENT_DECODING_FAILED)
+**Date:** 2026-09-01
+**Kya kiya:**
+- User ne website Vercel pe live host ki par white screen + `ERR_CONTENT_DECODING_FAILED` error aa raha tha
+- Root cause: `artifact/ozy-snaker/vercel.json` mein sirf API rewrite tha � koi buildCommand/outputDirectory nahi tha, aur root directory sahi nahi thi. Vercel compiled build ki jagah raw/source files serve kar raha tha � browser decode nahi kar pa raha tha
+- Project ek **pnpm monorepo** hai (frontend workspace package `@workspace/api-client-react` import karta hai) � isliye Vercel ki Root Directory monorepo root (`.`) honi chahiye, warna build fail hoga
+- Fix: Root `vercel.json` banaya � `buildCommand: pnpm --filter @workspace/ozy-snaker run build`, `outputDirectory: artifacts/ozy-snaker/dist/public`, API rewrite (Render) + SPA fallback `/(.*)` → index.html
+
+**Result:** Production build locally verify kiya (index.html `dist/public/` mein sahi absolute asset paths ke saath bana). User ko Vercel dashboard mein Root Directory = `.` set karke naya deploy karna hai

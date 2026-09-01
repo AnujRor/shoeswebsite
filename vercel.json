@@ -1,0 +1,14 @@
+{
+  "buildCommand": "pnpm --filter @workspace/ozy-snaker run build",
+  "outputDirectory": "artifacts/ozy-snaker/dist/public",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://shoeswebsite-kyn8.onrender.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -386,5 +386,19 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Koi naya dependency nahi add ki (preinstall Unix-only hai isliye pnpm install na karwana pada)
 - Verify: `pnpm dev` ek window se — healthz 200, products via Vite proxy 200, dono ports LISTENING
 
+### 36. Vercel white screen fix (ERR_CONTENT_DECODING_FAILED)
+**Date:** 2026-09-01
+- User ne website Vercel pe live host kiya, par visit karne pe **white screen** + console mein `ERR_CONTENT_DECODING_FAILED`
+- Root cause: `artifact/ozy-snaker/vercel.json` mein sirf API rewrite tha — koi **buildCommand / outputDirectory** nahi tha, aur root directory sahi set nahi thi. Isliye Vercel compiled build ki jagah raw/source files serve kar raha tha → browser decode nahi kar pa raha → white screen
+- Aise hi critical: project ek **pnpm monorepo** hai — frontend `@workspace/ozy-snaker` workspace package (`@workspace/api-client-react`) import karta hai, jo `artifact/ozy-snaker/` ke bahar `lib/` mein hai. Isliye Vercel ki **Root Directory monorepo root** (`.`) honi chahiye, warna workspace packages resolve nahi honge aur build fail hoga
+- Fix:
+  - **Root `vercel.json`** banaya (authoritative — subfolder wale ko revert kiya):
+    - `buildCommand`: `pnpm --filter @workspace/ozy-snaker run build`
+    - `outputDirectory`: `artifacts/ozy-snaker/dist/public` (kyunki `vite.config.ts` ka outDir `dist/public` hai — wahi `index.html` milta hai)
+    - API rewrite (Render) pehle, phir SPA fallback `/(.*)` → `/index.html` (client-side routing ke liye)
+- Locally verify: poora production build (`pnpm --filter @workspace/ozy-snaker run build`) ~2min mein success hua, `dist/public/index.html` bana aur correct absolute `/assets/index-*.js|css` reference karta hai
+- **User ke liye Vercel dashboard steps:** Root Directory = `.` (monorepo), Node ~20+, Default (pnpm via pnpm-lock.yaml), commit + push karke naya deploy; Render pe API already chal rahi hai
+- Note: `zipFile.zip` + ander ka `vercel.json` purana hai — abhi relevant nahi
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

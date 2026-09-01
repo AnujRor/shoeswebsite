@@ -425,5 +425,17 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
   - `greetingSpokenRef` guard — greeting ek baar hi bolta hai per open (close/reopen pe reset)
 - Typecheck pass (ozy-snaker); commit + push `91271e7` — Vercel auto-deploy hone pe live hoga
 
+### 39. Todo verify — sab production pe live confirmed
+**Date:** 2026-09-01
+- User ne kaha kaam adhura hai — saare pending fixes ko end-to-end verify kiya:
+  - **Render healthz** → 200, **products/categories** → 200
+  - **POST /api/contact (Render)** → **200 `{success:true}`** — email non-blocking fix LIVE (pehle 502 deta tha)
+  - **POST /api/chat (Render)** → 200 + SSE stream OK
+  - **POST /api/tts (Render)** → 200 `audio/mpeg` (14.7KB) — voice fix backend OK
+  - **Vercel → Render proxy** (`ozy-sneakers-frontend.vercel.app/api/healthz`) → 200
+  - **Vercel frontend** → naya build serve kar raha hai (`/assets/index-DThw39t8.js` — naya hash = chatbot voice fix LIVE)
+- **User ne isse pehle real RESEND_API_KEY di**: `re_iyT...k96` → `.env` mein save ho gaya (verify: 37 chars, `re_iyT` se shuru)
+- Note: `RESEND_API_KEY` sirf local `.env` mein hai — Render dashboard Environment var mein bhi daal na ho toh contact email notifications Render pe nahi bheje jayenge (contact form khud chalega, email best-effort hai)
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

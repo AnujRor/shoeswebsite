@@ -413,5 +413,17 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Typecheck pass; Render pe API deploy ke baad contact form hamesha kaam karega — email notification best-effort hai
 - 404 errors: Render free tier ka spin-down issue — server 15 min inactive rehta hai toh sleep hota hai, first request slow. Code fix nahi chahiye, hosting limitation hai
 
+### 38. Chatbot voice late fix (text ke saath-saath bolna)
+**Date:** 2026-09-01
+- Problem: chatbot voice bahut late aa rahi thi — text streaming ke baad bhi pehli audio 3-5s der se start hoti thi
+- Root causes: (a) `splitSentences` sirf `.!?` pe split karta tha — pehli chhote-chhote sentence poori honi ka wait; (b) cooldown 50ms; (c) chat kholne pe greeting kabhi bola hi nahi jaata tha
+- Fix (`ChatBot.tsx`):
+  - `splitSentences` mein comma (`[,]`) bhi split point add kiya — "Jai Shree Ram!" jaise chhote chunks turant TTS queue mein jaate hain → pehli audio jaldi start
+  - `flushToVoice` mein `endsCleanly` regex mein `,` bhi add kiya — comma pe turant flush hota hai
+  - Cooldown 50ms → 15ms (sentences ke beech gap kam)
+  - **Greeting on open**: chat kholte hi `generationRef.current++` karke greeting ("Jai Shree Ram! OZY Sneakers mein aapka swagat hai...") turant split + queue + `pumpVoice` — user ko pehla reply bolne ka wait nahi
+  - `greetingSpokenRef` guard — greeting ek baar hi bolta hai per open (close/reopen pe reset)
+- Typecheck pass (ozy-snaker); commit + push `91271e7` — Vercel auto-deploy hone pe live hoga
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

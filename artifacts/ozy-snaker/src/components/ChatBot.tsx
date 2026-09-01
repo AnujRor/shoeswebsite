@@ -23,9 +23,9 @@ function cleanForTTS(raw: string): string {
   return t;
 }
 
-/** Split on sentence-end punctuation or newlines — commas kept inside sentences */
+/** Split on sentence punctuation, commas, or newlines — jaldi se chhote chunks ready */
 function splitSentences(text: string): string[] {
-  const parts = text.split(/(?<=[.!?])\s+|\n+/);
+  const parts = text.split(/(?<=[.!?,\n])\s+/);
   return parts.map((s) => s.trim()).filter(Boolean);
 }
 
@@ -157,7 +157,7 @@ export function ChatBot() {
         voiceBusyRef.current = false;
         /* tiny gap only — enough to not hit rate limit */
         if (gen === generationRef.current) {
-          await new Promise((r) => setTimeout(r, 50));
+          await new Promise((r) => setTimeout(r, 15));
         }
       }
       voiceBusyRef.current = false;
@@ -175,7 +175,7 @@ export function ChatBot() {
       if (sentences.length < 1) return;
       /* keep last incomplete sentence in buffer */
       const lastChar = buf.trimEnd().slice(-1);
-      const endsCleanly = /[.!?]/.test(lastChar);
+      const endsCleanly = /[.!?,]/.test(lastChar);
       const complete = endsCleanly ? sentences : sentences.slice(0, -1);
       const leftover = endsCleanly ? "" : sentences[sentences.length - 1] ?? "";
       streamBufferRef.current = leftover;
@@ -285,6 +285,25 @@ export function ChatBot() {
   useEffect(() => {
     if (!open) stopVoice();
   }, [open, stopVoice]);
+
+  /* speak greeting immediately when chat opens (voice on) */
+  const greetingSpokenRef = useRef(false);
+  useEffect(() => {
+    if (!open || !voiceOn) {
+      greetingSpokenRef.current = false;
+      return;
+    }
+    if (greetingSpokenRef.current) return;
+    greetingSpokenRef.current = true;
+    const gen = ++generationRef.current;
+    const greeting =
+      "Jai Shree Ram! OZY Sneakers mein aapka swagat hai. Main aapki kaise madad kar sakta hoon?";
+    voiceQueueRef.current = [];
+    for (const s of splitSentences(greeting)) {
+      voiceQueueRef.current.push(s);
+    }
+    pumpVoice(gen);
+  }, [open, voiceOn, pumpVoice]);
 
   return (
     <>

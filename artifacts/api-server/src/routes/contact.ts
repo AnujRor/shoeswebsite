@@ -6,7 +6,7 @@ import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const ownerEmail = process.env.CONTACT_EMAIL ?? "anujror202007@gmail.com";
 
 router.post("/contact", async (req, res): Promise<void> => {
@@ -16,24 +16,24 @@ router.post("/contact", async (req, res): Promise<void> => {
     return;
   }
 
-  // Save to database
-  await db.insert(contactsTable).values({
-    name: parsed.data.name,
-    email: parsed.data.email,
-    phone: parsed.data.phone ?? null,
-    subject: parsed.data.subject ?? null,
-    message: parsed.data.message,
-  });
-
-  // Send email notification via Resend
-  if (!process.env.RESEND_API_KEY) {
-    logger.error("Resend API key not configured");
-    res.status(503).json({ error: "Email service is not configured." });
+  try {
+    await db.insert(contactsTable).values({
+      name: parsed.data.name,
+      email: parsed.data.email,
+      phone: parsed.data.phone ?? null,
+      subject: parsed.data.subject ?? null,
+      message: parsed.data.message,
+    });
+  } catch (err) {
+    logger.error({ err }, "Failed to save contact to database");
+    res.status(500).json({ error: "Failed to save your message. Please try again." });
     return;
   }
 
-  try {
-    await resend.emails.send({
+  res.json({ success: true, message: "Thank you for contacting Ozy Snaker! We will get back to you soon." });
+
+  if (resend) {
+    resend.emails.send({
       from: "Ozy Snaker Contact <onboarding@resend.dev>",
       to: ownerEmail,
       subject: `New Contact: ${parsed.data.subject ?? "No Subject"} — from ${parsed.data.name}`,
@@ -51,15 +51,14 @@ router.post("/contact", async (req, res): Promise<void> => {
             <p style="background:#1a1a1a;padding:16px;border-radius:4px;line-height:1.6;">${parsed.data.message.replace(/\n/g, "<br/>")}</p>
           </div>
         `,
+    }).then(() => {
+      logger.info({ to: ownerEmail }, "Contact email sent via Resend");
+    }).catch((err) => {
+      logger.error({ err }, "Failed to send contact email via Resend");
     });
-    logger.info({ to: ownerEmail }, "Contact email sent via Resend");
-  } catch (err) {
-    logger.error({ err }, "Failed to send contact email via Resend");
-    res.status(502).json({ error: "Unable to send contact email." });
-    return;
+  } else {
+    logger.warn("Resend API key not configured — email notification skipped");
   }
-
-  res.json({ success: true, message: "Thank you for contacting Ozy Snaker! We will get back to you soon." });
 });
 
 export default router;

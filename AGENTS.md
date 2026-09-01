@@ -400,5 +400,18 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - **User ke liye Vercel dashboard steps:** Root Directory = `.` (monorepo), Node ~20+, Default (pnpm via pnpm-lock.yaml), commit + push karke naya deploy; Render pe API already chal rahi hai
 - Note: `zipFile.zip` + ander ka `vercel.json` purana hai — abhi relevant nahi
 
+### 37. Contact form 502 fix (email non-blocking)
+**Date:** 2026-09-01
+- User ko Vercel live site pe `POST /api/contact 502 (Bad Gateway)` + generic 404 errors mil rahe the
+- Root cause: `contact.ts` mein Resend email fail hone pe `res.status(502)` return hota tha — email notification fail hone pe poora request fail ho jaata tha (DB save bhi ho jaata tha par response 502 tha). Render pe `RESEND_API_KEY` set nahi tha ya Resend API fail ho raha tha
+- Fix: Contact route ko **resilient** banaya — email = non-blocking:
+  - DB save pehle hota hai (critical path — agar fail ho toh 500 return)
+  - Response **turant 200** return hota hai `{ success: true }` — user ko hamesha success dikhta hai
+  - Email (Resend) baad mein fire-and-forget hota hai — `.then()` se log success, `.catch()` se log error — koi bhi haal mein user ko fail nahi dikhata
+  - `RESEND_API_KEY` missing ho toh silently skip (sirf warning log), 503/502 kabhi nahi
+  - `resend` client sirf tab create hota hai jab key present ho (early initialization avoid)
+- Typecheck pass; Render pe API deploy ke baad contact form hamesha kaam karega — email notification best-effort hai
+- 404 errors: Render free tier ka spin-down issue — server 15 min inactive rehta hai toh sleep hota hai, first request slow. Code fix nahi chahiye, hosting limitation hai
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

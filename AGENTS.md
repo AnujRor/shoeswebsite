@@ -437,5 +437,15 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - **User ne isse pehle real RESEND_API_KEY di**: `re_iyT...k96` → `.env` mein save ho gaya (verify: 37 chars, `re_iyT` se shuru)
 - Note: `RESEND_API_KEY` sirf local `.env` mein hai — Render dashboard Environment var mein bhi daal na ho toh contact email notifications Render pe nahi bheje jayenge (contact form khud chalega, email best-effort hai)
 
+### 40. Contact/SPA pages 404 fix (Vercel SPA fallback)
+**Date:** 2026-09-01
+- User ne report kiya: `https://ozy-sneakers-frontend.vercel.app/contact` kaam nahi kar raha
+- Diagnosis: live test kiya — `/`, `/api/*` 200 the, par **`/contact`, `/shoes`, `/gallery`, `/about` sab 404** (`NOT_FOUND`) de rahe the
+- Root cause: `artifacts/ozy-snaker/vercel.json` (subfolder wala purana config) mein sirf **API rewrite** tha — **SPA fallback missing** tha. Vercel ki effective config wahi subfolder wali thi, isliye client-side routes 404 ho rahe the
+- Fix: dono `vercel.json` ko consistent banaya:
+  - `artifacts/ozy-snaker/vercel.json` updated — `buildCommand: pnpm run build`, `outputDirectory: dist/public`, API rewrite **+ SPA fallback** `/(.*)` → `/index.html` add kiya
+  - Root `vercel.json` already sahi tha (SPA fallback ke saath)
+- Verify: push `13c53ad` ke baad Vercel redeploy hua → `/contact`, `/shoes`, `/gallery`, `/about` **sab 200** + `id="root"` present (SPA HTML serve ho raha hai)
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

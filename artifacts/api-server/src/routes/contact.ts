@@ -1,23 +1,13 @@
 import { Router, type IRouter } from "express";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import { db, contactsTable } from "@workspace/db";
 import { SubmitContactBody } from "@workspace/api-zod";
 import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
 
-function createTransporter() {
-  const user = process.env.GMAIL_USER?.trim();
-  const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, "");
-  if (!user || !pass) return null;
-  return nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-    family: 4,
-    auth: { user, pass },
-  } as nodemailer.TransportOptions);
-}
+const resend = new Resend(process.env.RESEND_API_KEY);
+const ownerEmail = process.env.CONTACT_EMAIL ?? "anujror202007@gmail.com";
 
 router.post("/contact", async (req, res): Promise<void> => {
   const parsed = SubmitContactBody.safeParse(req.body);
@@ -35,26 +25,24 @@ router.post("/contact", async (req, res): Promise<void> => {
     message: parsed.data.message,
   });
 
-  // Send email notification
-  const transporter = createTransporter();
-  if (!transporter) {
-    logger.error("Gmail contact email is not configured");
+  // Send email notification via Resend
+  if (!process.env.RESEND_API_KEY) {
+    logger.error("Resend API key not configured");
     res.status(503).json({ error: "Email service is not configured." });
     return;
   }
 
   try {
-    const ownerEmail = process.env.GMAIL_USER!;
-    await transporter.sendMail({
-      from: `"Ozy Snaker Contact" <${ownerEmail}>`,
+    await resend.emails.send({
+      from: "Ozy Snaker Contact <onboarding@resend.dev>",
       to: ownerEmail,
       subject: `New Contact: ${parsed.data.subject ?? "No Subject"} — from ${parsed.data.name}`,
       html: `
           <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#111;color:#fff;border-radius:8px;">
-            <h2 style="color:#e63e3e;margin-top:0;">New Message on Ozy Snaker</h2>
+            <h2 style="color:#ff5c00;margin-top:0;">New Message on Ozy Snaker</h2>
             <table style="width:100%;border-collapse:collapse;">
               <tr><td style="padding:8px 0;color:#aaa;width:100px;">Name</td><td style="padding:8px 0;font-weight:bold;">${parsed.data.name}</td></tr>
-              <tr><td style="padding:8px 0;color:#aaa;">Email</td><td style="padding:8px 0;"><a href="mailto:${parsed.data.email}" style="color:#e63e3e;">${parsed.data.email}</a></td></tr>
+              <tr><td style="padding:8px 0;color:#aaa;">Email</td><td style="padding:8px 0;"><a href="mailto:${parsed.data.email}" style="color:#ff5c00;">${parsed.data.email}</a></td></tr>
               ${parsed.data.phone ? `<tr><td style="padding:8px 0;color:#aaa;">Phone</td><td style="padding:8px 0;">${parsed.data.phone}</td></tr>` : ""}
               ${parsed.data.subject ? `<tr><td style="padding:8px 0;color:#aaa;">Subject</td><td style="padding:8px 0;">${parsed.data.subject}</td></tr>` : ""}
             </table>
@@ -64,9 +52,9 @@ router.post("/contact", async (req, res): Promise<void> => {
           </div>
         `,
     });
-    logger.info({ to: ownerEmail }, "Contact email sent");
+    logger.info({ to: ownerEmail }, "Contact email sent via Resend");
   } catch (err) {
-    logger.error({ err }, "Failed to send contact email");
+    logger.error({ err }, "Failed to send contact email via Resend");
     res.status(502).json({ error: "Unable to send contact email." });
     return;
   }

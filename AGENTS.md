@@ -448,4 +448,21 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Verify: push `13c53ad` ke baad Vercel redeploy hua → `/contact`, `/shoes`, `/gallery`, `/about` **sab 200** + `id="root"` present (SPA HTML serve ho raha hai)
 
 ---
+### 41. Full responsive / mobile-first design pass (sab devices pe sahi dikhe)
+**Date:** 2026-09-04
+- User request: website kisi bhi device (mobile, PC, laptop, tablet, iPad, bada panel) pe kholne par har screen pe sahi achi khulni chahiye
+- Poore frontend ka responsive audit kiya (14 files) aur HIGH/MED issues fix kiye:
+  - **Shell.tsx**: floating WhatsApp/Instagram/Location icons ab `bottom-28 sm:bottom-32` pe — ChatBot (bottom-right) se overlap nahi karte; icons pe `min-h-[44px]` touch-target
+  - **Footer.tsx**: gap chhota kiya (`gap-8 md:gap-12`), logo `text-3xl md:text-4xl`
+  - **Home.tsx**: hero `min-h-[500px] sm:min-h-[600px]` (chhote phones switch pe responsive); weird `pr-14` hataya; hero/time/classics headings mein `lg:text-8xl`; descriptions `text-lg sm:text-2xl`; Get Directions button responsive; stats cards gap/padding responsive
+  - **Products.tsx**: filter sidebar `md:` → `lg:` (tablet pe content kam chhota); mobile filter drawer mein backdrop overlay add kiya; grid `xl:grid-cols-4`
+  - **ProductDetail.tsx**: thumbnails `grid-cols-3 sm:grid-cols-4`; price block `flex-wrap` + responsive size
+  - **ShoesCategory.tsx**: grid gap `gap-6 sm:gap-x-10 sm:gap-y-10`
+  - **Contact.tsx**: inputs `h-12 sm:h-14 md:h-16`, textarea `min-h-[160px] sm:min-h-[200px] md:min-h-[250px]`, Send button responsive, contact info `mt-12 md:mt-20`
+  - **About.tsx**: hero heading `lg:text-[10rem] xl:text-[12rem]` + overflow-hidden; values grid `md:grid-cols-2 lg:grid-cols-3`; brand story text scale kiya
+  - **ChatBot.tsx**: window `max-w-sm sm:max-w-md md:max-w-lg`; message area `maxHeight: min(350px, 50vh)`; robot toggle + close sizes `clamp()` se fluid (phones pe chhota); right margin responsive
+  - **index.css**: `pb-safe` (notched phones ke liye safe-area), image max-width guard, smooth scroll
+- Typecheck pass (api-server, mockup-sandbox, scripts, ozy-snaker sab green)
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

@@ -39,11 +39,11 @@ export function Footer() {
         }}
       />
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
+        <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-12 mb-12 md:mb-16">
           {/* Brand */}
           <div className="max-w-sm">
             <Link href="/" className="flex items-center gap-2 mb-6 group">
-              <span className="font-display font-black text-4xl tracking-tighter uppercase italic text-primary-foreground group-hover:text-accent transition-colors duration-300 whitespace-nowrap">
+              <span className="font-display font-black text-3xl md:text-4xl tracking-tighter uppercase italic text-primary-foreground group-hover:text-accent transition-colors duration-300 whitespace-nowrap">
                 Ozy<span className="text-accent">Sneakers</span>
               </span>
             </Link>

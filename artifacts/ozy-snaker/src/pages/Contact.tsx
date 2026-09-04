@@ -136,7 +136,7 @@ export default function Contact() {
             <div>
               <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight mb-8 md:mb-12 italic">Headquarters</h2>
               
-              <div className="space-y-10">
+              <div className="space-y-8 md:space-y-10">
                 <div className="flex gap-6">
                   <div className="w-14 h-14 bg-primary-foreground/10 rounded-none flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-accent" />
@@ -190,7 +190,7 @@ export default function Contact() {
               </div>
             </div>
             
-            <div className="mt-20 pt-10 border-t border-primary-foreground/20">
+            <div className="mt-12 md:mt-20 pt-8 md:pt-10 border-t border-primary-foreground/20">
               <p className="font-display font-black uppercase italic text-3xl opacity-50 tracking-tighter">Stay Fast.</p>
             </div>
           </div>
@@ -213,7 +213,7 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel className="uppercase text-xs tracking-widest font-bold text-muted-foreground">Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your Name" className="h-16 rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent text-lg" {...field} />
+                        <Input placeholder="Your Name" className="h-12 sm:h-14 md:h-16 rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent text-base sm:text-lg" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -227,7 +227,7 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel className="uppercase text-xs tracking-widest font-bold text-muted-foreground">Email Address</FormLabel>
                       <FormControl>
-                        <Input placeholder="you@example.com" type="email" className="h-16 rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent text-lg" {...field} />
+                        <Input placeholder="you@example.com" type="email" className="h-12 sm:h-14 md:h-16 rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent text-base sm:text-lg" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -243,7 +243,7 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel className="uppercase text-xs tracking-widest font-bold text-muted-foreground">Phone (Optional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your Phone Number" className="h-16 rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent text-lg" {...field} />
+                        <Input placeholder="Your Phone Number" className="h-12 sm:h-14 md:h-16 rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent text-base sm:text-lg" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -257,7 +257,7 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel className="uppercase text-xs tracking-widest font-bold text-muted-foreground">Subject</FormLabel>
                       <FormControl>
-                        <Input placeholder="Press Inquiry, Product Question, etc." className="h-16 rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent text-lg" {...field} />
+                        <Input placeholder="Press Inquiry, Product Question, etc." className="h-12 sm:h-14 md:h-16 rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent text-base sm:text-lg" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -274,7 +274,7 @@ export default function Contact() {
                     <FormControl>
                       <Textarea 
                         placeholder="How can we help you?" 
-                        className="min-h-[250px] resize-y rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent p-6 text-lg" 
+                        className="min-h-[160px] sm:min-h-[200px] md:min-h-[250px] resize-y rounded-none bg-secondary/30 border-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent p-4 sm:p-6 text-base sm:text-lg" 
                         {...field} 
                       />
                     </FormControl>
@@ -286,7 +286,7 @@ export default function Contact() {
               <Button 
                 type="submit" 
                 disabled={submitContact.isPending}
-                className="h-20 px-16 bg-primary hover:bg-accent text-white font-display font-black text-2xl uppercase tracking-widest transition-colors duration-300 rounded-none w-full md:w-auto mt-4"
+                className="h-14 sm:h-16 md:h-20 px-8 sm:px-12 md:px-16 bg-primary hover:bg-accent text-white font-display font-black text-xl sm:text-2xl uppercase tracking-widest transition-colors duration-300 rounded-none w-full md:w-auto mt-4"
               >
                 {submitContact.isPending ? "Sending..." : "Send Message"}
               </Button>
@@ -298,7 +298,7 @@ export default function Contact() {
       {/* Google Maps Embed */}
       <motion.div
         initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-        className="mt-24"
+        className="mt-16 md:mt-24"
       >
         <h2 className="font-display font-black text-2xl sm:text-4xl uppercase tracking-tight mb-8 italic">
           Find <span className="text-accent">Us</span>
@@ -319,7 +319,7 @@ export default function Contact() {
           href="https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 mt-6 bg-primary text-primary-foreground px-8 py-4 font-display font-black uppercase tracking-widest text-lg hover:bg-accent transition-colors duration-300"
+          className="inline-flex items-center gap-3 mt-6 bg-primary text-primary-foreground px-6 py-3 sm:px-8 sm:py-4 font-display font-black uppercase tracking-widest text-base sm:text-lg hover:bg-accent transition-colors duration-300"
         >
           <MapPin className="w-5 h-5 text-accent" />
           Get Directions

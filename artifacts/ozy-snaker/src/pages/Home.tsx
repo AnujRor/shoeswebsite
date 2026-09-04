@@ -234,7 +234,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section */}
-      <section className="relative h-[95vh] min-h-[600px] w-full flex items-end bg-black overflow-hidden">
+      <section className="relative h-[95vh] min-h-[500px] sm:min-h-[600px] w-full flex items-end bg-black overflow-hidden">
         <div 
           className="absolute inset-0 z-0"
           style={{ 
@@ -250,7 +250,7 @@ export default function Home() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="max-w-4xl pr-14 sm:pr-6 md:pr-0"
+            className="max-w-4xl pr-0 sm:pr-6 md:pr-0"
           >
             <span className="text-accent font-mono font-bold tracking-widest uppercase mb-6 block border-l-4 border-accent pl-4">
               The Next Evolution
@@ -258,7 +258,7 @@ export default function Home() {
             <h1 className="font-display text-[2rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] font-black uppercase italic text-white leading-[0.85] mb-8 tracking-tighter">
               OZY<br/>SNEAKERS
             </h1>
-            <p className="text-gray-300 text-base sm:text-xl md:text-2xl max-w-2xl font-medium leading-relaxed">
+            <p className="text-gray-300 text-base sm:text-xl md:text-2xl lg:text-3xl max-w-2xl font-medium leading-relaxed">
               Step Into Style – Ozy Sneakers
             </p>
           </motion.div>
@@ -316,10 +316,10 @@ export default function Home() {
             <span className="font-mono font-bold tracking-widest uppercase mb-4 block text-accent">
               Curated for Now
             </span>
-            <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-black uppercase italic mb-4 tracking-tight text-white">
+            <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black uppercase italic mb-4 tracking-tight text-white">
               {timeSlot.title}
             </h2>
-            <p className="text-2xl font-medium text-white/80">
+            <p className="text-lg sm:text-2xl font-medium text-white/80">
               {timeSlot.desc}
             </p>
           </div>
@@ -390,7 +390,7 @@ export default function Home() {
           background: 'linear-gradient(90deg, transparent, rgba(220,38,38,0.7) 30%, rgba(255,100,50,0.9) 50%, rgba(220,38,38,0.7) 70%, transparent)',
         }} />
         <div className="relative z-10 container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
             {[
               { value: 500, suffix: '+', label: 'Kicks Available', delay: 0 },
               { value: 10, suffix: '+', label: 'Top Brands', delay: 0.1 },
@@ -401,7 +401,7 @@ export default function Home() {
                 key={label}
                 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
                 transition={{ delay }}
-                className="flex flex-col items-center justify-center text-center border border-white/20 bg-white/5 backdrop-blur-sm py-8 px-4"
+                className="flex flex-col items-center justify-center text-center border border-white/20 bg-white/5 backdrop-blur-sm py-6 sm:py-8 px-3 sm:px-4"
               >
                 <AnimatedStatValue value={value} suffix={suffix} delay={delay} />
                 <span className="font-bold uppercase tracking-widest text-xs text-white/70">{label}</span>
@@ -450,8 +450,8 @@ export default function Home() {
             <span className="text-accent font-mono font-bold tracking-widest uppercase mb-4 block">
               Iconic Status
             </span>
-            <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-black uppercase italic mb-6 tracking-tighter text-white">The Classics</h2>
-            <p className="text-2xl text-white/80 font-medium max-w-2xl mx-auto">
+              <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black uppercase italic mb-6 tracking-tighter text-white">The Classics</h2>
+            <p className="text-lg sm:text-2xl text-white/80 font-medium max-w-2xl mx-auto">
               All-time favorites that define the culture and never miss.
             </p>
           </motion.div>
@@ -489,7 +489,7 @@ export default function Home() {
             href="https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 mt-6 bg-primary text-primary-foreground px-8 py-4 font-display font-black uppercase tracking-widest text-lg hover:bg-accent transition-colors duration-300"
+            className="inline-flex items-center gap-3 mt-6 bg-primary text-primary-foreground px-6 py-3 sm:px-8 sm:py-4 font-display font-black uppercase tracking-widest text-base sm:text-lg hover:bg-accent transition-colors duration-300"
           >
             Get Directions
           </a>

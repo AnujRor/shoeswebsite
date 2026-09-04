@@ -16,15 +16,15 @@ export function Shell({ children }: { children: ReactNode }) {
       </main>
       <Footer />
 
-      {/* Floating Side Icons */}
-      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-[3px]">
+      {/* Floating Side Icons — positioned above ChatBot to avoid overlap */}
+      <div className="fixed right-0 z-50 flex flex-col gap-[3px] bottom-28 sm:bottom-32">
         {/* WhatsApp */}
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank"
           rel="noopener noreferrer"
           title="Chat on WhatsApp"
-          className="flex items-center gap-3 px-2 sm:px-3 h-10 sm:h-12 bg-[#25D366] hover:brightness-110 transition-all duration-200"
+          className="flex items-center gap-3 px-2 sm:px-3 h-10 sm:h-12 min-h-[44px] bg-[#25D366] hover:brightness-110 transition-all duration-200"
           style={{ borderRadius: "8px 0 0 8px" }}
         >
           <svg className="flex-shrink-0 w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
@@ -39,7 +39,7 @@ export function Shell({ children }: { children: ReactNode }) {
           target="_blank"
           rel="noopener noreferrer"
           title="Follow on Instagram"
-          className="flex items-center gap-3 px-2 sm:px-3 h-10 sm:h-12 hover:brightness-110 transition-all duration-200"
+          className="flex items-center gap-3 px-2 sm:px-3 h-10 sm:h-12 min-h-[44px] hover:brightness-110 transition-all duration-200"
           style={{
             background: "linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
             borderRadius: "8px 0 0 8px",
@@ -56,7 +56,7 @@ export function Shell({ children }: { children: ReactNode }) {
           target="_blank"
           rel="noopener noreferrer"
           title="Find us on Google Maps"
-          className="flex items-center gap-3 px-2 sm:px-3 h-10 sm:h-12 bg-[#EA4335] hover:brightness-110 transition-all duration-200"
+          className="flex items-center gap-3 px-2 sm:px-3 h-10 sm:h-12 min-h-[44px] bg-[#EA4335] hover:brightness-110 transition-all duration-200"
           style={{ borderRadius: "8px 0 0 8px" }}
         >
           <svg className="flex-shrink-0 w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">

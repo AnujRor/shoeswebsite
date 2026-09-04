@@ -168,7 +168,7 @@ export default function ShoesCategory() {
             </motion.div>
 
             {/* Brand Images Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-x-10 sm:gap-y-10">
               {section.images.map((img, iIdx) => (
                 <motion.div
                   key={iIdx}

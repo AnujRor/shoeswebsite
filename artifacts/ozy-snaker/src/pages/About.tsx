@@ -43,7 +43,7 @@ export default function About() {
           initial="hidden" animate="visible" variants={fadeInUp}
           className="container mx-auto px-4 md:px-6 relative z-20 text-center"
         >
-          <h1 className="font-display text-5xl sm:text-7xl md:text-9xl lg:text-[12rem] font-black uppercase italic text-white leading-none mb-8 tracking-tighter">
+          <h1 className="font-display text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-black uppercase italic text-white leading-none mb-8 tracking-tighter overflow-hidden">
             Our<br/>Story
           </h1>
           <p className="text-accent font-display font-bold text-xl md:text-3xl uppercase tracking-widest max-w-2xl mx-auto">
@@ -59,7 +59,7 @@ export default function About() {
             initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp}
             className="max-w-5xl mx-auto text-center"
           >
-            <p className="text-xl sm:text-2xl md:text-5xl lg:text-6xl font-display font-bold leading-tight md:leading-[1.1] text-primary">
+              <p className="text-lg sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-display font-bold leading-tight md:leading-[1.1] text-primary">
               Ozy Snaker was founded with a singular obsession — to bring the world's most sought-after sports sneakers to athletes and enthusiasts who refuse to compromise. 
               <span className="text-muted-foreground italic"> Every pair in our collection is handpicked for performance, authenticity, and style.</span>
             </p>
@@ -70,7 +70,7 @@ export default function About() {
       {/* Values Grid */}
       <section className="py-14 md:py-32 bg-secondary/20 border-y border-border">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-8 lg:gap-16">
             <motion.div 
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
               className="flex flex-col items-center text-center space-y-6"
@@ -155,7 +155,7 @@ export default function About() {
           >
             <div>
               <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-black uppercase italic tracking-tight mb-4 text-white">The Archives</h2>
-              <p className="text-2xl text-white/70">Explore our curated collections.</p>
+              <p className="text-lg sm:text-2xl text-white/70">Explore our curated collections.</p>
             </div>
             <Link 
               href="/shoes" 

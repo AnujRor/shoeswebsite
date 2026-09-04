@@ -310,7 +310,7 @@ export function ChatBot() {
       {/* Chat Window */}
       {open && (
         <div
-          className="fixed bottom-20 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm flex flex-col rounded-2xl shadow-2xl overflow-hidden border border-white/10"
+          className="fixed bottom-20 right-3 sm:right-4 z-50 w-[calc(100vw-1.5rem)] sm:w-[calc(100vw-2rem)] max-w-sm sm:max-w-md md:max-w-lg flex flex-col rounded-2xl shadow-2xl overflow-hidden border border-white/10"
           style={{ background: "#0f0f0f" }}
         >
           {/* Header */}
@@ -357,7 +357,7 @@ export function ChatBot() {
           {/* Messages */}
           <div
             className="flex-1 overflow-y-auto p-3 space-y-3"
-            style={{ maxHeight: "320px", minHeight: "200px" }}
+            style={{ maxHeight: "min(350px, 50vh)", minHeight: "180px" }}
           >
             {messages.map((msg, i) => (
               <div
@@ -436,7 +436,7 @@ export function ChatBot() {
 
       {/* Toggle Button */}
       <div
-        className="fixed bottom-4 right-4 z-50 flex flex-col items-center gap-1"
+        className="fixed bottom-4 right-3 sm:right-4 z-50 flex flex-col items-center gap-1"
         style={{
           animation: open ? "none" : "robotFloat 2.5s ease-in-out infinite",
         }}
@@ -464,8 +464,8 @@ export function ChatBot() {
         style={{
           background: "transparent",
           border: "none",
-          width: 90,
-          height: 90,
+          width: "clamp(64px, 12vw, 90px)",
+          height: "clamp(64px, 12vw, 90px)",
         }}
         aria-label="Chat with OZY Assistant"
       >
@@ -490,8 +490,8 @@ export function ChatBot() {
           <div
             className="flex items-center justify-center rounded-full"
             style={{
-              width: 58,
-              height: 58,
+              width: "clamp(46px, 8vw, 58px)",
+              height: "clamp(46px, 8vw, 58px)",
               background: "linear-gradient(135deg,#ff5c00,#ff8c00)",
               boxShadow: "0 4px 14px rgba(255,92,0,0.5)",
             }}
@@ -503,16 +503,16 @@ export function ChatBot() {
         ) : (
           <div
             style={{
-              width: 86,
-              height: 86,
+              width: "clamp(64px, 11vw, 86px)",
+              height: "clamp(64px, 11vw, 86px)",
               perspective: "400px",
               animation: "botFloat 3s ease-in-out infinite",
             }}
           >
             <svg
               viewBox="0 0 100 100"
-              width="86"
-              height="86"
+              width="100%"
+              height="100%"
               style={{
                 filter: "drop-shadow(0 6px 18px rgba(255,255,255,0.55))",
                 transition: "transform 0.4s cubic-bezier(.25,.8,.25,1)",

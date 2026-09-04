@@ -325,3 +325,21 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - Fix: Root `vercel.json` banaya � `buildCommand: pnpm --filter @workspace/ozy-snaker run build`, `outputDirectory: artifacts/ozy-snaker/dist/public`, API rewrite (Render) + SPA fallback `/(.*)` → index.html
 
 **Result:** Production build locally verify kiya (index.html `dist/public/` mein sahi absolute asset paths ke saath bana). User ko Vercel dashboard mein Root Directory = `.` set karke naya deploy karna hai
+
+### 41. Full responsive / mobile-first design pass (sab devices pe sahi dikhe)
+**Date:** 2026-09-04
+**Kya kiya:**
+- User request: website kisi bhi device (mobile, PC, laptop, tablet, iPad, bada panel) pe kholne par har screen pe sahi achi khulni chahiye
+- Poore frontend ka responsive audit kiya (14 files) aur HIGH/MED issues fix kiye:
+  - **Shell.tsx**: floating WhatsApp/Instagram/Location icons ab `bottom-28 sm:bottom-32` pe — ChatBot (bottom-right) se overlap nahi karte; icons pe `min-h-[44px]` touch-target
+  - **Footer.tsx**: gap chhota kiya (`gap-8 md:gap-12`), logo `text-3xl md:text-4xl`
+  - **Home.tsx**: hero `min-h-[500px] sm:min-h-[600px]`; weird `pr-14` hataya; hero/time/classics headings mein `lg:text-8xl`; descriptions `text-lg sm:text-2xl`; Get Directions button responsive; stats cards gap/padding responsive
+  - **Products.tsx**: filter sidebar `md:` → `lg:` (tablet pe content kam chhota); mobile filter drawer mein backdrop overlay; grid `xl:grid-cols-4`
+  - **ProductDetail.tsx**: thumbnails `grid-cols-3 sm:grid-cols-4`; price block `flex-wrap` + responsive size
+  - **ShoesCategory.tsx**: grid gap `gap-6 sm:gap-x-10 sm:gap-y-10`
+  - **Contact.tsx**: inputs `h-12 sm:h-14 md:h-16`, textarea responsive min-height, Send button responsive, contact info `mt-12 md:mt-20`
+  - **About.tsx**: hero heading `lg:text-[10rem] xl:text-[12rem]` + overflow-hidden; values grid `md:grid-cols-2 lg:grid-cols-3`; brand story text scale
+  - **ChatBot.tsx**: window `max-w-sm sm:max-w-md md:max-w-lg`; message area `maxHeight: min(350px, 50vh)`; robot sizes `clamp()` fluid; right margin responsive
+  - **index.css**: `pb-safe` (safe-area for notched phones), image max-width guard, smooth scroll
+
+**Result:** Typecheck pass (api-server, mockup-sandbox, scripts, ozy-snaker sab green). Ab mobile, tablet, laptop, PC, bada panel — har screen size pe website sahi achi khulegi.

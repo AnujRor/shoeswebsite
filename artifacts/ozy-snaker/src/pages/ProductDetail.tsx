@@ -95,7 +95,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             />
           </div>
           {product.images && product.images.length > 0 && (
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
               <div className="bg-secondary/30 aspect-square p-2 border-2 border-primary cursor-pointer">
                 <img src={imageUrl} alt="" className="w-full h-full object-contain" />
               </div>
@@ -119,9 +119,9 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             {product.name}
           </h1>
           
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex items-center gap-6">
-              <span className="font-mono text-3xl font-bold">${product.price.toFixed(2)}</span>
+          <div className="flex items-center gap-4 mb-6 flex-wrap">
+            <div className="flex items-center gap-4 sm:gap-6">
+              <span className="font-mono text-2xl sm:text-3xl font-bold">${product.price.toFixed(2)}</span>
               {product.originalPrice && product.originalPrice > product.price && (
                 <span className="font-mono text-xl text-muted-foreground line-through">
                   ${product.originalPrice.toFixed(2)}

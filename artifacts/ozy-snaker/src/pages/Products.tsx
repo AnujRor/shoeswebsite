@@ -73,14 +73,18 @@ export default function Products() {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-12">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* Filters Sidebar */}
         <aside className={`
-          fixed inset-0 z-50 bg-background md:static md:w-64 md:block flex-shrink-0 transition-transform duration-300
-          ${isMobileFiltersOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          fixed inset-0 z-50 bg-background lg:static lg:w-64 lg:block flex-shrink-0 transition-transform duration-300
+          ${isMobileFiltersOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
-          <div className="h-full p-6 md:p-0 overflow-y-auto">
-            <div className="flex justify-between items-center mb-8 md:hidden">
+          {/* Backdrop for mobile filters */}
+          {isMobileFiltersOpen && (
+            <div className="fixed inset-0 bg-black/50 lg:hidden" onClick={() => setIsMobileFiltersOpen(false)} />
+          )}
+          <div className="relative h-full p-6 lg:p-0 overflow-y-auto bg-background lg:bg-transparent z-10">
+            <div className="flex justify-between items-center mb-8 lg:hidden">
               <h2 className="font-display font-bold text-2xl uppercase">Filters</h2>
               <button onClick={() => setIsMobileFiltersOpen(false)}>
                 <X className="w-6 h-6" />
@@ -156,7 +160,7 @@ export default function Products() {
                 </button>
               )}
               
-              <div className="md:hidden mt-8">
+              <div className="lg:hidden mt-8">
                 <Button 
                   className="w-full rounded-none bg-primary text-primary-foreground font-bold uppercase tracking-wider py-6"
                   onClick={() => setIsMobileFiltersOpen(false)}
@@ -171,7 +175,7 @@ export default function Products() {
         {/* Product Grid */}
         <div className="flex-1">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="animate-pulse">
                   <div className="bg-secondary/50 aspect-square mb-4"></div>
@@ -192,7 +196,7 @@ export default function Products() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
               {products?.map((product, idx) => (
                 <ProductCard 
                   key={product.id} 

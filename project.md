@@ -343,3 +343,12 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
   - **index.css**: `pb-safe` (safe-area for notched phones), image max-width guard, smooth scroll
 
 **Result:** Typecheck pass (api-server, mockup-sandbox, scripts, ozy-snaker sab green). Ab mobile, tablet, laptop, PC, bada panel — har screen size pe website sahi achi khulegi.
+
+### 43. Home showcase video — sirf mobile pe video, baaki devices pe 3 images loop
+**Date:** 2026-09-04
+**Kya kiya:**
+- User request: home page ke loop slideshow ("Time-Based Showcase" section) mein mobile pe apni video dikhe, baaki devices pe 3 images loop chale
+- Downloads folder se video (`best shoes shop.mp4`, 701KB) project `attached_assets/best-shoes-shop.mp4` mein copy kiya
+- Home.tsx mein `useIsMobile` hook (768px breakpoint) + video import add kiya; Time-Based Showcase background mein mobile pe `<video autoPlay muted loop playsInline>`, desktop pe existing 3 images slideshow
+
+**Result:** Typecheck + production build pass — video `assets/best-shoes-shop-D65d_z3v.mp4` bundle mein copy hua. Mobile pe video, baaki devices pe 3 images loop.

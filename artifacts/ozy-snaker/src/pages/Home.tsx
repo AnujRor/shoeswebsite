@@ -4,6 +4,10 @@ import { ProductCard } from "@/components/ProductCard";
 import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useMemo, useState, useEffect, useRef, type CSSProperties } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+// Home showcase video — sirf mobile pe dikhta hai (desktop pe 3 image slideshow)
+import shopVideo from "@assets/best-shoes-shop.mp4";
 
 // The Classics slideshow images
 import classics1 from "@assets/1000058847_1785229670276.jpg";
@@ -172,6 +176,7 @@ export default function Home() {
   const { data: newArrivals } = useListNewArrivals();
   const { data: bestSellers } = useListBestSellers();
   const { data: stats } = useGetStoreStats();
+  const isMobile = useIsMobile();
 
   const fallbacks = [product1, product2, product3];
 
@@ -290,22 +295,34 @@ export default function Home() {
 
       {/* Time-Based Showcase */}
       <section className="py-24 md:py-40 relative overflow-hidden">
-        {/* Looping image slideshow background */}
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={slideIndex}
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            style={{
-              backgroundImage: `url(${hotDropImages[slideIndex]})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
+        {/* Looping slideshow background — mobile pe video, desktop pe 3 images */}
+        {isMobile ? (
+          <video
+            className="absolute inset-0 z-0 h-full w-full object-cover"
+            src={shopVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
           />
-        </AnimatePresence>
+        ) : (
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={slideIndex}
+              className="absolute inset-0 z-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              style={{
+                backgroundImage: `url(${hotDropImages[slideIndex]})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            />
+          </AnimatePresence>
+        )}
         <div className="absolute inset-0 z-0 bg-black/60" />
         <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div 

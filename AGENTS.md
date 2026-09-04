@@ -465,4 +465,16 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Typecheck pass (api-server, mockup-sandbox, scripts, ozy-snaker sab green)
 
 ---
+### 42. Home showcase video — sirf mobile pe video, baaki devices pe 3 images loop
+**Date:** 2026-09-04
+- User request: home page ke loop slideshow mein ("Time-Based Showcase" section) **mobile pe** apni "best shoes shop" video dikhni chahiye, aur **baaki devices (PC/laptop/tablet/iPad/panel) pe** wahi 3 images loop chalti rahe
+- `C:\Users\zed kign\Downloads\best shoes shop.mp4` (701KB) ko project `attached_assets/best-shoes-shop.mp4` mein copy kiya
+- `Home.tsx` mein:
+  - `import shopVideo from "@assets/best-shoes-shop.mp4"` add kiya
+  - `useIsMobile` hook import + `const isMobile = useIsMobile()` (768px breakpoint — mobile = <768px)
+  - Time-Based Showcase background mein `isMobile ? <video autoPlay muted loop playsInline> : <AnimatePresence images slideshow>` — mobile pe video loop, desktop pe 3 images slideshow (existing)
+- Typecheck pass; production build run kiya — video bundle mein copy hua (`assets/best-shoes-shop-D65d_z3v.mp4` 701KB)
+- Note: video muted + loop + autoplay hai (browser autoplay policy ke liye) — sirf mobile par background ke roop mein chalta hai, koi sound nahi
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

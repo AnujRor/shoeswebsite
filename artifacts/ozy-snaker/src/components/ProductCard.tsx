@@ -32,7 +32,7 @@ export function ProductCard({ product, className, imageFallback }: ProductCardPr
         <div className="w-full h-full p-6 flex items-center justify-center relative">
           <img 
             src={imageUrl} 
-            alt={product.name}
+            alt={`${product.name} - ${product.category} shoes at Ozy Sneakers Pundri Kaithal`}
             className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-xl"
             loading="lazy"
           />

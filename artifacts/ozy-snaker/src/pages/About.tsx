@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useListCategories } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 import heroBg from "@assets/generated_images/hero-bg.jpg";
 import catRunning from "@assets/generated_images/cat-running.jpg";
@@ -27,6 +28,12 @@ export default function About() {
 
   return (
     <div className="flex flex-col w-full">
+      {/* SEO */}
+      <Helmet>
+        <title>Best Shoe Shop in Pundri Kaithal | About Ozy Sneakers</title>
+        <meta name="title" content="Best Shoe Shop in Pundri Kaithal | About Ozy Sneakers" />
+        <meta name="description" content="Ozy Sneakers is known as one of the best shoe shops in Pundri, Kaithal, Haryana - trusted for genuine quality shoes and fair prices since our start." />
+      </Helmet>
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center bg-black overflow-hidden">
         <div 

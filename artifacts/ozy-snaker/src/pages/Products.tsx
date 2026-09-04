@@ -4,6 +4,7 @@ import { useListProducts, useListCategories, useListBrands } from "@workspace/ap
 import { ProductCard } from "@/components/ProductCard";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 
 import product1 from "@assets/generated_images/product-1.png";
 import product2 from "@assets/generated_images/product-2.png";
@@ -44,6 +45,12 @@ export default function Products() {
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-12">
+      {/* SEO */}
+      <Helmet>
+        <title>Buy Shoes Online in Kaithal | Sports Shoes, Sneakers & Casuals – Ozy Sneakers</title>
+        <meta name="title" content="Buy Shoes Online in Kaithal | Sports Shoes, Sneakers & Casuals – Ozy Sneakers" />
+        <meta name="description" content="Want to buy shoes in Kaithal or Pundri? Browse sports shoes, sneakers, casual and formal shoes at Ozy Sneakers - genuine quality, all sizes available for men and women." />
+      </Helmet>
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6 border-b border-border pb-8">
         <div>

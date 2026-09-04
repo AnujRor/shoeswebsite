@@ -352,3 +352,25 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - Home.tsx mein `useIsMobile` hook (768px breakpoint) + video import add kiya; Time-Based Showcase background mein mobile pe `<video autoPlay muted loop playsInline>`, desktop pe existing 3 images slideshow
 
 **Result:** Typecheck + production build pass — video `assets/best-shoes-shop-D65d_z3v.mp4` bundle mein copy hua. Mobile pe video, baaki devices pe 3 images loop.
+
+---
+
+### 44. Full SEO setup (Helmet + meta tags + JSON-LD + robots/sitemap)
+**Date:** 2026-09-04  
+**Kya kiya:**
+- `SEO.md` (root) banaya — 5 sections (Home, Collection, Gallery, About, Contact) each with exact Meta Title + Meta Description (user de diye the, verbatim use kiye)
+- `react-helmet-async@2.0.5` add kiya `artifacts/ozy-snaker/package.json` mein + `pnpm install --ignore-scripts --filter @workspace/ozy-snaker` se install (root preinstall Unix-only hai isliye `--ignore-scripts` zaroori tha)
+- `App.tsx` — poora app `<HelmetProvider>` se wrap kiya
+- Helmet blocks (per page) add kiye:
+  - `Home.tsx` — Home meta + JSON-LD `ShoeStore` structured data (Business: "Ozy Sneakers", address "Pundri, Kaithal, Haryana", geo coords, opening hours, WhatsApp phone)
+  - `Products.tsx` (`/products`) — Collection meta
+  - `ShoesCategory.tsx` (`/shoes`) — Collection meta (navbar "Collection" → `/shoes`)
+  - `Gallery.tsx` — Gallery meta
+  - `About.tsx` — About meta
+  - `Contact.tsx` — Contact meta
+  - `ProductDetail.tsx` — dynamic meta (`product.name | Ozy Sneakers Pundri Kaithal`)
+- `robots.txt` update kiya (Allow all + Sitemap reference) aur `sitemap.xml` banaya — dono `public/` mein; host `https://ozy-sneakers-frontend.vercel.app`
+- Product images pe descriptive alt text (shoe type + "Ozy Sneakers Pundri Kaithal") — ProductCard, ProductDetail, Cart, Home classics, ShoesCategory, Gallery
+- Design system untouched — sirf SEO meta added, koi visual change nahi
+
+**Result:** Typecheck pass (api-server, mockup-sandbox, scripts, ozy-snaker sab green); production build pass (~1m11s) — naya bundle `index-B1FsKDw0.js` bana; `robots.txt` + `sitemap.xml` dist/public mein copy verified. Har page pe ab unique title/description + Home pe JSON-LD hai.

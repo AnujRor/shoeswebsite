@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.png";
 
 // Brand images
@@ -60,6 +61,12 @@ export default function ShoesCategory() {
 
   return (
     <div className="flex flex-col w-full">
+      {/* SEO */}
+      <Helmet>
+        <title>Buy Shoes Online in Kaithal | Sports Shoes, Sneakers & Casuals – Ozy Sneakers</title>
+        <meta name="title" content="Buy Shoes Online in Kaithal | Sports Shoes, Sneakers & Casuals – Ozy Sneakers" />
+        <meta name="description" content="Want to buy shoes in Kaithal or Pundri? Browse sports shoes, sneakers, casual and formal shoes at Ozy Sneakers - genuine quality, all sizes available for men and women." />
+      </Helmet>
       {/* Hero Banner */}
       <section className="relative h-[45vh] min-h-[300px] w-full flex items-end bg-black overflow-hidden">
         <div
@@ -181,7 +188,7 @@ export default function ShoesCategory() {
                   <div className="relative bg-secondary/20 aspect-square overflow-hidden border border-transparent group-hover:border-accent transition-colors duration-300">
                     <img
                       src={img}
-                      alt={`${section.brand} ${iIdx + 1}`}
+                      alt={`${section.brand} shoes ${iIdx + 1} - Ozy Sneakers Pundri Kaithal`}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />

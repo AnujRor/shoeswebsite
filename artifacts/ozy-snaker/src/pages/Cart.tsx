@@ -158,7 +158,7 @@ export default function Cart() {
             {cart.items.map((item) => (
               <div key={item.id} className="flex flex-col sm:flex-row gap-6 p-4 border border-border bg-card relative group">
                 <div className="w-28 sm:w-32 aspect-square bg-secondary/30 flex-shrink-0 flex items-center justify-center p-2 self-start">
-                  <img src={item.productImageUrl} alt={item.productName} className="w-full h-full object-contain" />
+                  <img src={item.productImageUrl} alt={`${item.productName} at Ozy Sneakers Pundri Kaithal`} className="w-full h-full object-contain" />
                 </div>
                 
                 <div className="flex-1 flex flex-col justify-between py-1">

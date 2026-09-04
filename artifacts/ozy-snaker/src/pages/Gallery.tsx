@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 // ─── ADD YOUR IMAGES HERE ───────────────────────────────────────────────────
 // Sirf image ka path likho. New image add karni ho to:
@@ -81,6 +82,12 @@ const fadeInUp = {
 export default function Gallery() {
   return (
     <div className="flex flex-col w-full">
+      {/* SEO */}
+      <Helmet>
+        <title>Latest Shoe Designs & New Arrivals | Ozy Sneakers Pundri</title>
+        <meta name="title" content="Latest Shoe Designs & New Arrivals | Ozy Sneakers Pundri" />
+        <meta name="description" content="Check out new shoe designs, latest sneakers and trending footwear styles available at Ozy Sneakers, Pundri, Kaithal. New stock updated regularly." />
+      </Helmet>
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[320px] flex items-center justify-center overflow-hidden">
         {/* Background layers */}
@@ -166,7 +173,7 @@ export default function Gallery() {
               {item.type === "image" ? (
                 <img
                   src={item.src}
-                  alt={`Gallery ${i + 1}`}
+                  alt={`Shoe design ${i + 1} - Ozy Sneakers Pundri Kaithal`}
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />

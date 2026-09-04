@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 import slide1 from "@assets/1000057729_1784960566860.jpg";
 import slide2 from "@assets/1000057600_1784960566862.jpg";
@@ -88,6 +89,12 @@ export default function Contact() {
 
   return (
     <div className="flex flex-col w-full">
+      {/* SEO */}
+      <Helmet>
+        <title>Ozy Sneakers Contact Number & Address | Pundri, Kaithal</title>
+        <meta name="title" content="Ozy Sneakers Contact Number & Address | Pundri, Kaithal" />
+        <meta name="description" content="Need shoe shop contact details in Pundri, Kaithal? Call or WhatsApp Ozy Sneakers for shoe availability, price and store address." />
+      </Helmet>
       {/* Hero header with looping slideshow background */}
       <section className="relative py-24 md:py-44 overflow-hidden flex items-center justify-center">
         {/* Looping image slideshow */}

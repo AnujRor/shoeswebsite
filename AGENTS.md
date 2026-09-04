@@ -477,4 +477,23 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Note: video muted + loop + autoplay hai (browser autoplay policy ke liye) — sirf mobile par background ke roop mein chalta hai, koi sound nahi
 
 ---
+### 43. Full SEO setup (Helmet + meta tags + JSON-LD + robots/sitemap)
+**Date:** 2026-09-04
+- User request: website ka full SEO setup — `SEO.md` banao, `react-helmet-async` install karo, har page pe Helmet blocks (meta title/description) daalo, `robots.txt` + `sitemap.xml` banao, Home pe JSON-LD structured data, aur product images pe descriptive alt text
+- **`SEO.md`** (root) banaya — 5 sections (Home, Collection, Gallery, About, Contact) each with exact Meta Title + Meta Description (user de diye the, verbatim use kiye)
+- **`react-helmet-async@2.0.5`** add kiya `artifacts/ozy-snaker/package.json` mein + `pnpm install --ignore-scripts --filter @workspace/ozy-snaker` se install (root preinstall Unix-only hai isliye `--ignore-scripts` zaroori tha)
+- **`App.tsx`** — poora app `<HelmetProvider>` se wrap kiya
+- **Helmet blocks** (per page):
+  - `Home.tsx` — Home meta + **JSON-LD `ShoeStore` structured data** (Business: "Ozy Sneakers", address "Pundri, Kaithal, Haryana", geo coords, opening hours, WhatsApp phone)
+  - `Products.tsx` (`/products`) — Collection meta
+  - `ShoesCategory.tsx` (`/shoes`) — Collection meta (navbar "Collection" → `/shoes`)
+  - `Gallery.tsx` — Gallery meta
+  - `About.tsx` — About meta
+  - `Contact.tsx` — Contact meta
+  - `ProductDetail.tsx` — dynamic meta (`product.name | Ozy Sneakers Pundri Kaithal`)
+- **File locations**: SEO.md root; package.json; App.tsx + pages (HelmetProvider/Helmet)
+- **Design system untouched** — sirf SEO meta added, koi visual change nahi
+- **Typecheck pass** (api-server, mockup-sandbox, scripts, ozy-snaker); **production build pass** (~1m11s) — naya bundle `index-B1FsKDw0.js` + navbar pe robots.txt/sitemap.xml copy verified
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

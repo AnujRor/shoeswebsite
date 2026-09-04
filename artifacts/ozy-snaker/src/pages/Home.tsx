@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useMemo, useState, useEffect, useRef, type CSSProperties } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Helmet } from "react-helmet-async";
 
 // Home showcase video — sirf mobile pe dikhta hai (desktop pe 3 image slideshow)
 import shopVideo from "@assets/best-shoes-shop.mp4";
@@ -238,6 +239,34 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full">
+      {/* SEO */}
+      <Helmet>
+        <title>Shoe Shop in Pundri Kaithal | Ozy Sneakers – Sports, Casual & Formal Shoes</title>
+        <meta name="title" content="Shoe Shop in Pundri Kaithal | Ozy Sneakers – Sports, Casual & Formal Shoes" />
+        <meta name="description" content="Looking for a shoe shop near Pundri, Kaithal? Ozy Sneakers has sports shoes, sneakers, casual shoes and formal shoes for men, women and kids. Best shoe store in Kaithal, Haryana." />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ShoeStore",
+            "name": "Ozy Sneakers",
+            "image": "",
+            "url": "https://ozy-sneakers-frontend.vercel.app",
+            "telephone": "+91-79000-51580",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Pundri",
+              "addressLocality": "Pundri",
+              "addressRegion": "Kaithal",
+              "addressCountry": "IN"
+            },
+            "addressLocality": "Pundri",
+            "addressRegion": "Kaithal",
+            "description": "Ozy Sneakers is a shoe shop in Pundri, Kaithal, Haryana offering genuine sports shoes, sneakers, casual shoes and formal shoes for men, women and kids.",
+            "openingHours": "Mo-Fr 09:00-20:00"
+          })}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="relative h-[95vh] min-h-[500px] sm:min-h-[600px] w-full flex items-end bg-black overflow-hidden">
         <div 
@@ -447,7 +476,7 @@ export default function Home() {
               >
                 <img
                   src={img}
-                  alt={`Classic ${(i % classicsImages.length) + 1}`}
+                  alt={`Classic shoes ${(i % classicsImages.length) + 1} - Ozy Sneakers Pundri Kaithal`}
                   className="w-full h-full object-cover"
                   draggable={false}
                 />

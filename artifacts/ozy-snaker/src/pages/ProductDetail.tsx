@@ -4,6 +4,7 @@ import { useGetProduct, useAddToCart } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Check, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 
 import product1 from "@assets/generated_images/product-1.png";
 
@@ -70,6 +71,12 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-8 md:py-16">
+      {/* SEO */}
+      <Helmet>
+        <title>{product.name} | Ozy Sneakers Pundri Kaithal</title>
+        <meta name="title" content={`${product.name} | Ozy Sneakers Pundri Kaithal`} />
+        <meta name="description" content={`${product.name} at Ozy Sneakers Pundri Kaithal - genuine quality ${product.category} shoes. Visit our shoe shop in Pundri, Kaithal, Haryana.`} />
+      </Helmet>
       {/* Breadcrumbs */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium mb-8">
         <Link href="/" className="hover:text-primary transition-colors">Home</Link>
@@ -90,18 +97,18 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             )}
             <img 
               src={imageUrl} 
-              alt={product.name} 
+              alt={`${product.name} - ${product.category} shoes at Ozy Sneakers Pundri Kaithal`}
               className="w-full h-full object-contain drop-shadow-2xl"
             />
           </div>
           {product.images && product.images.length > 0 && (
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
               <div className="bg-secondary/30 aspect-square p-2 border-2 border-primary cursor-pointer">
-                <img src={imageUrl} alt="" className="w-full h-full object-contain" />
+                <img src={imageUrl} alt={`${product.name} view at Ozy Sneakers Pundri Kaithal`} className="w-full h-full object-contain" />
               </div>
               {product.images.slice(0,3).map((img, i) => (
                 <div key={i} className="bg-secondary/30 aspect-square p-2 border border-transparent hover:border-border cursor-pointer transition-colors">
-                  <img src={img} alt="" className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity" />
+                  <img src={img} alt={`${product.name} - extra view ${i + 2} at Ozy Sneakers Pundri Kaithal`} className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity" />
                 </div>
               ))}
             </div>

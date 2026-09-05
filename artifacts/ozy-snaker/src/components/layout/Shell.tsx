@@ -4,7 +4,7 @@ import { ChatBot } from "../ChatBot";
 import { ReactNode } from "react";
 
 const WHATSAPP_NUMBER = "917900051580"; // +91 79000-51580
-const INSTAGRAM_USER = "Ozy_sneakers1223";
+const INSTAGRAM_USER = "ozy_sneakers";
 const MAPS_URL = "https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99";
 
 export function Shell({ children }: { children: ReactNode }) {

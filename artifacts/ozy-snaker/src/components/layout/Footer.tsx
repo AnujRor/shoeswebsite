@@ -10,7 +10,7 @@ const navLinks = [
 ];
 
 const WHATSAPP_NUMBER = "917900051580";
-const INSTAGRAM_USER = "Ozy_sneakers1223";
+const INSTAGRAM_USER = "ozy_sneakers";
 const MAPS_URL = "https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99";
 
 const connectLinks = [

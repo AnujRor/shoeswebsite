@@ -16,7 +16,7 @@ const SYSTEM_PROMPT = `Tum OZY Sneakers website ke customer support assistant ho
 
 OZY Sneakers ke baare mein yeh information hai:
 - Premium quality sneakers ki ek brand hai
-- Instagram: Ozy_sneakers1223
+- Instagram: ozy_sneakers
 - WhatsApp: 79000-51580 aur 90534-74158
 - Brands: Nike, Onitsuka Tiger aur aur bhi
 - Products: running shoes, casual sneakers, lifestyle footwear

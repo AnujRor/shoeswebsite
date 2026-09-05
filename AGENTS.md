@@ -511,4 +511,16 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - **Typecheck pass** (api-server, mockup-sandbox, scripts, ozy-snaker sab green)
 
 ---
+### 45. Instagram link fix (galat handle the)
+**Date:** 2026-09-05
+- User: website ke Instagram icon ka kaam nahi kar raha tha — profile khul nahi rahi thi
+- Diagnosis: code mein handle `Ozy_sneakers1223` tha par user ka asli handle **`ozy_sneakers`** hai (profile 404 de raha tha); `https://www.instagram.com/ozy_sneakers` → HTTP 200 (exists)
+- Update kiya (sirf ASCII handle):
+  - `Shell.tsx` + `Footer.tsx` — `INSTAGRAM_USER = "Ozy_sneakers1223"` → `"ozy_sneakers"`
+  - `chat.ts` system prompt mein Instagram mention bhi update (`Ozy_sneakers1223` → `ozy_sneakers`)
+- Live deployed bundle check — purane handle missing hoga, naya deploy ke baad fix live
+- Note: deploy ke liye Vercel/frontend + Render/API push karna hai
+- Typecheck pass
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

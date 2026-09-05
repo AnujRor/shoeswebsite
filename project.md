@@ -392,3 +392,15 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - JSON-LD, alt text, robots.txt, sitemap.xml — already correct, untouched
 
 **Result:** Typecheck pass (api-server, mockup-sandbox, scripts, ozy-snaker sab green). Har page pe ab exact meta title/description/keywords + Helmet load se pehle bhi sahi default title dikhta hai.
+
+---
+
+### 46. Instagram link fix (galat handle the)
+**Date:** 2026-09-05  
+**Kya kiya:**
+- User ne bataya ki website ke Instagram icon se profile nahi khul rahi
+- Diagnosis: code mein handle `Ozy_sneakers1223` tha par asli handle **`ozy_sneakers`** hai — `https://www.instagram.com/ozy_sneakers` HTTP 200 (profile exists), purana handle profile nahi dikhata tha
+- Update kiye: `Shell.tsx` + `Footer.tsx` (`INSTAGRAM_USER` → `"ozy_sneakers"`) aur `chat.ts` system prompt mein Instagram mention
+- Purana deployed bundle (`index-J4iDhpQG.js`) mein ab bhi purana handle tha — naya deploy baad mein live hoga
+
+**Result:** Typecheck pass (sab green). Fix live hone ke liye frontend (Vercel) + API (Render) deploy karna hai.

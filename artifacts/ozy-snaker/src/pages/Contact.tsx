@@ -91,9 +91,10 @@ export default function Contact() {
     <div className="flex flex-col w-full">
       {/* SEO */}
       <Helmet>
-        <title>Ozy Sneakers Contact Number & Address | Pundri, Kaithal</title>
-        <meta name="title" content="Ozy Sneakers Contact Number & Address | Pundri, Kaithal" />
-        <meta name="description" content="Need shoe shop contact details in Pundri, Kaithal? Call or WhatsApp Ozy Sneakers for shoe availability, price and store address." />
+        <title>Ozy Sneakers Number aur Address – Pundri, Kaithal</title>
+        <meta name="title" content="Ozy Sneakers Number aur Address – Pundri, Kaithal" />
+        <meta name="description" content="Shoe shop ka number ya address chahiye? Ozy Sneakers ko call karo ya WhatsApp karo - Pundri, Kaithal mein hi dukan hai." />
+        <meta name="keywords" content="shoe shop number, dukan ka address, WhatsApp order shoes, shoe shop contact Pundri" />
       </Helmet>
       {/* Hero header with looping slideshow background */}
       <section className="relative py-24 md:py-44 overflow-hidden flex items-center justify-center">

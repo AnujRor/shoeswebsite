@@ -30,9 +30,10 @@ export default function About() {
     <div className="flex flex-col w-full">
       {/* SEO */}
       <Helmet>
-        <title>Best Shoe Shop in Pundri Kaithal | About Ozy Sneakers</title>
-        <meta name="title" content="Best Shoe Shop in Pundri Kaithal | About Ozy Sneakers" />
-        <meta name="description" content="Ozy Sneakers is known as one of the best shoe shops in Pundri, Kaithal, Haryana - trusted for genuine quality shoes and fair prices since our start." />
+        <title>Ozy Sneakers Ke Baare Mein – Pundri Ki Shoe Dukan</title>
+        <meta name="title" content="Ozy Sneakers Ke Baare Mein – Pundri Ki Shoe Dukan" />
+        <meta name="description" content="Ozy Sneakers Pundri, Kaithal ki ek bharosemand shoe dukan hai. Genuine quality, sahi daam - hamesha customer ko khush rakhne ki koshish." />
+        <meta name="keywords" content="bharosemand shoe dukan, genuine shoes Kaithal, achhi dukan shoes ki" />
       </Helmet>
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center bg-black overflow-hidden">

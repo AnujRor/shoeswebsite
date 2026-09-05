@@ -496,4 +496,19 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - **Typecheck pass** (api-server, mockup-sandbox, scripts, ozy-snaker); **production build pass** (~1m11s) — naya bundle `index-B1FsKDw0.js` + navbar pe robots.txt/sitemap.xml copy verified
 
 ---
+### 44. SEO meta exact values update (keywords + seedha implement)
+**Date:** 2026-09-05
+- Stepwise check kiya — `react-helmet-async@2.0.5` + `HelmetProvider`, har page ke Helmet blocks, `robots.txt`, `sitemap.xml`, Home pe JSON-LD `ShoeStore`, product image alt text — sab already maujood the; koi duplicate/naya file nahi banayi
+- **Helmet titles + descriptions** ko user ke exact new values se replace kiya (verbatim) aur har page mein **`keywords` meta add** kiya:
+  - `Home.tsx` — "Ozy Sneakers – Shoes Shop Near Pundri, Kaithal" + keywords (shoes shop near me, juta dukan Pundri, …)
+  - `Products.tsx` + `ShoesCategory.tsx` (Collection) — "Shoes Available – Sports, Casual, Formal | Ozy Sneakers" + keywords
+  - `Gallery.tsx` — "Naye Shoes Design Dekho – Ozy Sneakers Pundri" + keywords
+  - `About.tsx` — "Ozy Sneakers Ke Baare Mein – Pundri Ki Shoe Dukan" + keywords
+  - `Contact.tsx` — "Ozy Sneakers Number aur Address – Pundri, Kaithal" + keywords
+  - `ProductDetail.tsx` — dynamic title/desc same rakhe + keywords add (`product.name`, category, "shoe shop Pundri Kaithal")
+- `index.html` — `<title>` (pehle "Ozy Sneakers — Step Into Style") → Home meta title; `og:title/description` + `twitter:title/description` bhi same Home values pe consistent kiye (keywords + title/description meta bhi add)
+- JSON-LD, alt text, robots.txt, sitemap.xml — already correct, untouched
+- **Typecheck pass** (api-server, mockup-sandbox, scripts, ozy-snaker sab green)
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

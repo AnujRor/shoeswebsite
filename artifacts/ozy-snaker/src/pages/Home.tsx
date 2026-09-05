@@ -241,9 +241,10 @@ export default function Home() {
     <div className="flex flex-col w-full">
       {/* SEO */}
       <Helmet>
-        <title>Shoe Shop in Pundri Kaithal | Ozy Sneakers – Sports, Casual & Formal Shoes</title>
-        <meta name="title" content="Shoe Shop in Pundri Kaithal | Ozy Sneakers – Sports, Casual & Formal Shoes" />
-        <meta name="description" content="Looking for a shoe shop near Pundri, Kaithal? Ozy Sneakers has sports shoes, sneakers, casual shoes and formal shoes for men, women and kids. Best shoe store in Kaithal, Haryana." />
+        <title>Ozy Sneakers – Shoes Shop Near Pundri, Kaithal</title>
+        <meta name="title" content="Ozy Sneakers – Shoes Shop Near Pundri, Kaithal" />
+        <meta name="description" content="Shoes shop in Pundri, Kaithal. Sports shoes, sneakers, casual shoes - sab kuch ek jagah. Best price, genuine quality. Call ya WhatsApp karke order karein." />
+        <meta name="keywords" content="shoes shop near me, juta dukan Pundri, shoe shop Kaithal, sneakers wali dukan, sasty shoes Kaithal, shoes ki dukan" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

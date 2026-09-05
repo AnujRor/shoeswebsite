@@ -63,9 +63,10 @@ export default function ShoesCategory() {
     <div className="flex flex-col w-full">
       {/* SEO */}
       <Helmet>
-        <title>Buy Shoes Online in Kaithal | Sports Shoes, Sneakers & Casuals – Ozy Sneakers</title>
-        <meta name="title" content="Buy Shoes Online in Kaithal | Sports Shoes, Sneakers & Casuals – Ozy Sneakers" />
-        <meta name="description" content="Want to buy shoes in Kaithal or Pundri? Browse sports shoes, sneakers, casual and formal shoes at Ozy Sneakers - genuine quality, all sizes available for men and women." />
+        <title>Shoes Available – Sports, Casual, Formal | Ozy Sneakers</title>
+        <meta name="title" content="Shoes Available – Sports, Casual, Formal | Ozy Sneakers" />
+        <meta name="description" content="Sports shoes, sneakers, casual shoes, formal shoes - har type ke shoes yahan milenge. Men, women, kids sabke liye. Ozy Sneakers, Pundri, Kaithal." />
+        <meta name="keywords" content="sports shoes wale, sneakers kahan milte hai, formal shoes shop, kids shoes Kaithal, shoes for men women" />
       </Helmet>
       {/* Hero Banner */}
       <section className="relative h-[45vh] min-h-[300px] w-full flex items-end bg-black overflow-hidden">

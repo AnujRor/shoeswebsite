@@ -84,9 +84,10 @@ export default function Gallery() {
     <div className="flex flex-col w-full">
       {/* SEO */}
       <Helmet>
-        <title>Latest Shoe Designs & New Arrivals | Ozy Sneakers Pundri</title>
-        <meta name="title" content="Latest Shoe Designs & New Arrivals | Ozy Sneakers Pundri" />
-        <meta name="description" content="Check out new shoe designs, latest sneakers and trending footwear styles available at Ozy Sneakers, Pundri, Kaithal. New stock updated regularly." />
+        <title>Naye Shoes Design Dekho – Ozy Sneakers Pundri</title>
+        <meta name="title" content="Naye Shoes Design Dekho – Ozy Sneakers Pundri" />
+        <meta name="description" content="New shoes aur latest design dekhne ke liye Ozy Sneakers ki gallery dekho. Naya stock aata rehta hai Pundri, Kaithal ki dukan mein." />
+        <meta name="keywords" content="naye shoes design, latest shoes 2026, new sneakers, shoe design dekhna" />
       </Helmet>
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[320px] flex items-center justify-center overflow-hidden">

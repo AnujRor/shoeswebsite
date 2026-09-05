@@ -76,6 +76,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
         <title>{product.name} | Ozy Sneakers Pundri Kaithal</title>
         <meta name="title" content={`${product.name} | Ozy Sneakers Pundri Kaithal`} />
         <meta name="description" content={`${product.name} at Ozy Sneakers Pundri Kaithal - genuine quality ${product.category} shoes. Visit our shoe shop in Pundri, Kaithal, Haryana.`} />
+        <meta name="keywords" content={`${product.name}, ${product.category} shoes, shoe shop Pundri Kaithal, Ozy Sneakers`} />
       </Helmet>
       {/* Breadcrumbs */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium mb-8">

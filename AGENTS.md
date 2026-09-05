@@ -523,4 +523,12 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Typecheck pass
 
 ---
+### 46. Mobile hero image (sirf mobile pe shop photo)
+**Date:** 2026-09-05
+- User request: hero section mein apni shop ki photo mobile pe dikhe, baaki devices pe purana hero image hi rahe — bilkul vaise hi jaise Time-Based Showcase mein mobile-only video (`isMobile` pattern)
+- `Downloads/best shoes shop.png` (862x1824 portrait, 1.29MB) ko `attached_assets/best-shoes-shop.png` mein copy kiya
+- `Home.tsx` mein `shopHeroImg` import add kiya; hero background ab `isMobile ? shopHeroImg : heroBg` (mobile pe photo + `center` position, desktop pe top-center wala `heroBg`) — dark gradient overlay + OZY SNEAKERS text same rakhe
+- Typecheck pass (sab green)
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

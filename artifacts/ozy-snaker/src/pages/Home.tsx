@@ -115,6 +115,7 @@ const customerReviewsRow2: CustomerReview[] = [
 
 // Image imports
 import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.png";
+import shopHeroImg from "@assets/best-shoes-shop.png";
 import statsBg from "@assets/image_1784883327092.png";
 import catRunning from "@assets/generated_images/cat-running.jpg";
 import catBasketball from "@assets/generated_images/cat-basketball.jpg";
@@ -270,11 +271,12 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative h-[95vh] min-h-[500px] sm:min-h-[600px] w-full flex items-end bg-black overflow-hidden">
+        {/* Hero background — mobile pe shop photo, baaki devices pe existing hero image */}
         <div 
           className="absolute inset-0 z-0"
           style={{ 
-            backgroundImage: `url(${heroBg})`, 
-            backgroundPosition: 'top center', 
+            backgroundImage: `url(${isMobile ? shopHeroImg : heroBg})`, 
+            backgroundPosition: isMobile ? 'center' : 'top center', 
             backgroundSize: 'cover' 
           }}
         />

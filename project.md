@@ -404,3 +404,14 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - Purana deployed bundle (`index-J4iDhpQG.js`) mein ab bhi purana handle tha — naya deploy baad mein live hoga
 
 **Result:** Typecheck pass (sab green). Fix live hone ke liye frontend (Vercel) + API (Render) deploy karna hai.
+
+---
+
+### 47. Mobile hero image (sirf mobile pe shop photo)
+**Date:** 2026-09-05  
+**Kya kiya:**
+- User request: hero section mein shop ki photo sirf mobile pe dikhe, baaki devices pe purana hero image rahe — Time-Based Showcase wale mobile-only video jaisa hi `isMobile` pattern
+- `Downloads/best shoes shop.png` (862x1824 portrait) ko `attached_assets/best-shoes-shop.png` mein copy kiya
+- `Home.tsx` — `shopHeroImg` import + hero background `isMobile ? shopHeroImg : heroBg` (mobile `center`, desktop `top center`); gradient overlay + text same rakhe
+
+**Result:** Typecheck pass (sab green). Ab sirf mobile (<768px) pe hero mein shop photo dikhti hai; desktop/laptop/tablet pe purani image.

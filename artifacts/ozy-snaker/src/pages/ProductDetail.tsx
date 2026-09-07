@@ -6,7 +6,7 @@ import { ArrowLeft, Check, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
 
-import product1 from "@assets/generated_images/product-1.png";
+import product1 from "@assets/generated_images/product-1.webp";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -105,11 +105,11 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
           {product.images && product.images.length > 0 && (
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
               <div className="bg-secondary/30 aspect-square p-2 border-2 border-primary cursor-pointer">
-                <img src={imageUrl} alt={`${product.name} view at Ozy Sneakers Pundri Kaithal`} className="w-full h-full object-contain" />
+                <img src={imageUrl} alt={`${product.name} view at Ozy Sneakers Pundri Kaithal`} className="w-full h-full object-contain" loading="lazy" decoding="async" />
               </div>
               {product.images.slice(0,3).map((img, i) => (
                 <div key={i} className="bg-secondary/30 aspect-square p-2 border border-transparent hover:border-border cursor-pointer transition-colors">
-                  <img src={img} alt={`${product.name} - extra view ${i + 2} at Ozy Sneakers Pundri Kaithal`} className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity" />
+                  <img src={img} alt={`${product.name} - extra view ${i + 2} at Ozy Sneakers Pundri Kaithal`} className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity" loading="lazy" decoding="async" />
                 </div>
               ))}
             </div>

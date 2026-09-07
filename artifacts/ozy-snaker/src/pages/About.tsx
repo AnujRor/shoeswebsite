@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
-import heroBg from "@assets/generated_images/hero-bg.jpg";
+import heroBg from "@assets/generated_images/hero-bg.webp";
 import catRunning from "@assets/generated_images/cat-running.jpg";
-import catBasketball from "@assets/generated_images/cat-basketball.jpg";
+import catBasketball from "@assets/generated_images/cat-basketball.webp";
 import catLifestyle from "@assets/generated_images/cat-lifestyle.jpg";
 import catTraining from "@assets/generated_images/cat-training.jpg";
 

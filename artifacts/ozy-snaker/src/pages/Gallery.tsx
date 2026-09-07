@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { Link } from "wouter";
 
 // ─── ADD YOUR IMAGES HERE ───────────────────────────────────────────────────
 // Sirf image ka path likho. New image add karni ho to:
@@ -8,29 +9,29 @@ import { Helmet } from "react-helmet-async";
 //  3. galleryItems array mein { type: "image", src: variable } add karo
 
 // Images
-import img11 from "@assets/1000058282_1784972900632.jpg";
+import img11 from "@assets/1000058282_1784972900632.webp";
 import img12 from "@assets/1000058284_1784972900635.jpg";
-import img13 from "@assets/1000058290_1784972900636.jpg";
-import img14 from "@assets/1000057604_1784972900638.jpg";
-import img15 from "@assets/1000057602_1784972900639.jpg";
+import img13 from "@assets/1000058290_1784972900636.webp";
+import img14 from "@assets/1000057604_1784972900638.webp";
+import img15 from "@assets/1000057602_1784972900639.webp";
 import img16 from "@assets/1000057606_1784972900640.jpg";
-import img17 from "@assets/1000058286_1784972900643.jpg";
-import img18 from "@assets/1000058280_1784972900645.jpg";
-import img19 from "@assets/1000058272_1784972900647.jpg";
-import img20 from "@assets/1000058274_1784972900649.jpg";
-import img21 from "@assets/1000058270_1784972900651.jpg";
-import img22 from "@assets/1000058262_1784972900652.jpg";
-import img23 from "@assets/1000058268_1784972900653.jpg";
-import img24 from "@assets/1000058264_1784972900655.jpg";
-import img25 from "@assets/1000058276_1784972900656.jpg";
-import img26 from "@assets/1000058260_1784972900658.jpg";
+import img17 from "@assets/1000058286_1784972900643.webp";
+import img18 from "@assets/1000058280_1784972900645.webp";
+import img19 from "@assets/1000058272_1784972900647.webp";
+import img20 from "@assets/1000058274_1784972900649.webp";
+import img21 from "@assets/1000058270_1784972900651.webp";
+import img22 from "@assets/1000058262_1784972900652.webp";
+import img23 from "@assets/1000058268_1784972900653.webp";
+import img24 from "@assets/1000058264_1784972900655.webp";
+import img25 from "@assets/1000058276_1784972900656.webp";
+import img26 from "@assets/1000058260_1784972900658.webp";
 import img27 from "@assets/1000058288_1784973470349.jpg";
-import img28 from "@assets/1000058302_1784973470350.jpg";
-import img29 from "@assets/1000058294_1784973470352.jpg";
+import img28 from "@assets/1000058302_1784973470350.webp";
+import img29 from "@assets/1000058294_1784973470352.webp";
 import img30 from "@assets/1000058296_1784973470353.jpg";
 import img31 from "@assets/1000058300_1784973470355.jpg";
-import img32 from "@assets/1000058292_1784973470356.jpg";
-import img33 from "@assets/1000058306_1784973470358.jpg";
+import img32 from "@assets/1000058292_1784973470356.webp";
+import img33 from "@assets/1000058306_1784973470358.webp";
 import img34 from "@assets/1000058298_1784973470359.jpg";
 import img35 from "@assets/1000058304_1784973470361.jpg";
 
@@ -195,6 +196,41 @@ export default function Gallery() {
           ))}
         </div>
       )}
+
+      {/* CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mt-16 md:mt-24 flex flex-col items-center justify-center gap-6 border-t border-border pt-12 md:pt-16 text-center"
+      >
+        <p className="font-mono font-bold uppercase tracking-widest text-accent">
+          Koi design pasand aaya?
+        </p>
+        <h2 className="font-display font-black text-3xl sm:text-5xl uppercase italic tracking-tight">
+          Order <span className="text-accent">on WhatsApp</span>
+        </h2>
+        <p className="max-w-xl text-lg text-muted-foreground font-medium">
+          New stock aata rehta hai — Pundri, Kaithal ki dukan pe try karein ya seedha WhatsApp pe order karein.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <a
+            href="https://wa.me/917900051580"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center bg-accent text-white font-display font-black uppercase tracking-widest px-8 py-4 text-lg hover:bg-primary transition-colors duration-300"
+          >
+            Order on WhatsApp
+          </a>
+          <Link
+            href="/shoes"
+            className="inline-flex items-center justify-center border border-primary text-primary font-display font-black uppercase tracking-widest px-8 py-4 text-lg hover:bg-accent hover:border-accent hover:text-white transition-colors duration-300"
+          >
+            View Collection
+          </Link>
+        </div>
+      </motion.div>
       </div>
     </div>
   );

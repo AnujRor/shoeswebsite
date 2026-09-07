@@ -531,4 +531,27 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Typecheck pass (sab green)
 
 ---
+### 48. Full On-Page SEO audit + fixes
+**Date:** 2026-09-07
+- User request: Ozy Sneakers frontend ka complete On-Page SEO audit + fix (Helmet meta ko touch nahi kiya)
+- **Audit findings (pehle se theek the):**
+  - Heading structure — har page pe exactly ek `<h1>` (Home/Products/ShoesCategory/Gallery/About/Contact/ProductDetail/Cart/not-found), H2/H3 subsections ke liye
+  - Image alt text — saare `<img>` pe descriptive alt hai (`... - Ozy Sneakers Pundri Kaithal`)
+  - Internal linking — Navbar + Footer sab `<Link>` (wouter) se, plain onClick wale links nahi
+  - Clean URLs — routes readable hain (`/`, `/shoes`, `/gallery`, `/about`, `/contact`, `/products/:id`)
+  - Mobile responsive — pehle se solid (task #41)
+  - HTTPS — koi hardcoded `http://` link nahi (sirf SVG `xmlns` namespace, jo link nahi)
+- **Fixes:**
+  - Page speed: `Home.tsx` classics strip imgs + `ProductDetail.tsx` thumbnail imgs + `Cart.tsx` cart item image pe `loading="lazy" decoding="async"` add
+  - CTA: `Gallery.tsx` pe CTA add kiya — "Order on WhatsApp" (wa.me/917900051580) + "View Collection" (`/shoes`) buttons (Gallery pe pehle koi CTA nahi tha)
+- Note: Home hero (`file_...png` ~1.9MB), product PNGs (~1.2-1.4MB each) heavy the — WebP conversion kiya, ekdum additive (below)
+- **WebP conversion (uaun "website pe koi effect nahi chahiye" — additive approach):**
+  - Har image ke saath nayi `.webp` sath banayi, originals (`attached_assets`) intact; sirf ozy-snaker ke imports shift kiye → baaki consumers (mockup-sandbox/API) tahat nahi
+  - Tool: **sharp@0.33.5** temp dir `C:\Users\zed kign\AppData\Local\Temp\opencode\imgconv` mein (root pnpm `preinstall` uses `sh` → Windows pe fail, isliye workspace ke bahar)
+  - PNGs: q90 effort6; JPGs: q88 effort4 (kuch files jahan webp bada tha wahan jpg hi rakha)
+  - **Result:** 20.59 MB -> 4.04 MB (saved **16.55 MB, 80.4%**); hero 1.91MB→224KB(88%), product PNGs ~1.3MB→40-115KB(92-97%), shopHero 1.29MB→130KB, statsBg 1.98MB→68KB, timeBg 3× (1.7-2MB)|(107-170KB)
+  - Dimensions pehle jaisi he same → layout/visual zero change; `dist` build mein ab koi PNG nahi
+- Typecheck + `vite build` pass (ozy-snaker); bundle warning (js 669KB >500KB) unimportant
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

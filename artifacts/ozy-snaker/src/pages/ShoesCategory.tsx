@@ -1,32 +1,32 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet-async";
-import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.png";
+import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.webp";
 
 // Brand images
-import jordan1 from "@assets/1000058838_1785227387159.jpg";
-import jordan2 from "@assets/1000058824_1785227387161.jpg";
-import jordan3 from "@assets/1000058799_1785227387168.jpg";
-import jordan4 from "@assets/1000058805_1785227387170.jpg";
-import jordan5 from "@assets/1000058802_1785227387171.jpg";
-import jordan6 from "@assets/1000058808_1785227387177.jpg";
-import jordan7 from "@assets/1000058838_1785228477266.jpg";
-import jordan8 from "@assets/1000058859_1785228477275.jpg";
-import jordanNew from "@assets/jordan_1.jpg";
+import jordan1 from "@assets/1000058838_1785227387159.webp";
+import jordan2 from "@assets/1000058824_1785227387161.webp";
+import jordan3 from "@assets/1000058799_1785227387168.webp";
+import jordan4 from "@assets/1000058805_1785227387170.webp";
+import jordan5 from "@assets/1000058802_1785227387171.webp";
+import jordan6 from "@assets/1000058808_1785227387177.webp";
+import jordan7 from "@assets/1000058838_1785228477266.webp";
+import jordan8 from "@assets/1000058859_1785228477275.webp";
+import jordanNew from "@assets/jordan_1.webp";
 import lv1 from "@assets/1000058820_1785227387165.jpg";
-import lv2 from "@assets/1000058817_1785227387167.jpg";
-import lv3 from "@assets/1000058796_1785227387175.jpg";
-import lv4 from "@assets/1000058844_1785228477268.jpg";
-import lv5 from "@assets/1000058850_1785228477269.jpg";
-import nikeImg from "@assets/1000058811_1785227387173.jpg";
-import nike2 from "@assets/1000058862_1785228477274.jpg";
-import nike3 from "@assets/1000058853_1785228477277.jpg";
+import lv2 from "@assets/1000058817_1785227387167.webp";
+import lv3 from "@assets/1000058796_1785227387175.webp";
+import lv4 from "@assets/1000058844_1785228477268.webp";
+import lv5 from "@assets/1000058850_1785228477269.webp";
+import nikeImg from "@assets/1000058811_1785227387173.webp";
+import nike2 from "@assets/1000058862_1785228477274.webp";
+import nike3 from "@assets/1000058853_1785228477277.webp";
 import nike4 from "@assets/1000058856_1785228477279.jpg";
 import nikeNew from "@assets/nike_new.jpg";
-import nbImg from "@assets/1000058814_1785227387174.jpg";
-import nb2 from "@assets/1000058847_1785228477272.jpg";
-import oniImg from "@assets/1000058832_1785227387164.jpg";
-import oni2 from "@assets/1000058841_1785228477270.jpg";
+import nbImg from "@assets/1000058814_1785227387174.webp";
+import nb2 from "@assets/1000058847_1785228477272.webp";
+import oniImg from "@assets/1000058832_1785227387164.webp";
+import oni2 from "@assets/1000058841_1785228477270.webp";
 
 const brandSections = [
   {

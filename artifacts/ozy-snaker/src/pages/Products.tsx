@@ -6,12 +6,12 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
 
-import product1 from "@assets/generated_images/product-1.png";
-import product2 from "@assets/generated_images/product-2.png";
-import product3 from "@assets/generated_images/product-3.png";
-import product4 from "@assets/generated_images/product-4.png";
-import product5 from "@assets/generated_images/product-5.png";
-import product6 from "@assets/generated_images/product-6.png";
+import product1 from "@assets/generated_images/product-1.webp";
+import product2 from "@assets/generated_images/product-2.webp";
+import product3 from "@assets/generated_images/product-3.webp";
+import product4 from "@assets/generated_images/product-4.webp";
+import product5 from "@assets/generated_images/product-5.webp";
+import product6 from "@assets/generated_images/product-6.webp";
 
 export default function Products() {
   const [location] = useLocation();

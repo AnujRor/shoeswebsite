@@ -415,3 +415,29 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - `Home.tsx` — `shopHeroImg` import + hero background `isMobile ? shopHeroImg : heroBg` (mobile `center`, desktop `top center`); gradient overlay + text same rakhe
 
 **Result:** Typecheck pass (sab green). Ab sirf mobile (<768px) pe hero mein shop photo dikhti hai; desktop/laptop/tablet pe purani image.
+
+---
+
+### 48. Full On-Page SEO audit + fixes
+**Date:** 2026-09-07  
+**Kya kiya:**
+- User request: Ozy Sneakers frontend ka complete On-Page SEO audit + fix (Helmet meta ko touch nahi kiya)
+- **Audit findings (pehle se theek the):**
+  - Heading structure � har page pe exactly ek `<h1>` (Home/Products/ShoesCategory/Gallery/About/Contact/ProductDetail/Cart/not-found), H2/H3 subsections ke liye
+  - Image alt text � saare `<img>` pe descriptive alt (`... - Ozy Sneakers Pundri Kaithal`)
+  - Internal linking � Navbar + Footer sab `<Link>` (wouter) se, plain onClick wale links nahi
+  - Clean URLs � routes readable (`/`, `/shoes`, `/gallery`, `/about`, `/contact`, `/products/:id`)
+  - Mobile responsive � pehle se solid (task #41)
+  - HTTPS � koi hardcoded `http://` link nahi (sirf SVG `xmlns` namespace, link nahi)
+- **Fixes:**
+  - Page speed: `Home.tsx` classics strip imgs + `ProductDetail.tsx` thumbnail imgs + `Cart.tsx` cart image pe `loading="lazy" decoding="async"` add
+  - CTA: `Gallery.tsx` pe CTA add (`Order on WhatsApp` + `View Collection`) � pehle Gallery pe koi CTA nahi tha
+- Note: Home hero PNG + product PNGs (~1.2-1.9MB) heavy the — WebP conversion ki, ekdum additive (neeeche)
+- **WebP conversion (user: "website pe koi effect nahi chahiye" — additive approach):**
+  - Har image ke saath nayi `.webp` sath banayi, originals (`attached_assets`) intact; sirf ozy-snaker imports shift kiye → baaki consumers (mockup-sandbox/API) toote nahi
+  - Tool: **sharp@0.33.5** temp dir `C:\Users\zed kign\AppData\Local\Temp\opencode\imgconv` mein (root pnpm preinstall Unix-only → Windows pe fail, isliye workspace ke bahar)
+  - PNGs: q90 effort6; JPGs: q88 effort4 (jahan webp bada tha wahan jpg hi rakha — e.g. cat-lifestyle/training, nike_new, 1000057606)
+  - **Result:** 20.59 MB → 4.04 MB (saved **16.55 MB, 80.4%**); hero 1.91MB→224KB(88%), product PNGs ~1.3MB→40-115KB(92-97%), shopHero 1.29MB→130KB, statsBg 1.98MB→68KB, timeBg 3× (107-170KB)
+  - Dimensions same → layout/visual zero change; `dist` build mein ab koi PNG nahi
+
+**Result:** Typecheck pass + `vite build` pass (ozy-snaker). Saari audit cheezein verify hui; 2 real fixes (lazy loading + Gallery CTA) + poora image stack WebP (80.4% bandwidth save).

@@ -11,18 +11,18 @@ import { Helmet } from "react-helmet-async";
 import shopVideo from "@assets/best-shoes-shop.mp4";
 
 // The Classics slideshow images
-import classics1 from "@assets/1000058847_1785229670276.jpg";
-import classics2 from "@assets/1000058862_1785229670278.jpg";
-import classics3 from "@assets/1000058859_1785229670280.jpg";
-import classics4 from "@assets/1000058853_1785229670281.jpg";
+import classics1 from "@assets/1000058847_1785229670276.webp";
+import classics2 from "@assets/1000058862_1785229670278.webp";
+import classics3 from "@assets/1000058859_1785229670280.webp";
+import classics4 from "@assets/1000058853_1785229670281.webp";
 import classics5 from "@assets/1000058856_1785229670283.jpg";
 
 const classicsImages = [classics1, classics2, classics3, classics4, classics5];
 
 // Time-based showcase slideshow images
-import timeBg1 from "@assets/Gemini_Generated_Image_5kyzzp5kyzzp5kyz_1786044429873.png";
-import timeBg2 from "@assets/Gemini_Generated_Image_itzb7litzb7litzb_1786044445286.png";
-import timeBg3 from "@assets/Gemini_Generated_Image_imaaudimaaudimaa_1786044455707.png";
+import timeBg1 from "@assets/Gemini_Generated_Image_5kyzzp5kyzzp5kyz_1786044429873.webp";
+import timeBg2 from "@assets/Gemini_Generated_Image_itzb7litzb7litzb_1786044445286.webp";
+import timeBg3 from "@assets/Gemini_Generated_Image_imaaudimaaudimaa_1786044455707.webp";
 
 const hotDropImages = [timeBg1, timeBg2, timeBg3];
 
@@ -114,16 +114,16 @@ const customerReviewsRow2: CustomerReview[] = [
 ];
 
 // Image imports
-import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.png";
-import shopHeroImg from "@assets/best-shoes-shop.png";
-import statsBg from "@assets/image_1784883327092.png";
+import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.webp";
+import shopHeroImg from "@assets/best-shoes-shop.webp";
+import statsBg from "@assets/image_1784883327092.webp";
 import catRunning from "@assets/generated_images/cat-running.jpg";
-import catBasketball from "@assets/generated_images/cat-basketball.jpg";
+import catBasketball from "@assets/generated_images/cat-basketball.webp";
 import catLifestyle from "@assets/generated_images/cat-lifestyle.jpg";
 import catTraining from "@assets/generated_images/cat-training.jpg";
-import product1 from "@assets/generated_images/product-1.png";
-import product2 from "@assets/generated_images/product-2.png";
-import product3 from "@assets/generated_images/product-3.png";
+import product1 from "@assets/generated_images/product-1.webp";
+import product2 from "@assets/generated_images/product-2.webp";
+import product3 from "@assets/generated_images/product-3.webp";
 
 function AnimatedStatValue({
   value,
@@ -482,6 +482,8 @@ export default function Home() {
                   alt={`Classic shoes ${(i % classicsImages.length) + 1} - Ozy Sneakers Pundri Kaithal`}
                   className="w-full h-full object-cover"
                   draggable={false}
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             ))}

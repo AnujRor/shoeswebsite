@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.png";
+import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.webp";
 
 const navLinks = [
   { label: "Home", path: "/" },

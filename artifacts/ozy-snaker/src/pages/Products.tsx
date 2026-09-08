@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
+import { canonicalUrl } from "@/data/siteConfig";
 
 import product1 from "@assets/generated_images/product-1.webp";
 import product2 from "@assets/generated_images/product-2.webp";
@@ -47,10 +48,11 @@ export default function Products() {
     <div className="container mx-auto px-4 md:px-6 py-12">
       {/* SEO */}
       <Helmet>
-        <title>Shoes Available – Sports, Casual, Formal | Ozy Sneakers</title>
-        <meta name="title" content="Shoes Available – Sports, Casual, Formal | Ozy Sneakers" />
-        <meta name="description" content="Sports shoes, sneakers, casual shoes, formal shoes - har type ke shoes yahan milenge. Men, women, kids sabke liye. Ozy Sneakers, Pundri, Kaithal." />
-        <meta name="keywords" content="sports shoes wale, sneakers kahan milte hai, formal shoes shop, kids shoes Kaithal, shoes for men women" />
+        <title>All Sneakers & Sports Shoes – Ozy Sneakers Pundri Mein Available</title>
+        <meta name="title" content="All Sneakers & Sports Shoes – Ozy Sneakers Pundri Mein Available" />
+        <meta name="description" content="Ozy Sneakers Pundri, Kaithal mein available saare sneakers aur sports shoes ek jagah dekho. Browse full catalog, filter by brand, category and availability - genuine pair order karo WhatsApp pe." />
+        <meta name="keywords" content="sneakers available Pundri, sports shoes catalog, buy sneakers Kaithal, shoe filter brand category, full shoe collection Pundri" />
+        <link rel="canonical" href={canonicalUrl("/products")} />
       </Helmet>
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6 border-b border-border pb-8">

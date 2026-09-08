@@ -6,6 +6,7 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useMemo, useState, useEffect, useRef, type CSSProperties } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet-async";
+import { canonicalUrl } from "@/data/siteConfig";
 
 // Home showcase video — sirf mobile pe dikhta hai (desktop pe 3 image slideshow)
 import shopVideo from "@assets/best-shoes-shop.mp4";
@@ -246,6 +247,7 @@ export default function Home() {
         <meta name="title" content="Ozy Sneakers – Shoes Shop Near Pundri, Kaithal" />
         <meta name="description" content="Shoes shop in Pundri, Kaithal. Sports shoes, sneakers, casual shoes - sab kuch ek jagah. Best price, genuine quality. Call ya WhatsApp karke order karein." />
         <meta name="keywords" content="shoes shop near me, juta dukan Pundri, shoe shop Kaithal, sneakers wali dukan, sasty shoes Kaithal, shoes ki dukan" />
+        <link rel="canonical" href={canonicalUrl("/")} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

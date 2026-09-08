@@ -1,6 +1,7 @@
 import { Product } from "@workspace/api-client-react";
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
+import { ALT_SUFFIX } from "@/data/productNames";
 
 interface ProductCardProps {
   product: Product;
@@ -32,7 +33,7 @@ export function ProductCard({ product, className, imageFallback }: ProductCardPr
         <div className="w-full h-full p-6 flex items-center justify-center relative">
           <img 
             src={imageUrl} 
-            alt={`${product.name} - ${product.category} shoes at Ozy Sneakers Pundri Kaithal`}
+            alt={`${product.name} - ${ALT_SUFFIX}`}
             className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-xl"
             loading="lazy"
           />

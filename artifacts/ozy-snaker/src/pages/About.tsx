@@ -3,6 +3,7 @@ import { useListCategories } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import { canonicalUrl } from "@/data/siteConfig";
 
 import heroBg from "@assets/generated_images/hero-bg.webp";
 import catRunning from "@assets/generated_images/cat-running.jpg";
@@ -34,6 +35,7 @@ export default function About() {
         <meta name="title" content="Ozy Sneakers Ke Baare Mein – Pundri Ki Shoe Dukan" />
         <meta name="description" content="Ozy Sneakers Pundri, Kaithal ki ek bharosemand shoe dukan hai. Genuine quality, sahi daam - hamesha customer ko khush rakhne ki koshish." />
         <meta name="keywords" content="bharosemand shoe dukan, genuine shoes Kaithal, achhi dukan shoes ki" />
+        <link rel="canonical" href={canonicalUrl("/about")} />
       </Helmet>
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center bg-black overflow-hidden">

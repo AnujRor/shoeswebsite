@@ -8,6 +8,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { Helmet } from "react-helmet-async";
+import { canonicalUrl } from "@/data/siteConfig";
 
 import {
   Form,
@@ -64,7 +66,7 @@ export default function Cart() {
         <div className="w-24 h-24 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-8">
           <Check className="w-12 h-12 text-accent" />
         </div>
-        <h1 className="text-5xl font-display font-black uppercase italic mb-6">Order Secured</h1>
+        <h2 className="text-5xl font-display font-black uppercase italic mb-6">Order Secured</h2>
         <p className="text-xl text-muted-foreground mb-12">
           Your kicks are locked in. We've sent a confirmation email with tracking details.
         </p>
@@ -79,7 +81,7 @@ export default function Cart() {
     return (
       <div className="container mx-auto px-4 py-32 text-center max-w-lg">
         <ShoppingBag className="w-20 h-20 mx-auto text-muted-foreground/30 mb-6" />
-        <h1 className="text-4xl font-display font-black uppercase italic mb-4">Your Cart is Empty</h1>
+        <h2 className="text-4xl font-display font-black uppercase italic mb-4">Your Cart is Empty</h2>
         <p className="text-muted-foreground mb-8">Looks like you haven't added any heat to your cart yet.</p>
         <Link href="/products" className="inline-flex bg-primary text-primary-foreground font-bold uppercase tracking-wider px-8 py-4 hover:bg-accent transition-colors">
           Start Shopping
@@ -149,6 +151,15 @@ export default function Cart() {
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-12 lg:py-20">
+      {/* SEO */}
+      <Helmet>
+        <title>Shopping Cart – Ozy Sneakers, Pundri</title>
+        <meta name="title" content="Shopping Cart – Ozy Sneakers, Pundri" />
+        <meta name="description" content="Aapka Ozy Sneakers shopping cart - items, size, quantity aur secure checkout. Pundri, Kaithal ki genuine sneaker dukan." />
+        <meta name="keywords" content="shopping cart sneakers, Ozy Sneakers checkout, order shoes Pundri, cart items Kaithal" />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="canonical" href={canonicalUrl("/cart")} />
+      </Helmet>
       <h1 className="text-4xl md:text-5xl font-display font-black uppercase italic mb-12">Your Cart</h1>
 
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">

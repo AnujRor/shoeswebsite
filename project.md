@@ -441,3 +441,28 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
   - Dimensions same → layout/visual zero change; `dist` build mein ab koi PNG nahi
 
 **Result:** Typecheck pass + `vite build` pass (ozy-snaker). Saari audit cheezein verify hui; 2 real fixes (lazy loading + Gallery CTA) + poora image stack WebP (80.4% bandwidth save).
+
+### 49. Product image alt text + names (Collection page & product cards)
+**Date:** 2026-09-08
+**Kya kiya:**
+- User ne diye 5 brand categories ke product names (Jordan 8, Louis Vuitton 5, Nike 5, New Balance 2, Onitsuka Tiger 2) appearance-order mein (top-left → right, row by row)
+- DB mein sirf brand hai, product name nahi �?" isliye **frontend static mapping** approach liya (DB `name` column to exist karta hai par seed mein generic 3-4 products hain aur Collection page static images se render hota hai)
+- Naya file `artifacts/ozy-snaker/src/data/productNames.ts`: `productNamesByBrand` (ordered names), `ALT_SUFFIX = "Ozy Sneakers, Pundri, Kaithal"`, `getProductAlt(brand, index)` → `"[Product Name] - Ozy Sneakers, Pundri, Kaithal"`, `getProductName(brand, index)`
+- **ShoesCategory.tsx** (Collection): `<img alt>` = `getProductAlt(...)` har image ka descriptive; card ke neeche product name display add (future display ready)
+- **ProductCard.tsx** (Home best-sellers / Products): alt format → `"[name] - Ozy Sneakers, Pundri, Kaithal"` (`ALT_SUFFIX` reuse)
+- **Gallery.tsx** untouched ��� wahan static gallery hai jo Collection ke same products nahi hain
+- Typecheck pass (tsc --noEmit). Note: Windows `pnpm run typecheck` preinstall (`sh`) pe fail �?" direct tsc se verify kiya
+
+**Result:** Collection page + product cards pe sab images ka descriptive alt text + names set. Future card display ke liye `getProductName` ready.
+
+### 50. SEO audit HIGH-priority fixes (5 items)
+**Date:** 2026-09-08
+**Kya kiya:** SEO audit ke 5 HIGH items implement kiye:
+- **Nayi `src/data/siteConfig.ts`** — `SITE_URL` + `canonicalUrl(path)` helper
+- **Canonical tags** (Item 1): Home, Products, ProductDetail (dynamic /products/:id), ShoesCategory, Gallery, About, Contact, Cart — sab pe Helmet se `<link rel="canonical">`
+- **Unique meta** (Item 2): Products.tsx + ShoesCategory.tsx ka title/description/keywords alag kiya (pehle duplicate the)
+- **Cart H1 fix** (Item 3): 3 H1 → sirf "Your Cart" H1; "Order Secured" + "Your Cart is Empty" ab H2
+- **Cart + 404 Helmet** (Item 4): dono pe meta add, noindex nofollow; 404 pe home link
+- **Product JSON-LD** (Item 5): ProductDetail pe dynamic Product schema (name, image, brand, offers INR, availability)
+
+**Result:** Typecheck pass. SEO HIGH-priority items poore.

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
+import { canonicalUrl } from "@/data/siteConfig";
 
 // ─── ADD YOUR IMAGES HERE ───────────────────────────────────────────────────
 // Sirf image ka path likho. New image add karni ho to:
@@ -89,6 +90,7 @@ export default function Gallery() {
         <meta name="title" content="Naye Shoes Design Dekho – Ozy Sneakers Pundri" />
         <meta name="description" content="New shoes aur latest design dekhne ke liye Ozy Sneakers ki gallery dekho. Naya stock aata rehta hai Pundri, Kaithal ki dukan mein." />
         <meta name="keywords" content="naye shoes design, latest shoes 2026, new sneakers, shoe design dekhna" />
+        <link rel="canonical" href={canonicalUrl("/gallery")} />
       </Helmet>
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[320px] flex items-center justify-center overflow-hidden">

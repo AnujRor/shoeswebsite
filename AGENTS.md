@@ -554,4 +554,34 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Typecheck + `vite build` pass (ozy-snaker); bundle warning (js 669KB >500KB) unimportant
 
 ---
+### 49. Product image alt text + names set (Collection page & product cards)
+**Date:** 2026-09-08
+- User ne diye 5 brand categories (Jordan 8, Louis Vuitton 5, Nike 5, New Balance 2, Onitsuka Tiger 2) ke product names appearance-order (top-left → right, row by row) — DB mein sirf brand hai, product name nahi
+- **Approach: frontend static mapping** (DB `name` column exist karta hai par seed mein sirf 3-4 generic products hain aur Collection/ShoesCategory page static images se render hota hai — isliye DB migrate karna upar ka kaam tha aur isme relevance nahi)
+- Naya file `artifacts/ozy-snaker/src/data/productNames.ts` banaya:
+  - `productNamesByBrand` — brand → ordered name array (user ki list verbatim)
+  - `ALT_SUFFIX = "Ozy Sneakers, Pundri, Kaithal"` (user ka exact format)
+  - `getProductAlt(brand, index)` → `"[Product Name] - Ozy Sneakers, Pundri, Kaithal"` (fallback: `"[Brand] shoes N - ..."`)
+  - `getProductName(brand, index)` → future display ke liye
+- **ShoesCategory.tsx** (Collection `/shoes`):
+  - `<img alt>` = `getProductAlt(brand, iIdx)` — ab har image ka descriptive alt hai
+  - Card ke neeche branded label ke upar `getProductName` se product name display kiya (future card display ready)
+- **ProductCard.tsx** (Home best-sellers / Products page): alt text format `"[name] - product-category shoes at..."` → `"[name] - Ozy Sneakers, Pundri, Kaithal"` (user ka universal format, `ALT_SUFFIX` reuse)
+- **Gallery.tsx**: untouched — wahan static gallery hai jo Collection ke products nahi hain (alag assets), isliye same mapping apply nahi
+- Typecheck pass (tsc --noEmit, ozy-snaker)
+- Note: Windows `pnpm run typecheck` preinstall (`sh`) pe fail karta hai — direct `node node_modules/typescript/bin/tsc --noEmit -p artifacts/ozy-snaker/tsconfig.json` se verify kiya
+
+---
+### 50. SEO audit HIGH-priority fixes (5 items)
+**Date:** 2026-09-08
+- Pehle SEO audit (task report) kiya tha; ab uske 5 HIGH items fix kiye:
+- **Nayi file `src/data/siteConfig.ts`** — `SITE_URL` (vercel domain) + `canonicalUrl(path)` helper (shared)
+- **Canonical tags (Item 1)**: har page pe `<link rel="canonical">` via Helmet — Home(`/`), Products(`/products`), ProductDetail(`/products/:id` dynamic), ShoesCategory(`/shoes`), Gallery(`/gallery`), About(`/about`), Contact(`/contact`), Cart(`/cart`)
+- **Unique meta (Item 2)**: `Products.tsx` (All Sneakers...) aur `ShoesCategory.tsx` (Collection by Brand Jordan/Nike/LV...) ka title+description+keywords ab alag — pehle same the (duplicate meta content)
+- **Cart H1 fix (Item 3)**: 3 H1 conditional the → "Your Cart" hi H1 raha; "Order Secured" aur "Your Cart is Empty" ab H2
+- **Cart + 404 Helmet (Item 4)**: dono pe meta title/description/keywords add; cart + 404 dono pe `noindex,nofollow` (correct — transactional pages search mein nahi aane chahiye); 404 pe "Return to Home" link bhi add
+- **Product JSON-LD (Item 5)**: `ProductDetail.tsx` pe dynamic `Product` schema — name, image, brand, sku, description, offers (priceCurrency INR, price `toFixed(2)`, availability InStock/OutOfStock, NewCondition, seller Store, url) — product data se populate
+- Typecheck pass (tsc --noEmit ozy-snaker)
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

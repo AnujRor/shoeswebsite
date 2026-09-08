@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { getProductAlt, getProductName } from "@/data/productNames";
+import { canonicalUrl } from "@/data/siteConfig";
 import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.webp";
 
 // Brand images
@@ -63,10 +65,11 @@ export default function ShoesCategory() {
     <div className="flex flex-col w-full">
       {/* SEO */}
       <Helmet>
-        <title>Shoes Available – Sports, Casual, Formal | Ozy Sneakers</title>
-        <meta name="title" content="Shoes Available – Sports, Casual, Formal | Ozy Sneakers" />
-        <meta name="description" content="Sports shoes, sneakers, casual shoes, formal shoes - har type ke shoes yahan milenge. Men, women, kids sabke liye. Ozy Sneakers, Pundri, Kaithal." />
-        <meta name="keywords" content="sports shoes wale, sneakers kahan milte hai, formal shoes shop, kids shoes Kaithal, shoes for men women" />
+        <title>Sneakers Collection by Brand – Jordan, Nike, LV | Ozy Sneakers</title>
+        <meta name="title" content="Sneakers Collection by Brand – Jordan, Nike, LV | Ozy Sneakers" />
+        <meta name="description" content="Browse Ozy Sneakers Pundri collection brand-wise - Jordan, Louis Vuitton, Nike, New Balance aur Onitsuka Tiger. Har brand ki premium aur genuine sneakers dukan pe try karke pao." />
+        <meta name="keywords" content="Jordan shoes Pundri, Nike sneakers Kaithal, Louis Vuitton trainer India, New Balance shoes Haryana, Onitsuka Tiger Pundri" />
+        <link rel="canonical" href={canonicalUrl("/shoes")} />
       </Helmet>
       {/* Hero Banner */}
       <section className="relative h-[45vh] min-h-[300px] w-full flex items-end bg-black overflow-hidden">
@@ -189,13 +192,18 @@ export default function ShoesCategory() {
                   <div className="relative bg-secondary/20 aspect-square overflow-hidden border border-transparent group-hover:border-accent transition-colors duration-300">
                     <img
                       src={img}
-                      alt={`${section.brand} shoes ${iIdx + 1} - Ozy Sneakers Pundri Kaithal`}
+                      alt={getProductAlt(section.brand, iIdx)}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                   </div>
                   <div className="mt-3">
+                    {getProductName(section.brand, iIdx) && (
+                      <p className="font-display font-bold text-sm uppercase tracking-tight leading-tight mb-1">
+                        {getProductName(section.brand, iIdx)}
+                      </p>
+                    )}
                     <span className="text-muted-foreground text-xs uppercase tracking-widest font-bold">
                       {section.brand}
                     </span>

@@ -7,6 +7,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { canonicalUrl } from "@/data/siteConfig";
 
 import slide1 from "@assets/1000057729_1784960566860.jpg";
 import slide2 from "@assets/1000057600_1784960566862.jpg";
@@ -95,6 +96,7 @@ export default function Contact() {
         <meta name="title" content="Ozy Sneakers Number aur Address – Pundri, Kaithal" />
         <meta name="description" content="Shoe shop ka number ya address chahiye? Ozy Sneakers ko call karo ya WhatsApp karo - Pundri, Kaithal mein hi dukan hai." />
         <meta name="keywords" content="shoe shop number, dukan ka address, WhatsApp order shoes, shoe shop contact Pundri" />
+        <link rel="canonical" href={canonicalUrl("/contact")} />
       </Helmet>
       {/* Hero header with looping slideshow background */}
       <section className="relative py-24 md:py-44 overflow-hidden flex items-center justify-center">

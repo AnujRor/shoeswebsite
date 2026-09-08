@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Check, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
+import { canonicalUrl } from "@/data/siteConfig";
 
 import product1 from "@assets/generated_images/product-1.webp";
 
@@ -77,6 +78,27 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
         <meta name="title" content={`${product.name} | Ozy Sneakers Pundri Kaithal`} />
         <meta name="description" content={`${product.name} at Ozy Sneakers Pundri Kaithal - genuine quality ${product.category} shoes. Visit our shoe shop in Pundri, Kaithal, Haryana.`} />
         <meta name="keywords" content={`${product.name}, ${product.category} shoes, shoe shop Pundri Kaithal, Ozy Sneakers`} />
+        <link rel="canonical" href={canonicalUrl(`/products/${product.id}`)} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "image": imageUrl,
+            "brand": { "@type": "Brand", "name": product.brand },
+            "sku": String(product.id),
+            "description": product.description || `${product.name} — genuine ${product.category} shoes at Ozy Sneakers, Pundri, Kaithal.`,
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "INR",
+              "price": product.price.toFixed(2),
+              "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+              "itemCondition": "https://schema.org/NewCondition",
+              "seller": { "@type": "Store", "name": "Ozy Sneakers" },
+              "url": canonicalUrl(`/products/${product.id}`)
+            }
+          })}
+        </script>
       </Helmet>
       {/* Breadcrumbs */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium mb-8">

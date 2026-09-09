@@ -16,7 +16,7 @@ import classics1 from "@assets/1000058847_1785229670276.webp";
 import classics2 from "@assets/1000058862_1785229670278.webp";
 import classics3 from "@assets/1000058859_1785229670280.webp";
 import classics4 from "@assets/1000058853_1785229670281.webp";
-import classics5 from "@assets/1000058856_1785229670283.jpg";
+import classics5 from "@assets/1000058856_1785229670283.webp";
 
 const classicsImages = [classics1, classics2, classics3, classics4, classics5];
 
@@ -265,6 +265,19 @@ export default function Home() {
             },
             "description": "Ozy Sneakers is a shoe shop in Pundri, Kaithal, Haryana offering genuine sports shoes, sneakers, casual shoes and formal shoes for men, women and kids.",
             "openingHours": "Mo-Fr 09:00-20:00"
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Ozy Sneakers",
+            "url": "https://ozy-sneakers-frontend.vercel.app",
+            "logo": "https://ozy-sneakers-frontend.vercel.app/og-image.png",
+            "sameAs": [
+              "https://www.instagram.com/ozy_sneakers",
+              "https://wa.me/917900051580"
+            ]
           })}
         </script>
       </Helmet>

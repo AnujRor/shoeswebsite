@@ -11,11 +11,11 @@ import { canonicalUrl } from "@/data/siteConfig";
 
 // Images
 import img11 from "@assets/1000058282_1784972900632.webp";
-import img12 from "@assets/1000058284_1784972900635.jpg";
+import img12 from "@assets/1000058284_1784972900635.webp";
 import img13 from "@assets/1000058290_1784972900636.webp";
 import img14 from "@assets/1000057604_1784972900638.webp";
 import img15 from "@assets/1000057602_1784972900639.webp";
-import img16 from "@assets/1000057606_1784972900640.jpg";
+import img16 from "@assets/1000057606_1784972900640.webp";
 import img17 from "@assets/1000058286_1784972900643.webp";
 import img18 from "@assets/1000058280_1784972900645.webp";
 import img19 from "@assets/1000058272_1784972900647.webp";
@@ -26,15 +26,15 @@ import img23 from "@assets/1000058268_1784972900653.webp";
 import img24 from "@assets/1000058264_1784972900655.webp";
 import img25 from "@assets/1000058276_1784972900656.webp";
 import img26 from "@assets/1000058260_1784972900658.webp";
-import img27 from "@assets/1000058288_1784973470349.jpg";
+import img27 from "@assets/1000058288_1784973470349.webp";
 import img28 from "@assets/1000058302_1784973470350.webp";
 import img29 from "@assets/1000058294_1784973470352.webp";
-import img30 from "@assets/1000058296_1784973470353.jpg";
-import img31 from "@assets/1000058300_1784973470355.jpg";
+import img30 from "@assets/1000058296_1784973470353.webp";
+import img31 from "@assets/1000058300_1784973470355.webp";
 import img32 from "@assets/1000058292_1784973470356.webp";
 import img33 from "@assets/1000058306_1784973470358.webp";
-import img34 from "@assets/1000058298_1784973470359.jpg";
-import img35 from "@assets/1000058304_1784973470361.jpg";
+import img34 from "@assets/1000058298_1784973470359.webp";
+import img35 from "@assets/1000058304_1784973470361.webp";
 
 // ─── ADD YOUR VIDEOS HERE ────────────────────────────────────────────────────
 // Video add karni ho to:

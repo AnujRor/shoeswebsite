@@ -9,12 +9,12 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { canonicalUrl } from "@/data/siteConfig";
 
-import slide1 from "@assets/1000057729_1784960566860.jpg";
-import slide2 from "@assets/1000057600_1784960566862.jpg";
+import slide1 from "@assets/1000057729_1784960566860.webp";
+import slide2 from "@assets/1000057600_1784960566862.webp";
 import slide3 from "@assets/1000058262_1784960566864.webp";
 import slide4 from "@assets/1000058274_1784960566866.webp";
 import slide5 from "@assets/1000058260_1784960566867.webp";
-import slide6 from "@assets/1000058282_1784960566869.jpg";
+import slide6 from "@assets/1000058282_1784960566869.webp";
 
 const heroSlides = [slide1, slide2, slide3, slide4, slide5, slide6];
 

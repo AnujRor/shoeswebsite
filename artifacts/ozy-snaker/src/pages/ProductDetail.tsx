@@ -99,6 +99,32 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             }
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": canonicalUrl("/")
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Shop",
+                "item": canonicalUrl("/products")
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": product.name,
+                "item": canonicalUrl(`/products/${product.id}`)
+              }
+            ]
+          })}
+        </script>
       </Helmet>
       {/* Breadcrumbs */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium mb-8">

@@ -263,8 +263,6 @@ export default function Home() {
               "addressRegion": "Kaithal",
               "addressCountry": "IN"
             },
-            "addressLocality": "Pundri",
-            "addressRegion": "Kaithal",
             "description": "Ozy Sneakers is a shoe shop in Pundri, Kaithal, Haryana offering genuine sports shoes, sneakers, casual shoes and formal shoes for men, women and kids.",
             "openingHours": "Mo-Fr 09:00-20:00"
           })}
@@ -274,13 +272,11 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[95vh] min-h-[500px] sm:min-h-[600px] w-full flex items-end bg-black overflow-hidden">
         {/* Hero background — mobile pe shop photo, baaki devices pe existing hero image */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{ 
-            backgroundImage: `url(${isMobile ? shopHeroImg : heroBg})`, 
-            backgroundPosition: isMobile ? 'center' : 'top center', 
-            backgroundSize: 'cover' 
-          }}
+        <img
+          className="absolute inset-0 z-0 h-full w-full object-cover"
+          src={isMobile ? shopHeroImg : heroBg}
+          alt="Ozy Sneakers shop hero image, Pundri Kaithal"
+          style={{ objectPosition: isMobile ? 'center' : 'top center' }}
         />
         <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(to top, black 35%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.15) 100%)' }} />
         

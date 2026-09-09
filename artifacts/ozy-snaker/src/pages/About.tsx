@@ -39,13 +39,11 @@ export default function About() {
       </Helmet>
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center bg-black overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity scale-105"
-          style={{ 
-            backgroundImage: `url(${heroBg})`, 
-            backgroundPosition: 'center', 
-            backgroundSize: 'cover' 
-          }}
+        <img
+          className="absolute inset-0 z-0 h-full w-full object-cover opacity-40 mix-blend-luminosity scale-105"
+          src={heroBg}
+          alt="Ozy Sneakers brand hero image, Pundri Kaithal"
+          style={{ objectPosition: 'center' }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background z-10" />
         
@@ -148,13 +146,11 @@ export default function About() {
       {/* Categories Showcase */}
       <section className="py-14 md:py-40 relative overflow-hidden">
         {/* Background image */}
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${heroBg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+        <img
+          className="absolute inset-0 z-0 h-full w-full object-cover"
+          src={heroBg}
+          alt="Ozy Sneakers collection showcase background, Pundri Kaithal"
+          style={{ objectPosition: 'center' }}
         />
         {/* Dark overlay */}
         <div className="absolute inset-0 z-0 bg-black/80" />
@@ -189,9 +185,10 @@ export default function About() {
                   href={`/shoes?category=${cat.slug}`}
                   className="group relative h-[260px] sm:h-[380px] md:h-[500px] overflow-hidden flex items-end p-6 sm:p-10 md:p-12 block"
                 >
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${getCategoryImage(cat.slug)})` }}
+                  <img
+                    className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-1000 group-hover:scale-110"
+                    src={getCategoryImage(cat.slug)}
+                    alt={`${cat.name} category showcase - Ozy Sneakers Pundri Kaithal`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative z-10 w-full flex justify-between items-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">

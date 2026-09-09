@@ -204,11 +204,8 @@ export default function ShoesCategory() {
                         {getProductName(section.brand, iIdx)}
                       </p>
                     )}
-                    <span className="text-muted-foreground text-xs uppercase tracking-widest font-bold">
-                      {section.brand}
-                    </span>
                   </div>
-                </motion.div>
+                  </motion.div>
               ))}
             </div>
 

@@ -600,4 +600,27 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Typecheck pass (tsc --noEmit ozy-snaker); commit + push `76e66ed`
 
 ---
+
+### 52. Advanced SEO — code splitting, structured data, performance, local signals
+**Date:** 2026-09-10
+- **Code splitting (HIGH):** `App.tsx` mein saare page imports `lazy()` se wrap kiye + `<Suspense fallback>` add; `vite.config.ts` mein `manualChunks` — react-vendor (17KB), query (44KB), motion (127KB) alag chunks. **Result: initial bundle 669KB → 301KB (55% smaller)** — LCP immediately better
+- **SearchAction fix:** `Products.tsx` ab URL `?search=` param read karta hai (pehle sirf `category` tha, SearchAction broken tha)
+- **ProductDetail aggregateRating:** JSON-LD mein `AggregateRating` add (ratingValue + reviewCount) — Google star rich results ab dikhenge
+- **ProductDetail og:type:** `<meta property="og:type" content="product">` + `product:brand`, `product:price:amount`, `product:price:currency` — WhatsApp/Facebook pe richer product card
+- **ProductDetail soft-404:** "Product Not Found" branch mein `<meta name="robots" content="noindex, nofollow">` add — stale URLs index nahi honge
+- **Hero image preload:** `index.html` mein `<link rel="preload" as="image" fetchpriority="high">` + Home.tsx `<img fetchPriority="high">` — LCP image ab early discover hota hai
+- **ImageGallery schema:** Gallery.tsx mein `ImageGallery` JSON-LD with 25 ImageObject entries — Google Images mein better representation
+- **manifest.webmanifest:** PWA manifest (name, theme_color #ff5c00, icons 192/512) + `<link rel="manifest">` in index.html
+- **ProductCard decoding="async":** Last straggler — ab sab images pe async decode
+- **Footer geo keywords:** "Built for speed" → "Ozy Sneakers — shoe shop in Pundri, Kaithal, Haryana. Genuine Nike, Jordan, New Balance, Onitsuka Tiger." — site-wide local SEO signal
+- **Contact tel: links:** Phone numbers clickable `<a href="tel:...">`
+- **Sitemap /products/4 remove:** Non-existent product ID hataaya (soft-404 risk)
+- **lang="en-IN":** `<html lang="en">` → `lang="en-IN"` — precise language signal
+- **preconnect maps:** Google Maps preconnect + dns-prefetch add
+- **noscript fallback:** JS off pe basic business info dikh jaata hai
+- **favicon.svg reference:** `<link rel="icon" type="image/svg+xml">` add
+- **favicon-192x192 + 512x512:** Sharp se generate kiye manifest icons ke liye
+- Typecheck pass; production build pass (~2m12s); commit + push `ad4058f`
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

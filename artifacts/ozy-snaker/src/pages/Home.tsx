@@ -253,7 +253,7 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "ShoeStore",
             "name": "Ozy Sneakers",
-            "image": "https://ozy-sneakers-frontend.vercel.app/og-image.png",
+            "image": "https://ozy-sneakers-frontend.vercel.app/og-image.webp",
             "url": "https://ozy-sneakers-frontend.vercel.app",
             "telephone": "+91-79000-51580",
             "address": {
@@ -353,7 +353,7 @@ export default function Home() {
             "@type": "Organization",
             "name": "Ozy Sneakers",
             "url": "https://ozy-sneakers-frontend.vercel.app",
-            "logo": "https://ozy-sneakers-frontend.vercel.app/og-image.png",
+            "logo": "https://ozy-sneakers-frontend.vercel.app/og-image.webp",
             "sameAs": [
               "https://www.instagram.com/ozy_sneakers",
               "https://wa.me/917900051580"

@@ -584,4 +584,20 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Typecheck pass (tsc --noEmit ozy-snaker)
 
 ---
+
+### 51. SEO fixes round 2 — 12 remaining items (per-page OG, ₹ currency, IST hours, sitemap, robots, viewport, async decode)
+**Date:** 2026-09-10
+- Contact page: EST → IST timezone fix; schema `openingHours` mein Saturday add (`Mo-Fr 09:00-20:00, Sa-Su 10:00-18:00`)
+- Currency: `$` → `₹` on ProductDetail, ProductCard, Cart (3 files, 5 places) — DB mein INR hai, UI mein bhi ₹ dikhna chahiye
+- **OG/Twitter per page**: har page ke Helmet mein `og:title`, `og:description`, `og:url`, `og:image`, `twitter:title`, `twitter:description`, `twitter:image` add — `SITE_URL` se absolute URL; ProductDetail dynamic `product.name`/`imageUrl` use karta hai
+- Sitemap: `<lastmod>2026-09-10</lastmod>` har URL mein
+- robots.txt: `Disallow: /cart` + `Disallow: /api/` add
+- viewport: `maximum-scale=1` hataya (zoom allow) — `maximum-scale=5` ke saath
+- `<meta name="referrer" content="strict-origin-when-cross-origin">` add
+- `<meta property="og:locale" content="en_IN">` add
+- `WebSite` JSON-LD with `SearchAction` (Home.tsx) add
+- `decoding="async"` — ShoesCategory, About (3 imgs), Gallery, Home hero, Contact slideshow, ProductDetail main img — sab mein add
+- Typecheck pass (tsc --noEmit ozy-snaker); commit + push `76e66ed`
+
+---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

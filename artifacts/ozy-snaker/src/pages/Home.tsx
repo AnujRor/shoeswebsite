@@ -118,10 +118,10 @@ const customerReviewsRow2: CustomerReview[] = [
 import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.webp";
 import shopHeroImg from "@assets/best-shoes-shop.webp";
 import statsBg from "@assets/image_1784883327092.webp";
-import catRunning from "@assets/generated_images/cat-running.jpg";
+import catRunning from "@assets/generated_images/cat-running.webp";
 import catBasketball from "@assets/generated_images/cat-basketball.webp";
-import catLifestyle from "@assets/generated_images/cat-lifestyle.jpg";
-import catTraining from "@assets/generated_images/cat-training.jpg";
+import catLifestyle from "@assets/generated_images/cat-lifestyle.webp";
+import catTraining from "@assets/generated_images/cat-training.webp";
 import product1 from "@assets/generated_images/product-1.webp";
 import product2 from "@assets/generated_images/product-2.webp";
 import product3 from "@assets/generated_images/product-3.webp";

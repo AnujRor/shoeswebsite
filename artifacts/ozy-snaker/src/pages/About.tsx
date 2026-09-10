@@ -6,10 +6,10 @@ import { Helmet } from "react-helmet-async";
 import { canonicalUrl } from "@/data/siteConfig";
 
 import heroBg from "@assets/generated_images/hero-bg.webp";
-import catRunning from "@assets/generated_images/cat-running.jpg";
+import catRunning from "@assets/generated_images/cat-running.webp";
 import catBasketball from "@assets/generated_images/cat-basketball.webp";
-import catLifestyle from "@assets/generated_images/cat-lifestyle.jpg";
-import catTraining from "@assets/generated_images/cat-training.jpg";
+import catLifestyle from "@assets/generated_images/cat-lifestyle.webp";
+import catTraining from "@assets/generated_images/cat-training.webp";
 
 export default function About() {
   const { data: categories } = useListCategories();

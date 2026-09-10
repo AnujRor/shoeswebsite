@@ -253,7 +253,7 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "ShoeStore",
             "name": "Ozy Sneakers",
-            "image": "",
+            "image": "https://ozy-sneakers-frontend.vercel.app/og-image.png",
             "url": "https://ozy-sneakers-frontend.vercel.app",
             "telephone": "+91-79000-51580",
             "address": {
@@ -264,7 +264,87 @@ export default function Home() {
               "addressCountry": "IN"
             },
             "description": "Ozy Sneakers is a shoe shop in Pundri, Kaithal, Haryana offering genuine sports shoes, sneakers, casual shoes and formal shoes for men, women and kids.",
-            "openingHours": "Mo-Fr 09:00-20:00"
+            "openingHours": "Mo-Fr 09:00-20:00",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "bestRating": "5",
+              "reviewCount": "512"
+            },
+            "review": [
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Amandeep Singh" },
+                "reviewBody": "Shop mein aake teen pairs try kiye, bhaiya ne bina jaldi sab dikhaya. AF1 final kiya — fit ekdum sahi aur original bill ke saath mila.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Rohit Kumar" },
+                "reviewBody": "Mexico 66 pehan ke ghar tak aaya, pair mein hi comfort samajh aa gaya. Itni variety Ratia mein kahin aur nahi milti.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Neha Sharma" },
+                "reviewBody": "Bhai ke sneakers lene gayi thi, apne liye bhi white pair le aayi. Kitna bhi try kar lo, koi bura nahi maanta wahan.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Arjun Malhotra" },
+                "reviewBody": "Court wale grippy shoes sirf yahan mile. Pair foot mein try karke lena hi alag maza deta hai, online pe yeh kahan hota.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Priya Verma" },
+                "reviewBody": "Do runners compare karke liya — cushioning ka farak try karne par hi pata chalta hai. Morning runs ab maza dete hain.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Kunal Bisht" },
+                "reviewBody": "Dost ne bataya tha is shop ke baare mein. Box kholte hi fresh original maal ka pata chal gaya — first copy ki tension khatam.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Sneha Gupta" },
+                "reviewBody": "Har visit pe naye designs milte hain. Dost poochtin hain kahan se liya — seedha OZY ka naam bata deti hoon.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Vikram Chauhan" },
+                "reviewBody": "Market mein first copy bhara pada hai. Yahan teen baar liya, har baar original nikla. Ab poora bharosa hai.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Ishita Rana" },
+                "reviewBody": "Size ka doubt tha, par try karke lene se pehli baar mein perfect fit mil gaya. Online shopping mein yeh luck kabhi nahi lagta.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Harpreet Brar" },
+                "reviewBody": "Gym ke liye training pair liya. Ankle support pehan ke hi farak samajh aata hai — sahi decision thi.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Divya Nair" },
+                "reviewBody": "Rates decent hain aur collection badiya. Apne liye ek pair, ghar walon ke liye do jodiyan utha layi.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              },
+              {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Mohit Kashyap" },
+                "reviewBody": "Do saal se yahin se leta hoon, kabhi nirash nahi hua. Ab toh mere dost-log shop ka address pooch rahe hain.",
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+              }
+            ]
           })}
         </script>
         <script type="application/ld+json">

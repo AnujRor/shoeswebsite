@@ -151,6 +151,7 @@ export default function About() {
           src={heroBg}
           alt="Ozy Sneakers collection showcase background, Pundri Kaithal"
           style={{ objectPosition: 'center' }}
+          loading="lazy"
         />
         {/* Dark overlay */}
         <div className="absolute inset-0 z-0 bg-black/80" />
@@ -189,6 +190,7 @@ export default function About() {
                     className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-1000 group-hover:scale-110"
                     src={getCategoryImage(cat.slug)}
                     alt={`${cat.name} category showcase - Ozy Sneakers Pundri Kaithal`}
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative z-10 w-full flex justify-between items-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">

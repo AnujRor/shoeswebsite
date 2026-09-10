@@ -7,7 +7,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { canonicalUrl } from "@/data/siteConfig";
+import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
 
 import slide1 from "@assets/1000057729_1784960566860.webp";
 import slide2 from "@assets/1000057600_1784960566862.webp";
@@ -97,6 +97,13 @@ export default function Contact() {
         <meta name="description" content="Shoe shop ka number ya address chahiye? Ozy Sneakers ko call karo ya WhatsApp karo - Pundri, Kaithal mein hi dukan hai." />
         <meta name="keywords" content="shoe shop number, dukan ka address, WhatsApp order shoes, shoe shop contact Pundri" />
         <link rel="canonical" href={canonicalUrl("/contact")} />
+        <meta property="og:title" content="Ozy Sneakers Number aur Address – Pundri, Kaithal" />
+        <meta property="og:description" content="Ozy Sneakers se sampark karo - phone, WhatsApp, email, aur shop address. Pundri, Kaithal, Haryana." />
+        <meta property="og:url" content={`${SITE_URL}/contact`} />
+        <meta property="og:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
+        <meta name="twitter:title" content="Ozy Sneakers Number aur Address – Pundri, Kaithal" />
+        <meta name="twitter:description" content="Ozy Sneakers se sampark karo - phone, WhatsApp, email, aur shop address. Pundri, Kaithal, Haryana." />
+        <meta name="twitter:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
       </Helmet>
       {/* Hero header with looping slideshow background */}
       <section className="relative py-24 md:py-44 overflow-hidden flex items-center justify-center">
@@ -107,6 +114,7 @@ export default function Contact() {
             className="absolute inset-0 z-0 h-full w-full object-cover object-center"
             src={heroSlides[slideIndex]}
             alt={`Ozy Sneakers shop showcase slideshow image ${slideIndex + 1} - Pundri Kaithal`}
+            decoding="async"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -189,8 +197,8 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold uppercase tracking-widest text-xs mb-2 text-primary-foreground/70">Hours</h3>
                     <p className="font-medium text-lg leading-relaxed">
-                      Mon - Fri: 9AM - 8PM EST<br/>
-                      Sat - Sun: 10AM - 6PM EST
+                      Mon - Fri: 9AM - 8PM IST<br/>
+                      Sat - Sun: 10AM - 6PM IST
                     </p>
                   </div>
                 </div>

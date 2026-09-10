@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Helmet } from "react-helmet-async";
-import { canonicalUrl } from "@/data/siteConfig";
+import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
 
 import {
   Form,
@@ -159,6 +159,13 @@ export default function Cart() {
         <meta name="keywords" content="shopping cart sneakers, Ozy Sneakers checkout, order shoes Pundri, cart items Kaithal" />
         <meta name="robots" content="noindex, nofollow" />
         <link rel="canonical" href={canonicalUrl("/cart")} />
+        <meta property="og:title" content="Shopping Cart – Ozy Sneakers, Pundri" />
+        <meta property="og:description" content="Aapka shopping cart - Ozy Sneakers, Pundri." />
+        <meta property="og:url" content={`${SITE_URL}/cart`} />
+        <meta property="og:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
+        <meta name="twitter:title" content="Shopping Cart – Ozy Sneakers, Pundri" />
+        <meta name="twitter:description" content="Aapka shopping cart - Ozy Sneakers, Pundri." />
+        <meta name="twitter:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
       </Helmet>
       <h1 className="text-4xl md:text-5xl font-display font-black uppercase italic mb-12">Your Cart</h1>
 
@@ -179,7 +186,7 @@ export default function Cart() {
                         {item.productName}
                       </Link>
                       <span className="font-mono font-bold text-base sm:text-lg whitespace-nowrap">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        ₹{(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
                     <div className="text-sm text-muted-foreground uppercase font-medium flex gap-4 mt-2">
@@ -234,7 +241,7 @@ export default function Cart() {
             <div className="space-y-4 mb-6 text-sm font-medium">
               <div className="flex justify-between">
                 <span className="text-primary-foreground/70">Subtotal ({cart.itemCount} items)</span>
-                <span className="font-mono">${cart.total.toFixed(2)}</span>
+                <span className="font-mono">₹{cart.total.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-primary-foreground/70">Shipping</span>
@@ -244,7 +251,7 @@ export default function Cart() {
             
             <div className="flex justify-between items-end mb-8 pt-6 border-t border-white/20">
               <span className="font-bold uppercase tracking-wider">Total</span>
-              <span className="font-mono text-3xl font-bold text-accent">${cart.total.toFixed(2)}</span>
+              <span className="font-mono text-3xl font-bold text-accent">₹{cart.total.toFixed(2)}</span>
             </div>
 
             {!isCheckingOut ? (

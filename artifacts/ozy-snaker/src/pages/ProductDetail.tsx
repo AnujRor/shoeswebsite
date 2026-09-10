@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Check, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
-import { canonicalUrl } from "@/data/siteConfig";
+import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
 
 import product1 from "@assets/generated_images/product-1.webp";
 
@@ -79,6 +79,13 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
         <meta name="description" content={`${product.name} at Ozy Sneakers Pundri Kaithal - genuine quality ${product.category} shoes. Visit our shoe shop in Pundri, Kaithal, Haryana.`} />
         <meta name="keywords" content={`${product.name}, ${product.category} shoes, shoe shop Pundri Kaithal, Ozy Sneakers`} />
         <link rel="canonical" href={canonicalUrl(`/products/${product.id}`)} />
+        <meta property="og:title" content={`${product.name} | Ozy Sneakers Pundri Kaithal`} />
+        <meta property="og:description" content={`${product.name} at Ozy Sneakers Pundri Kaithal - genuine quality ${product.category} shoes.`} />
+        <meta property="og:url" content={canonicalUrl(`/products/${product.id}`)} />
+        <meta property="og:image" content={imageUrl} />
+        <meta name="twitter:title" content={`${product.name} | Ozy Sneakers Pundri Kaithal`} />
+        <meta name="twitter:description" content={`${product.name} at Ozy Sneakers Pundri Kaithal - genuine quality ${product.category} shoes.`} />
+        <meta name="twitter:image" content={imageUrl} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -148,6 +155,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
               src={imageUrl} 
               alt={`${product.name} - ${product.category} shoes at Ozy Sneakers Pundri Kaithal`}
               className="w-full h-full object-contain drop-shadow-2xl"
+              decoding="async"
             />
           </div>
           {product.images && product.images.length > 0 && (
@@ -177,10 +185,10 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
           
           <div className="flex items-center gap-4 mb-6 flex-wrap">
             <div className="flex items-center gap-4 sm:gap-6">
-              <span className="font-mono text-2xl sm:text-3xl font-bold">${product.price.toFixed(2)}</span>
+              <span className="font-mono text-2xl sm:text-3xl font-bold">₹{product.price.toFixed(2)}</span>
               {product.originalPrice && product.originalPrice > product.price && (
                 <span className="font-mono text-xl text-muted-foreground line-through">
-                  ${product.originalPrice.toFixed(2)}
+                  ₹{product.originalPrice.toFixed(2)}
                 </span>
               )}
             </div>

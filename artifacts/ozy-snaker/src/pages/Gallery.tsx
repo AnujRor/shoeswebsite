@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
-import { canonicalUrl } from "@/data/siteConfig";
+import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
 
 // ─── ADD YOUR IMAGES HERE ───────────────────────────────────────────────────
 // Sirf image ka path likho. New image add karni ho to:
@@ -91,6 +91,13 @@ export default function Gallery() {
         <meta name="description" content="New shoes aur latest design dekhne ke liye Ozy Sneakers ki gallery dekho. Naya stock aata rehta hai Pundri, Kaithal ki dukan mein." />
         <meta name="keywords" content="naye shoes design, latest shoes 2026, new sneakers, shoe design dekhna" />
         <link rel="canonical" href={canonicalUrl("/gallery")} />
+        <meta property="og:title" content="Naye Shoes Design Dekho – Ozy Sneakers Pundri" />
+        <meta property="og:description" content="Ozy Sneakers ki latest shoe designs aur collection dekho. New arrivals, trending sneakers, exclusive styles Pundri Kaithal." />
+        <meta property="og:url" content={`${SITE_URL}/gallery`} />
+        <meta property="og:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
+        <meta name="twitter:title" content="Naye Shoes Design Dekho – Ozy Sneakers Pundri" />
+        <meta name="twitter:description" content="Ozy Sneakers ki latest shoe designs aur collection dekho. New arrivals, trending sneakers, exclusive styles Pundri Kaithal." />
+        <meta name="twitter:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
       </Helmet>
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[320px] flex items-center justify-center overflow-hidden">
@@ -179,7 +186,7 @@ export default function Gallery() {
                   src={item.src}
                   alt={`Shoe design ${i + 1} - Ozy Sneakers Pundri Kaithal`}
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
+                  loading="lazy" decoding="async"
                 />
               ) : (
                 <video

@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useMemo, useState, useEffect, useRef, type CSSProperties } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet-async";
-import { canonicalUrl } from "@/data/siteConfig";
+import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
 
 // Home showcase video — sirf mobile pe dikhta hai (desktop pe 3 image slideshow)
 import shopVideo from "@assets/best-shoes-shop.mp4";
@@ -248,6 +248,13 @@ export default function Home() {
         <meta name="description" content="Shoes shop in Pundri, Kaithal. Sports shoes, sneakers, casual shoes - sab kuch ek jagah. Best price, genuine quality. Call ya WhatsApp karke order karein." />
         <meta name="keywords" content="shoes shop near me, juta dukan Pundri, shoe shop Kaithal, sneakers wali dukan, sasty shoes Kaithal, shoes ki dukan" />
         <link rel="canonical" href={canonicalUrl("/")} />
+        <meta property="og:title" content="Ozy Sneakers – Shoes Shop Near Pundri, Kaithal" />
+        <meta property="og:description" content="Shoes shop in Pundri, Kaithal. Sports shoes, sneakers, casual shoes - sab kuch ek jagah. Best price, genuine quality." />
+        <meta property="og:url" content={`${SITE_URL}/`} />
+        <meta property="og:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
+        <meta name="twitter:title" content="Ozy Sneakers – Shoes Shop Near Pundri, Kaithal" />
+        <meta name="twitter:description" content="Shoes shop in Pundri, Kaithal. Sports shoes, sneakers, casual shoes - sab kuch ek jagah. Best price, genuine quality." />
+        <meta name="twitter:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -264,7 +271,7 @@ export default function Home() {
               "addressCountry": "IN"
             },
             "description": "Ozy Sneakers is a shoe shop in Pundri, Kaithal, Haryana offering genuine sports shoes, sneakers, casual shoes and formal shoes for men, women and kids.",
-            "openingHours": "Mo-Fr 09:00-20:00",
+            "openingHours": ["Mo-Fr 09:00-20:00", "Sa-Su 10:00-18:00"],
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "4.9",
@@ -360,6 +367,22 @@ export default function Home() {
             ]
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Ozy Sneakers",
+            "url": "https://ozy-sneakers-frontend.vercel.app",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://ozy-sneakers-frontend.vercel.app/products?search={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </script>
       </Helmet>
 
       {/* Hero Section */}
@@ -370,6 +393,7 @@ export default function Home() {
           src={isMobile ? shopHeroImg : heroBg}
           alt="Ozy Sneakers shop hero image, Pundri Kaithal"
           style={{ objectPosition: isMobile ? 'center' : 'top center' }}
+          decoding="async"
         />
         <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(to top, black 35%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.15) 100%)' }} />
         

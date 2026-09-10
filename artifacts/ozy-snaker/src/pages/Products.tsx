@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
-import { canonicalUrl } from "@/data/siteConfig";
+import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
 
 import product1 from "@assets/generated_images/product-1.webp";
 import product2 from "@assets/generated_images/product-2.webp";
@@ -53,6 +53,13 @@ export default function Products() {
         <meta name="description" content="Ozy Sneakers Pundri, Kaithal mein available saare sneakers aur sports shoes ek jagah dekho. Browse full catalog, filter by brand, category and availability - genuine pair order karo WhatsApp pe." />
         <meta name="keywords" content="sneakers available Pundri, sports shoes catalog, buy sneakers Kaithal, shoe filter brand category, full shoe collection Pundri" />
         <link rel="canonical" href={canonicalUrl("/products")} />
+        <meta property="og:title" content="All Sneakers & Sports Shoes – Ozy Sneakers Pundri Mein Available" />
+        <meta property="og:description" content="Browse all sneakers, sports shoes, casual shoes at Ozy Sneakers Pundri. Nike, Jordan, Onitsuka Tiger - original quality, best price." />
+        <meta property="og:url" content={`${SITE_URL}/products`} />
+        <meta property="og:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
+        <meta name="twitter:title" content="All Sneakers & Sports Shoes – Ozy Sneakers Pundri Mein Available" />
+        <meta name="twitter:description" content="Browse all sneakers, sports shoes, casual shoes at Ozy Sneakers Pundri. Nike, Jordan, Onitsuka Tiger - original quality, best price." />
+        <meta name="twitter:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
       </Helmet>
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6 border-b border-border pb-8">

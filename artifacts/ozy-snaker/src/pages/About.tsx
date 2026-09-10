@@ -3,7 +3,7 @@ import { useListCategories } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
-import { canonicalUrl } from "@/data/siteConfig";
+import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
 
 import heroBg from "@assets/generated_images/hero-bg.webp";
 import catRunning from "@assets/generated_images/cat-running.webp";
@@ -36,6 +36,13 @@ export default function About() {
         <meta name="description" content="Ozy Sneakers Pundri, Kaithal ki ek bharosemand shoe dukan hai. Genuine quality, sahi daam - hamesha customer ko khush rakhne ki koshish." />
         <meta name="keywords" content="bharosemand shoe dukan, genuine shoes Kaithal, achhi dukan shoes ki" />
         <link rel="canonical" href={canonicalUrl("/about")} />
+        <meta property="og:title" content="Ozy Sneakers Ke Baare Mein – Pundri Ki Shoe Dukan" />
+        <meta property="og:description" content="Ozy Sneakers ki kahani - Pundri, Kaithal ki trusted shoe shop. 10+ saal ka experience, genuine brands, customer-first approach." />
+        <meta property="og:url" content={`${SITE_URL}/about`} />
+        <meta property="og:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
+        <meta name="twitter:title" content="Ozy Sneakers Ke Baare Mein – Pundri Ki Shoe Dukan" />
+        <meta name="twitter:description" content="Ozy Sneakers ki kahani - Pundri, Kaithal ki trusted shoe shop. 10+ saal ka experience, genuine brands, customer-first approach." />
+        <meta name="twitter:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
       </Helmet>
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center bg-black overflow-hidden">
@@ -44,6 +51,7 @@ export default function About() {
           src={heroBg}
           alt="Ozy Sneakers brand hero image, Pundri Kaithal"
           style={{ objectPosition: 'center' }}
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background z-10" />
         
@@ -151,7 +159,7 @@ export default function About() {
           src={heroBg}
           alt="Ozy Sneakers collection showcase background, Pundri Kaithal"
           style={{ objectPosition: 'center' }}
-          loading="lazy"
+          loading="lazy" decoding="async"
         />
         {/* Dark overlay */}
         <div className="absolute inset-0 z-0 bg-black/80" />
@@ -190,7 +198,7 @@ export default function About() {
                     className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-1000 group-hover:scale-110"
                     src={getCategoryImage(cat.slug)}
                     alt={`${cat.name} category showcase - Ozy Sneakers Pundri Kaithal`}
-                    loading="lazy"
+                    loading="lazy" decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative z-10 w-full flex justify-between items-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">

@@ -49,7 +49,7 @@ export function ProductCard({ product, className, imageFallback }: ProductCardPr
             {product.name}
           </h3>
           <span className="font-mono font-bold text-base whitespace-nowrap">
-            ${product.price.toFixed(2)}
+            ₹{product.price.toFixed(2)}
           </span>
         </div>
         
@@ -59,7 +59,7 @@ export function ProductCard({ product, className, imageFallback }: ProductCardPr
           </span>
           {product.originalPrice && product.originalPrice > product.price && (
             <span className="text-muted-foreground text-sm line-through font-mono">
-              ${product.originalPrice.toFixed(2)}
+              ₹{product.originalPrice.toFixed(2)}
             </span>
           )}
         </div>

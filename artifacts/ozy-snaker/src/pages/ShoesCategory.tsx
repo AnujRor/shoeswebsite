@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { getProductAlt, getProductName } from "@/data/productNames";
-import { canonicalUrl } from "@/data/siteConfig";
+import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
 import heroBg from "@assets/file_000000003a8481faa411ec2156d92906_1784783072991.webp";
 
 // Brand images
@@ -70,6 +70,13 @@ export default function ShoesCategory() {
         <meta name="description" content="Browse Ozy Sneakers Pundri collection brand-wise - Jordan, Louis Vuitton, Nike, New Balance aur Onitsuka Tiger. Har brand ki premium aur genuine sneakers dukan pe try karke pao." />
         <meta name="keywords" content="Jordan shoes Pundri, Nike sneakers Kaithal, Louis Vuitton trainer India, New Balance shoes Haryana, Onitsuka Tiger Pundri" />
         <link rel="canonical" href={canonicalUrl("/shoes")} />
+        <meta property="og:title" content="Sneakers Collection by Brand – Jordan, Nike, LV | Ozy Sneakers" />
+        <meta property="og:description" content="Browse Ozy Sneakers Pundri collection brand-wise - Jordan, Louis Vuitton, Nike, New Balance aur Onitsuka Tiger." />
+        <meta property="og:url" content={`${SITE_URL}/shoes`} />
+        <meta property="og:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
+        <meta name="twitter:title" content="Sneakers Collection by Brand – Jordan, Nike, LV | Ozy Sneakers" />
+        <meta name="twitter:description" content="Browse Ozy Sneakers Pundri collection brand-wise - Jordan, Louis Vuitton, Nike, New Balance aur Onitsuka Tiger." />
+        <meta name="twitter:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
       </Helmet>
       {/* Hero Banner */}
       <section className="relative h-[45vh] min-h-[300px] w-full flex items-end bg-black overflow-hidden">
@@ -194,7 +201,7 @@ export default function ShoesCategory() {
                       src={img}
                       alt={getProductAlt(section.brand, iIdx)}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
+                      loading="lazy" decoding="async"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                   </div>

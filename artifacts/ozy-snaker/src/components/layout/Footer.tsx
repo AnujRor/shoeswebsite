@@ -49,7 +49,8 @@ export function Footer() {
             </Link>
             <p className="text-primary-foreground/70 text-lg leading-relaxed font-medium">
               Premium sports sneakers for athletes and enthusiasts.
-              Built for speed. Designed for the streets.
+              Ozy Sneakers — shoe shop in Pundri, Kaithal, Haryana.
+              Genuine Nike, Jordan, New Balance, Onitsuka Tiger.
             </p>
           </div>
 

@@ -36,6 +36,7 @@ export function ProductCard({ product, className, imageFallback }: ProductCardPr
             alt={`${product.name} - ${ALT_SUFFIX}`}
             className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-xl"
             loading="lazy"
+            decoding="async"
           />
         </div>
         

@@ -175,8 +175,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-bold uppercase tracking-widest text-xs mb-2 text-primary-foreground/70">Call Us</h3>
-                    <p className="font-mono font-medium text-lg">+91 79000-51580</p>
-                    <p className="font-mono font-medium text-lg">+91 90534-74158</p>
+                    <p className="font-mono font-medium text-lg"><a href="tel:+917900051580" className="hover:text-accent transition-colors">+91 79000-51580</a></p>
+                    <p className="font-mono font-medium text-lg"><a href="tel:+919053474158" className="hover:text-accent transition-colors">+91 90534-74158</a></p>
                   </div>
                 </div>
 

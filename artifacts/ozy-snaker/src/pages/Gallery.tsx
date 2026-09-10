@@ -98,6 +98,21 @@ export default function Gallery() {
         <meta name="twitter:title" content="Naye Shoes Design Dekho – Ozy Sneakers Pundri" />
         <meta name="twitter:description" content="Ozy Sneakers ki latest shoe designs aur collection dekho. New arrivals, trending sneakers, exclusive styles Pundri Kaithal." />
         <meta name="twitter:image" content="https://ozy-sneakers-frontend.vercel.app/og-image.webp" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ImageGallery",
+            "name": "Ozy Sneakers Gallery – Latest Shoe Designs Pundri Kaithal",
+            "url": canonicalUrl("/gallery"),
+            "publisher": { "@type": "Organization", "name": "Ozy Sneakers" },
+            "inLanguage": "en-IN",
+            "hasPart": galleryItems.filter(i => i.type === "image").slice(0, 25).map((_item, i) => ({
+              "@type": "ImageObject",
+              "name": `Shoe design ${i + 1} – Ozy Sneakers Pundri Kaithal`,
+              "contentUrl": `https://ozy-sneakers-frontend.vercel.app/og-image.webp`
+            }))
+          })}
+        </script>
       </Helmet>
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[320px] flex items-center justify-center overflow-hidden">

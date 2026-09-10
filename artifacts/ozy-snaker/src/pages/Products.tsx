@@ -18,10 +18,11 @@ export default function Products() {
   const [location] = useLocation();
   const searchParams = new URLSearchParams(window.location.search);
   const initialCategory = searchParams.get("category") || "";
+  const initialSearch = searchParams.get("search") || "";
 
   const [category, setCategory] = useState<string>(initialCategory);
   const [brand, setBrand] = useState<string>("");
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>(initialSearch);
   const [inStock, setInStock] = useState<boolean>(false);
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 

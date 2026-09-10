@@ -5,7 +5,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import { Shell } from './components/layout/Shell';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -15,33 +15,43 @@ function ScrollToTop() {
   return null;
 }
 
-// Pages
-import Home from './pages/Home';
-import Products from './pages/Products';
-import ProductDetail from './pages/ProductDetail';
-import Cart from './pages/Cart';
-import Contact from './pages/Contact';
-import About from './pages/About';
-import ShoesCategory from './pages/ShoesCategory';
-import Gallery from './pages/Gallery';
+// Pages — lazy loaded for code splitting
+const Home = lazy(() => import('./pages/Home'));
+const Products = lazy(() => import('./pages/Products'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const Cart = lazy(() => import('./pages/Cart'));
+const Contact = lazy(() => import('./pages/Contact'));
+const About = lazy(() => import('./pages/About'));
+const ShoesCategory = lazy(() => import('./pages/ShoesCategory'));
+const Gallery = lazy(() => import('./pages/Gallery'));
 
 const queryClient = new QueryClient();
+
+function PageLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="w-12 h-12 border-4 border-primary border-t-accent rounded-full animate-spin" />
+    </div>
+  );
+}
 
 function Router() {
   return (
     <Shell>
       <ScrollToTop />
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/products" component={Products} />
-        <Route path="/products/:id" component={ProductDetail} />
-        <Route path="/shoes" component={ShoesCategory} />
-        <Route path="/gallery" component={Gallery} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/contact" component={Contact} />
-        <Route component={NotFound} />
-      </Switch>
+      <Suspense fallback={<PageLoader />}>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/products" component={Products} />
+          <Route path="/products/:id" component={ProductDetail} />
+          <Route path="/shoes" component={ShoesCategory} />
+          <Route path="/gallery" component={Gallery} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/contact" component={Contact} />
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
     </Shell>
   );
 }

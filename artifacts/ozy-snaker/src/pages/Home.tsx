@@ -394,6 +394,7 @@ export default function Home() {
           alt="Ozy Sneakers shop hero image, Pundri Kaithal"
           style={{ objectPosition: isMobile ? 'center' : 'top center' }}
           decoding="async"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(to top, black 35%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.15) 100%)' }} />
         

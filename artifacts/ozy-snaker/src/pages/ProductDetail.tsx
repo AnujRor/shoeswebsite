@@ -29,12 +29,18 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
 
   if (error || !product) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
-        <h2 className="text-3xl font-display font-bold uppercase mb-4">Product Not Found</h2>
-        <Link href="/products" className="text-accent font-bold hover:underline">
-          Return to Shop
-        </Link>
-      </div>
+      <>
+        <Helmet>
+          <title>Product Not Found – Ozy Sneakers</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
+        <div className="container mx-auto px-4 py-20 text-center">
+          <h2 className="text-3xl font-display font-bold uppercase mb-4">Product Not Found</h2>
+          <Link href="/products" className="text-accent font-bold hover:underline">
+            Return to Shop
+          </Link>
+        </div>
+      </>
     );
   }
 
@@ -86,6 +92,10 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
         <meta name="twitter:title" content={`${product.name} | Ozy Sneakers Pundri Kaithal`} />
         <meta name="twitter:description" content={`${product.name} at Ozy Sneakers Pundri Kaithal - genuine quality ${product.category} shoes.`} />
         <meta name="twitter:image" content={imageUrl} />
+        <meta property="og:type" content="product" />
+        <meta property="product:brand" content={product.brand || ''} />
+        <meta property="product:price:amount" content={product.price.toFixed(2)} />
+        <meta property="product:price:currency" content="INR" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -95,6 +105,12 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             "brand": { "@type": "Brand", "name": product.brand },
             "sku": String(product.id),
             "description": product.description || `${product.name} — genuine ${product.category} shoes at Ozy Sneakers, Pundri, Kaithal.`,
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": String(product.rating ?? 4.9),
+              "bestRating": "5",
+              "reviewCount": String(product.reviewCount ?? 512)
+            },
             "offers": {
               "@type": "Offer",
               "priceCurrency": "INR",

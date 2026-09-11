@@ -7,7 +7,12 @@ import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
 
-const ownerEmail = process.env.CONTACT_EMAIL?.trim() || process.env.GMAIL_USER?.trim() || "anujror202007@gmail.com";
+// Comma-separated list of emails that get contact form notifications.
+// Add more emails here (or via CONTACT_EMAIL env var) to notify multiple inboxes.
+const ownerEmail = (process.env.CONTACT_EMAIL?.trim() || process.env.GMAIL_USER?.trim() || "anujror202007@gmail.com")
+  .split(",")
+  .map((e) => e.trim())
+  .filter(Boolean);
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 

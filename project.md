@@ -466,3 +466,18 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - **Product JSON-LD** (Item 5): ProductDetail pe dynamic Product schema (name, image, brand, offers INR, availability)
 
 **Result:** Typecheck pass. SEO HIGH-priority items poore.
+
+### 51. SEO fixes round 2 — per-page OG/Twitter, ₹ currency, IST hours, sitemap, robots
+**Date:** 2026-09-10
+- Contact EST→IST, schema hours + Saturday, `$`→`₹` (ProductDetail/ProductCard/Cart), per-page OG+Twitter tags (sab 8 pages), sitemap lastmod, robots Disallow /cart+/api/, viewport fix, referrer meta, og:locale en_IN, WebSite+SearchAction JSON-LD, images decoding="async"
+- Typecheck pass; commit + push `76e66ed`
+
+### 52. Advanced SEO — code splitting, structured data, performance
+**Date:** 2026-09-10
+- React.lazy + Suspense + manualChunks → bundle 669KB→301KB; SearchAction `?search=` fix; ProductDetail aggregateRating + og:type=product + soft-404 noindex; hero preload/fetchPriority; ImageGallery JSON-LD; PWA manifest + favicons (sharp); ProductCard decoding async; Footer geo keywords; tel: links; sitemap /products/4 remove; lang="en-IN"; maps preconnect; noscript fallback; favicon.svg link
+- Typecheck pass; build pass; commit + push `ad4058f` (favicon blank-SVG fix `1e1961c`)
+
+### 53. Contact form email fix — Gmail SMTP + guaranteed recipients
+**Date:** 2026-09-11
+- Resend `onboarding@resend.dev` kabhi Gmail inbox tak nahi pahunchta tha → `contact.ts` rewrite: Gmail SMTP (nodemailer) primary + Resend fallback, DB save critical path, email non-blocking; `ALWAYS_NOTIFY` code list se `binnaror56@gmail.com` + `anujror202007@gmail.com` ko messages hamesha milti hain (CONTACT_EMAIL env = extra recipients, comma-separated)
+- `GMAIL_APP_PASSWORD` + `GMAIL_USER` local `.env` mein set; typecheck + build pass; commits `6bed852` + `b109e71` pushed (Render auto-deploy)

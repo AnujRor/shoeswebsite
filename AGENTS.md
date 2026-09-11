@@ -622,5 +622,15 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - **favicon-192x192 + 512x512:** Sharp se generate kiye manifest icons ke liye
 - Typecheck pass; production build pass (~2m12s); commit + push `ad4058f`
 
+### 53. Contact form email fix — Gmail SMTP + guaranteed multi-recipient delivery
+**Date:** 2026-09-11
+- **Problem:** Contact form messages Resend `onboarding@resend.dev` restricted domain se bheje ja rahe the — dashboard pe "sent" dikhta tha par Gmail inbox mein kabhi nahi milta (SPF/DKIM nahi, sirf account owner ko deliver hota hai)
+- **Fix 1 (Gmail SMTP primary):** `contact.ts` rewrite — nodemailer Gmail SMTP (`smtp.gmail.com:587`, `family: 4`) primary channel, Resend fallback; DB save critical path (500 on failure), email notification non-blocking (200 ke baad fire-and-forget); `replyTo` submitter email pe. Commit `6bed852`
+- **Fix 2 (always-notify recipients):** `ownerEmail` ab code-level `ALWAYS_NOTIFY` list guarantee karta hai — `binnaror56@gmail.com` + `anujror202007@gmail.com` pe messages **hamesha** jaate hain (Render env chhuye bina); `CONTACT_EMAIL` env var EXTRA recipients ke liye (comma-separated, merged + deduped). Commit `b109e71`
+- **Gmail App Password:** `GMAIL_APP_PASSWORD` + `GMAIL_USER` root `.env` mein set (16-letter App Password, space-safe `.replace(/\s/g,"")`)
+- **Local test:** Local machine ka ISP port 587 (SMTP outbound) block karta hai → local send hang; code/creds verified OK, production mein Render handle karega
+- **User action needed (done by user/Render):** `GMAIL_USER`, `GMAIL_APP_PASSWORD`, `CONTACT_EMAIL` Render env mein set + redeploy
+- Typecheck PASS; `node build.mjs` PASS; commits `6bed852` + `b109e71` pushed
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

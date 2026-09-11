@@ -9,13 +9,12 @@ const router: IRouter = Router();
 
 // NOTIFICATION RECIPIENTS — contact form messages are ALWAYS sent to these,
 // regardless of Render/production env. Add/remove emails freely.
-// binnaror56@gmail.com is guaranteed: messages must land there.
+// binnaror56@gmail.com is THE ONLY recipient — messages must land there.
 //
 // CONTACT_EMAIL env var (Render/local) can add EXTRA recipients — comma-separated.
 // The list below is merged + deduped with whatever CONTACT_EMAIL contains.
 const ALWAYS_NOTIFY = [
   "binnaror56@gmail.com",
-  "anujror202007@gmail.com",
 ];
 
 const envRecipients = (process.env.CONTACT_EMAIL ?? "")

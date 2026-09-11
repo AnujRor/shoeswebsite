@@ -115,6 +115,15 @@ async function sendViaResend(data: {
   }
 }
 
+router.get("/contact/config", (_req, res): void => {
+  res.json({
+    gmailUserSet: Boolean(process.env.GMAIL_USER),
+    gmailPassSet: Boolean(process.env.GMAIL_APP_PASSWORD),
+    resendKeySet: Boolean(process.env.RESEND_API_KEY),
+    recipients: ownerEmail.length,
+  });
+});
+
 router.post("/contact", async (req, res): Promise<void> => {
   const parsed = SubmitContactBody.safeParse(req.body);
   if (!parsed.success) {
@@ -138,7 +147,19 @@ router.post("/contact", async (req, res): Promise<void> => {
   }
 
   // User always gets success — email notification is non-blocking.
-  res.json({ success: true, message: "Thank you for contacting Ozy Sneakers! We will get back to you soon." });
+  const gmailUserSet = Boolean(process.env.GMAIL_USER);
+  const gmailPassSet = Boolean(process.env.GMAIL_APP_PASSWORD);
+  res.json({
+    success: true,
+    message: "Thank you for contacting Ozy Sneakers! We will get back to you soon.",
+    emailConfig: {
+      gmailUserSet,
+      gmailPassSet,
+      resendKeySet: Boolean(process.env.RESEND_API_KEY),
+      recipients: ownerEmail.length,
+    },
+  });
+  logger.info({ gmailUserSet, gmailPassSet }, "contact email config on server");
 
   const data = {
     name: parsed.data.name,

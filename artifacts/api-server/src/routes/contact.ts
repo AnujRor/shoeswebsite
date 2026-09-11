@@ -7,12 +7,23 @@ import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
 
-// Comma-separated list of emails that get contact form notifications.
-// Add more emails here (or via CONTACT_EMAIL env var) to notify multiple inboxes.
-const ownerEmail = (process.env.CONTACT_EMAIL?.trim() || process.env.GMAIL_USER?.trim() || "anujror202007@gmail.com")
+// NOTIFICATION RECIPIENTS — contact form messages are ALWAYS sent to these,
+// regardless of Render/production env. Add/remove emails freely.
+// binnaror56@gmail.com is guaranteed: messages must land there.
+//
+// CONTACT_EMAIL env var (Render/local) can add EXTRA recipients — comma-separated.
+// The list below is merged + deduped with whatever CONTACT_EMAIL contains.
+const ALWAYS_NOTIFY = [
+  "binnaror56@gmail.com",
+  "anujror202007@gmail.com",
+];
+
+const envRecipients = (process.env.CONTACT_EMAIL ?? "")
   .split(",")
   .map((e) => e.trim())
   .filter(Boolean);
+
+const ownerEmail = Array.from(new Set([...ALWAYS_NOTIFY, ...envRecipients]));
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 

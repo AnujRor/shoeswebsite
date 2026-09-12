@@ -119,7 +119,7 @@ Yeh ek **pnpm monorepo** hai — **OZY Sneakers**, ek full-stack sneaker e-comme
 ## 🏪 Business Info (code mein hardcoded)
 
 - **Phone/WhatsApp:** +91 79000-51580, +91 90534-74158 | **Instagram:** Ozy_sneakers1223
-- **Email (contact/Gmail):** anujror202007@gmail.com
+- **Email (displayed on website/contact):** binnaror56@gmail.com (messages yahi jaate hain) | **SMTP sender:** anujror202007@gmail.com (`GMAIL_USER` env)
 - **Shop location:** coords `29.7636154,76.5649948` → Google Maps link har jagah reuse hota hai
 - **Navbar links:** Home, Collection (/shoes), Gallery, About, Contact
 

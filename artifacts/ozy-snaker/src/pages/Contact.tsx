@@ -186,7 +186,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-bold uppercase tracking-widest text-xs mb-2 text-primary-foreground/70">Email</h3>
-                    <p className="font-medium text-base leading-relaxed break-all">anujror202007@gmail.com</p>
+                    <a href="mailto:binnaror56@gmail.com" className="font-medium text-base leading-relaxed break-all hover:text-accent transition-colors">binnaror56@gmail.com</a>
                   </div>
                 </div>
 

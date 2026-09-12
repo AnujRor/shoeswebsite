@@ -640,5 +640,12 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Typecheck PASS; commit + push `17f990b` (Vercel auto-deploy)
 - **Robot recolor (professional):** user ko blue/white pasand nahi aayi → professional **brushed-steel metallic** look (silver `metalGrad`/`metalDark`, dark glassy visor band, glossy highlight, subtle blue accents — antenna tip, eyes, mouth LEDs, chest status light). Eyes still cursor-follow. Commit + push `9ed28fc`
 
+### 55. YouTube icon add (floating side icons + footer)
+**Date:** 2026-09-12
+- User ke floating side icons mein **YouTube icon** add kiya — **WhatsApp ke upper** (order: YouTube → WhatsApp → Instagram → Location); red `#FF0000` bg, standard YouTube play icon `viewBox 0 0 24 24`, `title="Visit our YouTube Channel"`
+- Channel link: `https://www.youtube.com/@OzySneakers1223` (user ne handle diya; channel verified exist karta hai — "Ozy Sneakers – YouTube")
+- Footer "Connect" list mein bhi YouTube link add kiya (WhatsApp/Instagram/Location ke saath consistent)
+- Typecheck PASS; commits `78236c4` + `00a3ca8` pushed (Vercel auto-deploy)
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

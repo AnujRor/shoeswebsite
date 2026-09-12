@@ -541,7 +541,7 @@ export function ChatBot() {
               height="100%"
               ref={robotSvgRef}
               style={{
-                filter: "drop-shadow(0 6px 18px rgba(59,130,246,0.55))",
+                filter: "drop-shadow(0 6px 16px rgba(15,23,42,0.32))",
                 transition: "transform 0.4s cubic-bezier(.25,.8,.25,1)",
                 transformStyle: "preserve-3d",
                 cursor: "pointer",
@@ -550,35 +550,36 @@ export function ChatBot() {
                 (e.currentTarget as SVGSVGElement).style.transform =
                   "rotateY(25deg) rotateX(-10deg) scale(1.1)";
                 (e.currentTarget as SVGSVGElement).style.filter =
-                  "drop-shadow(0 10px 28px rgba(59,130,246,0.9))";
+                  "drop-shadow(0 10px 26px rgba(30,64,120,0.45))";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as SVGSVGElement).style.transform =
                   "rotateY(0deg) rotateX(0deg) scale(1)";
                 (e.currentTarget as SVGSVGElement).style.filter =
-                  "drop-shadow(0 6px 18px rgba(59,130,246,0.55))";
+                  "drop-shadow(0 6px 16px rgba(15,23,42,0.32))";
               }}
             >
               <defs>
-                <linearGradient id="headGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="100%" stopColor="#c9d4ea" />
+                <linearGradient id="metalGrad" x1="0" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%" stopColor="#f4f6f9" />
+                  <stop offset="55%" stopColor="#c2c9d3" />
+                  <stop offset="100%" stopColor="#7f8896" />
                 </linearGradient>
-                <linearGradient id="faceGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#f4f7fc" />
-                  <stop offset="100%" stopColor="#dde5f3" />
+                <linearGradient id="metalDark" x1="0" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%" stopColor="#aab3c0" />
+                  <stop offset="100%" stopColor="#6c7583" />
+                </linearGradient>
+                <linearGradient id="visorGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2b3342" />
+                  <stop offset="100%" stopColor="#101623" />
                 </linearGradient>
                 <linearGradient id="antennaGrad" x1="0" y1="1" x2="0" y2="0">
-                  <stop offset="0%" stopColor="#e8eefb" />
-                  <stop offset="100%" stopColor="#b9c9e8" />
-                </linearGradient>
-                <linearGradient id="glowGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#8a93a0" />
+                  <stop offset="100%" stopColor="#d5dbe4" />
                 </linearGradient>
                 <radialGradient id="eyeGlow" cx="0.5" cy="0.4" r="0.5">
-                  <stop offset="0%" stopColor="#4da3ff" />
-                  <stop offset="100%" stopColor="#1d4ed8" />
+                  <stop offset="0%" stopColor="#7db4ff" />
+                  <stop offset="100%" stopColor="#1f4fd8" />
                 </radialGradient>
                 <filter id="innerShadow">
                   <feDropShadow dx="0" dy="1" stdDeviation="1.5" floodColor="#000" floodOpacity="0.5" />
@@ -586,67 +587,65 @@ export function ChatBot() {
               </defs>
 
               {/* Shadow on ground */}
-              <ellipse cx="50" cy="92" rx="22" ry="4" fill="rgba(0,0,0,0.25)" />
+              <ellipse cx="50" cy="92" rx="22" ry="4" fill="rgba(0,0,0,0.22)" />
 
-              {/* Antenna */}
+              {/* Antenna — silver stem, blue tip */}
               <line x1="50" y1="18" x2="50" y2="8" stroke="url(#antennaGrad)" strokeWidth="3" strokeLinecap="round" />
-              <circle cx="50" cy="6" r="4" fill="#3b82f6" filter="url(#innerShadow)">
-                <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+              <circle cx="50" cy="6" r="4" fill="#2563eb" filter="url(#innerShadow)">
+                <animate attributeName="opacity" values="1;0.55;1" dur="2s" repeatCount="indefinite" />
               </circle>
 
-              {/* Head - 3D effect with shadow side */}
-              <rect x="22" y="18" width="56" height="40" rx="14" fill="url(#headGrad)" stroke="#3b82f6" strokeWidth="1.5" />
-              <rect x="25" y="20" width="50" height="36" rx="12" fill="url(#faceGrad)" opacity="0.9" />
+              {/* Head — brushed steel with gloss highlight */}
+              <rect x="22" y="18" width="56" height="40" rx="14" fill="url(#metalGrad)" stroke="#5f6b7a" strokeWidth="1.5" />
+              <rect x="25" y="21" width="50" height="34" rx="12" fill="none" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="1" />
+              <ellipse cx="36" cy="25" rx="8" ry="3" fill="#ffffff" opacity="0.45" />
 
-              {/* Eye sockets (fixed) */}
-              <g>
-                <ellipse cx="37" cy="36" rx="9" ry="10" fill="#0b1220" stroke="#3b82f6" strokeWidth="1" />
-                <ellipse cx="63" cy="36" rx="9" ry="10" fill="#0b1220" stroke="#3b82f6" strokeWidth="1" />
-              </g>
+              {/* Dark visor band */}
+              <rect x="27" y="28" width="46" height="16" rx="8" fill="url(#visorGrad)" stroke="#4a5568" strokeWidth="0.9" />
 
-              {/* Eye pupils — cursor ke saath move karte hain */}
+              {/* Eyes (blue) — cursor follow */}
               <g ref={eyePupilRef}>
-                <circle cx="37" cy="36" r="6" fill="url(#eyeGlow)" />
-                <circle cx="35" cy="34" r="2" fill="#fff" opacity="0.9" />
-                <circle cx="39" cy="37" r="1" fill="#fff" opacity="0.4" />
-                <circle cx="63" cy="36" r="6" fill="url(#eyeGlow)" />
-                <circle cx="61" cy="34" r="2" fill="#fff" opacity="0.9" />
-                <circle cx="65" cy="37" r="1" fill="#fff" opacity="0.4" />
+                <circle cx="37" cy="36" r="5.5" fill="url(#eyeGlow)" />
+                <circle cx="35.2" cy="34.2" r="1.8" fill="#ffffff" opacity="0.9" />
+                <circle cx="39" cy="37" r="0.9" fill="#ffffff" opacity="0.45" />
+                <circle cx="63" cy="36" r="5.5" fill="url(#eyeGlow)" />
+                <circle cx="61.2" cy="34.2" r="1.8" fill="#ffffff" opacity="0.9" />
+                <circle cx="65" cy="37" r="0.9" fill="#ffffff" opacity="0.45" />
               </g>
 
-              {/* Mouth - LED strip */}
-              <rect x="34" y="50" width="32" height="4" rx="2" fill="#0b1220" stroke="#3b82f6" strokeWidth="0.8" />
-              <rect x="36" y="51" width="5" height="2" rx="1" fill="#60a5fa">
-                <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite" />
+              {/* Mouth — subtle slot with small blue LEDs */}
+              <rect x="34" y="50" width="32" height="3.5" rx="1.75" fill="#0f1722" stroke="#4a5568" strokeWidth="0.8" />
+              <rect x="37" y="51" width="4.5" height="1.5" rx="0.75" fill="#3b82f6" opacity="0.9">
+                <animate attributeName="opacity" values="1;0.4;1" dur="0.9s" repeatCount="indefinite" />
               </rect>
-              <rect x="43" y="51" width="5" height="2" rx="1" fill="#60a5fa">
-                <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite" />
+              <rect x="43.5" y="51" width="4.5" height="1.5" rx="0.75" fill="#3b82f6" opacity="0.5">
+                <animate attributeName="opacity" values="0.4;1;0.4" dur="0.9s" repeatCount="indefinite" />
               </rect>
-              <rect x="50" y="51" width="5" height="2" rx="1" fill="#60a5fa">
-                <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite" begin="0.2s" />
+              <rect x="50" y="51" width="4.5" height="1.5" rx="0.75" fill="#3b82f6" opacity="0.9">
+                <animate attributeName="opacity" values="1;0.4;1" dur="0.9s" repeatCount="indefinite" begin="0.25s" />
               </rect>
-              <rect x="57" y="51" width="5" height="2" rx="1" fill="#60a5fa">
-                <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite" begin="0.2s" />
+              <rect x="56.5" y="51" width="4.5" height="1.5" rx="0.75" fill="#3b82f6" opacity="0.5">
+                <animate attributeName="opacity" values="0.4;1;0.4" dur="0.9s" repeatCount="indefinite" begin="0.25s" />
               </rect>
 
-              {/* Ears / side bolts */}
-              <rect x="16" y="30" width="6" height="14" rx="3" fill="#e8eefb" stroke="#b9c9e8" strokeWidth="0.8" />
-              <rect x="78" y="30" width="6" height="14" rx="3" fill="#e8eefb" stroke="#b9c9e8" strokeWidth="0.8" />
+              {/* Ears / side bolts — steel */}
+              <rect x="16" y="30" width="6" height="14" rx="3" fill="url(#metalDark)" stroke="#7b8492" strokeWidth="0.8" />
+              <rect x="78" y="30" width="6" height="14" rx="3" fill="url(#metalDark)" stroke="#7b8492" strokeWidth="0.8" />
 
-              {/* Body - white */}
-              <rect x="30" y="60" width="40" height="24" rx="8" fill="url(#headGrad)" stroke="#3b82f6" strokeWidth="1.2" />
-              <rect x="33" y="62" width="34" height="20" rx="6" fill="url(#faceGrad)" opacity="0.8" />
+              {/* Body — metal chest with dark status panel */}
+              <rect x="30" y="60" width="40" height="24" rx="8" fill="url(#metalGrad)" stroke="#5f6b7a" strokeWidth="1.2" />
+              <rect x="36" y="65" width="28" height="15" rx="5" fill="url(#visorGrad)" stroke="#4a5568" strokeWidth="0.9" />
 
-              {/* Chest light */}
-              <circle cx="50" cy="72" r="5" fill="#3b82f6" opacity="0.85">
-                <animate attributeName="r" values="4;5.5;4" dur="2s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+              {/* Chest status light */}
+              <circle cx="50" cy="73" r="4.5" fill="#2563eb" opacity="0.9">
+                <animate attributeName="r" values="3.8;4.6;3.8" dur="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite" />
               </circle>
-              <circle cx="50" cy="72" r="3" fill="#fff" opacity="0.4" />
+              <circle cx="50" cy="73" r="2.6" fill="#ffffff" opacity="0.35" />
 
-              {/* Arms */}
-              <rect x="20" y="64" width="8" height="16" rx="4" fill="#f4f7fc" stroke="#b9c9e8" strokeWidth="0.8" />
-              <rect x="72" y="64" width="8" height="16" rx="4" fill="#f4f7fc" stroke="#b9c9e8" strokeWidth="0.8" />
+              {/* Arms — steel */}
+              <rect x="20" y="64" width="9" height="16" rx="4.5" fill="url(#metalDark)" stroke="#7b8492" strokeWidth="0.8" />
+              <rect x="71" y="64" width="9" height="16" rx="4.5" fill="url(#metalDark)" stroke="#7b8492" strokeWidth="0.8" />
             </svg>
           </div>
         )}

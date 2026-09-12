@@ -632,5 +632,12 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - **User action needed (done by user/Render):** `GMAIL_USER`, `GMAIL_APP_PASSWORD`, `CONTACT_EMAIL` Render env mein set + redeploy
 - Typecheck PASS; `node build.mjs` PASS; commits `6bed852` + `b109e71` pushed
 
+### 54. Contact email display change + Chatbot robot blue/white + eye tracking
+**Date:** 2026-09-12
+- **Contact page email:** website pe dikhne wala email `anujror202007@gmail.com` → `binnaror56@gmail.com` (Clickable mailto link banaya, phone links jaisa). Recipients bhi sirf `binnaror56@gmail.com` (anujror hata diya). Render config verified: `recipients:1`, `gmailPassSet:true`; live bundle mein naye email confirmed (`Contact-BnG7KCXX.js`)
+- **Chatbot robot recolor:** black/white → **blue + white** — body (head/arms) white gradient, sockets/mouth/antenna/chest light blue (#3b82f6 family), eyes blue gradient (#4da3ff→#1d4ed8), glow drop-shadow blue
+- **Eye tracking:** window `mousemove` listener — robot pupils (`eyePupilRef` group) cursor ki taraf move karte hain (max offset 2.4 SVG units, socket ke andar), `robotSvgRef` se screen position calculate; smooth follow pure site pe
+- Typecheck PASS; commit + push `17f990b` (Vercel auto-deploy)
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

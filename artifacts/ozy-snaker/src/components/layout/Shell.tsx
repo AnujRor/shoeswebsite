@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 
 const WHATSAPP_NUMBER = "917900051580"; // +91 79000-51580
 const INSTAGRAM_USER = "ozy_sneakers";
+const YOUTUBE_URL = "https://www.youtube.com/@OzySneakers1223";
 const MAPS_URL = "https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99";
 
 export function Shell({ children }: { children: ReactNode }) {
@@ -18,6 +19,20 @@ export function Shell({ children }: { children: ReactNode }) {
 
       {/* Floating Side Icons — positioned above ChatBot to avoid overlap */}
       <div className="fixed right-0 z-50 flex flex-col gap-[3px] bottom-28 sm:bottom-32">
+        {/* YouTube */}
+        <a
+          href={YOUTUBE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Visit our YouTube Channel"
+          className="flex items-center gap-3 px-2 sm:px-3 h-10 sm:h-12 min-h-[44px] bg-[#FF0000] hover:brightness-110 transition-all duration-200"
+          style={{ borderRadius: "8px 0 0 8px" }}
+        >
+          <svg className="flex-shrink-0 w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+
         {/* WhatsApp */}
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}`}

@@ -11,11 +11,13 @@ const navLinks = [
 
 const WHATSAPP_NUMBER = "917900051580";
 const INSTAGRAM_USER = "ozy_sneakers";
+const YOUTUBE_URL = "https://www.youtube.com/@OzySneakers1223";
 const MAPS_URL = "https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99";
 
 const connectLinks = [
   { label: "WhatsApp", href: `https://wa.me/${WHATSAPP_NUMBER}` },
   { label: "Instagram", href: `https://www.instagram.com/${INSTAGRAM_USER}` },
+  { label: "YouTube", href: YOUTUBE_URL },
   { label: "Location", href: MAPS_URL },
 ];
 

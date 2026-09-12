@@ -638,6 +638,7 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - **Chatbot robot recolor:** black/white → **blue + white** — body (head/arms) white gradient, sockets/mouth/antenna/chest light blue (#3b82f6 family), eyes blue gradient (#4da3ff→#1d4ed8), glow drop-shadow blue
 - **Eye tracking:** window `mousemove` listener — robot pupils (`eyePupilRef` group) cursor ki taraf move karte hain (max offset 2.4 SVG units, socket ke andar), `robotSvgRef` se screen position calculate; smooth follow pure site pe
 - Typecheck PASS; commit + push `17f990b` (Vercel auto-deploy)
+- **Robot recolor (professional):** user ko blue/white pasand nahi aayi → professional **brushed-steel metallic** look (silver `metalGrad`/`metalDark`, dark glassy visor band, glossy highlight, subtle blue accents — antenna tip, eyes, mouth LEDs, chest status light). Eyes still cursor-follow. Commit + push `9ed28fc`
 
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

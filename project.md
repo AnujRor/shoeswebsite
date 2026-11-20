@@ -481,3 +481,9 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 **Date:** 2026-09-11
 - Resend `onboarding@resend.dev` kabhi Gmail inbox tak nahi pahunchta tha → `contact.ts` rewrite: Gmail SMTP (nodemailer) primary + Resend fallback, DB save critical path, email non-blocking; `ALWAYS_NOTIFY` code list se `binnaror56@gmail.com` + `anujror202007@gmail.com` ko messages hamesha milti hain (CONTACT_EMAIL env = extra recipients, comma-separated)
 - `GMAIL_APP_PASSWORD` + `GMAIL_USER` local `.env` mein set; typecheck + build pass; commits `6bed852` + `b109e71` pushed (Render auto-deploy)
+
+### 56. Google Search Console site verification file
+**Date:** 2026-11-20
+- GSC verification file `google2b77210fbfa99ef2.html` ko `artifacts/ozy-snaker/public/` mein add kiya (Vite public/ -> dist/public root), koi code/config change nahi
+- Vercel SPA catch-all rewrite static file ko nahi rokti; live URL 200 + exact verification line verified
+- Commit + push `04ea0a1`; ab GSC pe "HTML file" verify

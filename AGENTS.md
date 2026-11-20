@@ -647,5 +647,12 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - Footer "Connect" list mein bhi YouTube link add kiya (WhatsApp/Instagram/Location ke saath consistent)
 - Typecheck PASS; commits `78236c4` + `00a3ca8` pushed (Vercel auto-deploy)
 
+### 56. Google Search Console site verification file
+**Date:** 2026-11-20
+- User ne Google Search Console se mili verification file (`google2b77210fbfa99ef2.html`, content sirf `google-site-verification: google2b77210fbfa99ef2.html`) di — site verify karne ke liye root pe host karni thi
+- File ko `artifacts/ozy-snaker/public/google2b77210fbfa99ef2.html` mein copy kiya (Vite `public/` ka content `dist/public` root pe copy hota hai, isliye `https://<domain>/google2b77210fbfa99ef2.html` pe serve hoti hai) — code/config change ki zaroorat nahi
+- `vercel.json` SPA catch-all rewrite (`/(.*)` → `/index.html`) pe static file pehle serve hoti hai (jaise robots.txt/sitemap.xml pehle se) — verify: live URL **200** + exact verification line
+- Commit + push `04ea0a1`; ab GSC dashboard pe "HTML file" method se Verify daba dena
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

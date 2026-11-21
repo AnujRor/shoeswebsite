@@ -158,6 +158,9 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-bold uppercase tracking-widest text-xs mb-2 text-primary-foreground/70">Location</h3>
+                    <p className="mb-3 font-medium text-base leading-relaxed">
+                      Gaushala Market (Jashan Complex), Habri Road, Pundri, Haryana 136026
+                    </p>
                     <a
                       href="https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99"
                       target="_blank"
@@ -197,8 +200,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold uppercase tracking-widest text-xs mb-2 text-primary-foreground/70">Hours</h3>
                     <p className="font-medium text-lg leading-relaxed">
-                      Mon - Fri: 9AM - 8PM IST<br/>
-                      Sat - Sun: 10AM - 6PM IST
+                      Mon - Sun: 8AM - 8:30PM IST
                     </p>
                   </div>
                 </div>

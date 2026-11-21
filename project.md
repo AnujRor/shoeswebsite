@@ -487,3 +487,48 @@ gba(220,38,38) site ke infrared orange #ff5c00 se match nahi karta tha
 - GSC verification file `google2b77210fbfa99ef2.html` ko `artifacts/ozy-snaker/public/` mein add kiya (Vite public/ -> dist/public root), koi code/config change nahi
 - Vercel SPA catch-all rewrite static file ko nahi rokti; live URL 200 + exact verification line verified
 - Commit + push `04ea0a1`; ab GSC pe "HTML file" verify
+
+### 57. Homepage FAQ section + FAQPage SEO schema
+**Date:** 2026-11-21
+**Kya kiya:**
+- Home page par 8 FAQs ka accessible accordion aur FAQPage JSON-LD add kiya
+- Existing shadcn/Radix accordion reuse kiya aur OZY visual language maintain ki
+
+**Result:** Frontend build aur TypeScript check pass. FAQ accordion browser preview mein render aur interact hua.
+
+### 58. Google-based FAQ research aur shop facts correction
+**Date:** 2026-11-21
+**Kya kiya:**
+- Google search/maps se Ozy Sneakers Pundri ke verified local facts nikale aur generic FAQs replace kiye
+- Address, daily hours, footwear inventory, men sports shoes, phone/WhatsApp aur directions ko FAQ mein add kiya
+- Homepage structured address/hours aur Contact page address/hours ko corrected values se align kiya
+
+**Result:** 8 real-search-oriented FAQs live code mein hain, frontend build aur typecheck pass hain.
+
+### 57. Homepage FAQ section + FAQPage SEO schema
+**Date:** 2026-11-21
+**Kya kiya:**
+- Home page par location, brands, store trial, stock/size availability, shoes categories, fitting, opening hours aur contact par 8 FAQs ka accessible accordion add kiya
+- Existing shadcn/Radix Accordion reuse kiya aur existing OZY black/white/orange design language maintain ki
+- Helmet mein FAQPage JSON-LD add kiya, taaki search engines questions aur answers ko structured format mein read kar saken
+- Local browser preview mein FAQ render aur first accordion interaction verify kiya
+
+**Result:** Production frontend build + frontend TypeScript check pass. FAQ section live build mein present hai aur FAQPage schema included hai.
+
+### 59. Pundri buyer-search FAQ rewrite
+**Date:** 2026-11-21
+**Kya kiya:**
+- Google local-search signals ke basis par men sports shoes, men running shoes, casual sneakers, branded shoes, Nike/Jordan availability, fit/size aur stock FAQ topics add kiye
+- Ladies/women-specific FAQs deliberately exclude kiye, kyunki verified inventory men-footwear categories cover karti hai
+- Store JSON-LD description ko men's sports/running/casual footwear aur branded sneakers scope ke saath align kiya
+
+**Result:** FAQ section actual Pundri buyer searches ke closer hai; frontend typecheck aur build pass hain.
+
+### 60. Final Pundri sneaker buyer FAQs
+**Date:** 2026-11-21
+**Kya kiya:**
+- User ke approved 8-question FAQ copy ko homepage aur FAQPage JSON-LD mein add kiya
+- Ladies/kids unavailable, 8AM–8:30PM timing aur nearby-area home delivery details align kiye
+- Homepage ShoeStore opening hours aur Contact page timing ko same schedule par rakha
+
+**Result:** Final FAQ set frontend typecheck aur production build ke saath pass hai.

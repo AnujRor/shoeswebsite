@@ -654,5 +654,37 @@ Local Windows helper scripts: `start.bat`, `start-all.bat`
 - `vercel.json` SPA catch-all rewrite (`/(.*)` → `/index.html`) pe static file pehle serve hoti hai (jaise robots.txt/sitemap.xml pehle se) — verify: live URL **200** + exact verification line
 - Commit + push `04ea0a1`; ab GSC dashboard pe "HTML file" method se Verify daba dena
 
+### 57. Homepage FAQ section + FAQPage SEO schema
+**Date:** 2026-11-21
+- Home page mein 8-question FAQ accordion add kiya: shop location, brands, store trial, online/size availability, shoe categories, size selection, opening hours aur contact
+- Existing Radix/shadcn `Accordion` component reuse kiya; mobile-friendly 44px+ touch targets, existing black/white/accent design aur Hinglish tone preserve kiya
+- FAQ ke liye `FAQPage` JSON-LD structured data add kiya, saare questions/answers ko machine-readable search schema mein map kiya
+- WhatsApp CTA aur FAQ heading ke saath accessible `aria-labelledby` section add kiya
+- Frontend production build pass aur local browser preview mein FAQ section render + accordion open interaction verified; frontend TypeScript check pass (shared declarations force-build ke baad)
+
+### 58. Google-based FAQ research aur shop details correction
+**Date:** 2026-11-21
+- Generic FAQ questions ko Google Maps/search data ke hisab se replace kiya
+- Verified shop facts use kiye: shop name `Ozy sneakers`, address `Gaushala Market (Jashan Complex), Habri Road, Pundri, Haryana 136026`, hours `Monday-Sunday 8:30 AM-8:00 PM`, inventory `sneakers, running shoes, sandals and men's footwear`
+- FAQ list ab local search intent cover karti hai: exact location, opening hours, footwear inventory, men sports shoes, brands/latest sneakers, size/fit trial, phone/WhatsApp aur directions
+- Homepage ShoeStore JSON-LD aur Contact page ki address/opening-hours details ko same verified facts ke saath align kiya
+- Frontend TypeScript check aur production build pass; browser preview mein nayi FAQ list render verify hui
+
+### 59. Pundri buyer-search FAQ rewrite
+**Date:** 2026-11-21
+- Google autocomplete/Maps ke local purchase searches ke basis par FAQs ko generic store questions se replace kiya
+- Men-focused high-intent topics add kiye: sports shoes, running shoes, casual sneakers, branded shoes, Nike/Jordan availability, size-fit checking, latest stock aur Pundri shoe shop location
+- Ladies/women footwear FAQs nahi rakhe, kyunki verified shop inventory mein woh category present nahi hai
+- FAQ aur JSON-LD store description ko men's sports/running/casual footwear scope ke saath align kiya
+- Frontend TypeScript check aur production build pass
+
+### 60. Final Pundri sneaker buyer FAQs
+**Date:** 2026-11-21
+- User ke final approved copy ke hisab se 8 FAQs set kiye: best sneaker shop, Pundri sneaker location, budget/quality shoes, ladkon ke stylish sneakers, ladies/kids unavailable, shop timing, nearby home delivery aur original sneakers
+- Ladies/kids ke sneakers ko explicitly unavailable bataya
+- Shop timing ko 8:00 AM–8:30 PM aur nearby-area home delivery ko WhatsApp/phone confirmation ke saath add kiya
+- Homepage FAQPage JSON-LD, ShoeStore hours aur Contact page timing ko same values par align kiya
+- Frontend production build aur TypeScript check pass
+
 ---
 *Yeh file living document hai — jab bhi project badle ya naya task ho, isi ko update karo.*

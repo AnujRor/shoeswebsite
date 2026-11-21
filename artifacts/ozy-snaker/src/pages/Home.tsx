@@ -7,6 +7,12 @@ import { useMemo, useState, useEffect, useRef, type CSSProperties } from "react"
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet-async";
 import { SITE_URL, canonicalUrl } from "@/data/siteConfig";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // Home showcase video — sirf mobile pe dikhta hai (desktop pe 3 image slideshow)
 import shopVideo from "@assets/best-shoes-shop.mp4";
@@ -28,6 +34,41 @@ import timeBg3 from "@assets/Gemini_Generated_Image_imaaudimaaudimaa_17860444557
 const hotDropImages = [timeBg1, timeBg2, timeBg3];
 
 const googleReviewUrl = "https://maps.app.goo.gl/o6bLhxxsyr9JjLQ99";
+
+const frequentlyAskedQuestions = [
+  {
+    question: "Pundri mein best sneakers shop kaun si hai?",
+    answer: "Ozy Sneakers Pundri, Haryana ki ek popular sneaker shop hai. Yahan latest designs, alag-alag sizes aur budget wale rates mein sneakers milte hain. Aap shop par aakar khud pehen kar check kar sakte ho.",
+  },
+  {
+    question: "Pundri mein sneakers kahan milte hain?",
+    answer: "Pundri mein sneakers ke liye Ozy Sneakers aa sakte ho. Shop ka address Gaushala Market (Jashan Complex), Habri Road, Pundri, Haryana 136026 hai. Website par collection dekhein aur apni pasand ka sneaker shop par try kar sakte ho.",
+  },
+  {
+    question: "Pundri mein sasti aur achhi quality ke shoes kahan milenge?",
+    answer: "Ozy Sneakers mein budget-friendly options mein achhi quality ke shoes aur sneakers mil sakte hain. Quality aur price dono ka dhyan rakha jata hai, taaki aapko apne budget mein achha pair mil sake.",
+  },
+  {
+    question: "Pundri mein ladkon ke liye stylish sneakers kahan se kharidein?",
+    answer: "Ozy Sneakers mein ladkon ke liye casual, sports aur trending sneakers ka collection hai. Website par photos dekhein, WhatsApp par poochhein ya shop par aakar pair try karein.",
+  },
+  {
+    question: "Kya Pundri mein ladies ya kids ke sneakers milte hain?",
+    answer: "Nahi, Ozy Sneakers par ladies ya kids ke sneakers available nahi hain.",
+  },
+  {
+    question: "Ozy Sneakers Pundri ki timing kya hai?",
+    answer: "Ozy Sneakers subah 8:00 baje se raat 8:30 baje tak khula rehta hai. Sunday ya kisi holiday par visiting se pehle +91 79000-51580 ya +91 90534-74158 par call karke confirm kar sakte ho.",
+  },
+  {
+    question: "Kya Pundri mein sneakers ki home delivery milti hai?",
+    answer: "Haan, Pundri aur aas-paas ke nearby areas mein home delivery ki ja sakti hai. Delivery availability aur charges ke liye +91 79000-51580 par WhatsApp ya phone karein.",
+  },
+  {
+    question: "Pundri mein original sneakers kahan milte hain?",
+    answer: "Ozy Sneakers par sneakers dekh kar aur pehan kar hi kharid sakte ho, isse quality aur fit ki tension kam rehti hai.",
+  },
+];
 
 type CustomerReview = {
   name: string;
@@ -265,13 +306,13 @@ export default function Home() {
             "telephone": "+91-79000-51580",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "Pundri",
+              "streetAddress": "Gaushala Market, Jashan Complex, Habri Road",
               "addressLocality": "Pundri",
               "addressRegion": "Kaithal",
               "addressCountry": "IN"
             },
-            "description": "Ozy Sneakers is a shoe shop in Pundri, Kaithal, Haryana offering genuine sports shoes, sneakers, casual shoes and formal shoes for men, women and kids.",
-            "openingHours": ["Mo-Fr 09:00-20:00", "Sa-Su 10:00-18:00"],
+            "description": "Ozy Sneakers is a men's footwear shop in Pundri, Kaithal, Haryana offering sports shoes, running shoes, casual sneakers, sandals and branded sneaker styles.",
+            "openingHours": ["Mo-Su 08:00-20:30"],
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "4.9",
@@ -381,6 +422,20 @@ export default function Home() {
               },
               "query-input": "required name=search_term_string"
             }
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": frequentlyAskedQuestions.map((item) => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer,
+              },
+            })),
           })}
         </script>
       </Helmet>
@@ -661,6 +716,65 @@ export default function Home() {
             Get Directions
           </a>
         </motion.div>
+      </section>
+
+      {/* Frequently Asked Questions */}
+      <section className="border-t border-border bg-neutral-50 py-20 md:py-28" aria-labelledby="faq-heading">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInUp}
+            className="mx-auto max-w-4xl"
+          >
+            <div className="mb-10 text-center md:mb-14">
+              <span className="mb-4 block font-mono text-xs font-bold uppercase tracking-widest text-accent">
+                Before You Visit
+              </span>
+              <h2
+                id="faq-heading"
+                className="font-display text-3xl font-black uppercase italic tracking-tight text-foreground sm:text-5xl"
+              >
+                Frequently <span className="text-accent">Asked</span>
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                Ozy Sneakers ki location, collection, size aur store visit se jude common sawaalon ke answers.
+              </p>
+            </div>
+
+            <Accordion type="single" collapsible className="border-t border-black/15">
+              {frequentlyAskedQuestions.map((item, index) => (
+                <AccordionItem
+                  key={item.question}
+                  value={`faq-${index}`}
+                  className="border-b border-black/15"
+                >
+                  <AccordionTrigger className="min-h-[68px] py-5 text-left font-display text-base font-bold uppercase tracking-wide text-foreground hover:no-underline sm:text-lg [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-accent">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-6 pr-10 text-sm leading-7 text-muted-foreground sm:text-base">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+
+            <div className="mt-8 flex flex-col items-center justify-between gap-4 border border-black/10 bg-white p-5 sm:flex-row sm:px-6">
+              <p className="text-center font-medium text-foreground sm:text-left">
+                Aur sawaal hai? Shop team se direct baat karein.
+              </p>
+              <a
+                href="https://wa.me/917900051580"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center bg-accent px-6 py-3 font-display text-xs font-bold uppercase tracking-widest text-white transition-colors duration-300 hover:bg-black"
+              >
+                WhatsApp Now
+              </a>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Customer Reviews */}
